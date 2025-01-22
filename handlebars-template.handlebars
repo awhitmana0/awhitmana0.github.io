@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+    <style>
+        /* ... (styles from the previous response) ... */ 
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{#if profile}}
+        <div id="BrandLogo"></div> 
+        <div class="content">
+
+            <div class="section">
+                <p>Welcome to the {{profile.current_sailing.ship}} {{profile.given_name}}.</p>
+            </div>
+
+            <div class="section">
+                <h1>Your Cabin</h1>
+                <p>You are staying in cabin {{profile.current_sailing.cabin}}</p>
+            </div>
+
+            {{#if profile.ageVerified}}
+                <div class="section">
+                    <h1>Gaming</h1>
+                    <p>Thank you for verifying your age you can now access gaming services.</p>
+                </div>
+                {{#else}}
+                <div class="section">
+                    <h1>Age Verified Services</h1>
+                    <p>Please see an on board staff member to verify your age to access these services.</p>
+                </div>
+                {{/else}}
+            {{/if}}
+
+            <div class="section">
+                <h1>Peninsular</h1>
+                <p>You current Peninsular tier is <b>{{profile.tier}}</b>. You have a <b>{{profile.spendDiscount}}</b> discount on your onboard spend.</p>
+            </div>
+
+            <div class="section">
+                <h1>Profile Data (JSON)</h1> 
+                <pre>{{profileJson}}</pre> 
+            </div>
+
+            <div class="section">
+                <a href="/logout"><button class="btn" type="button"><span>Logout</span></button></a>
+            </div>
+        {{else}}
+        <div id="BrandLogo"></div>
+        <div class="content">
+            <div class="section">
+                <p>Welcome!</p> 
+            </div>
+
+            <div class="section">
+            <a href="/protected"><button class="btn" type="button"><span>Login</span></button></a>
+            </div>
+        </div>
+        {{/if}}    
+    </div>
+</body>
+</html>
