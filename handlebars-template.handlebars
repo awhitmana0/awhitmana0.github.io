@@ -85,28 +85,28 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="Brand Logo" height="40">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          {{#unless profile}}
-          <li class="nav-item">
-            <a class="nav-link" href="/protected">My Profile</a>
-          </li>
-          {{/unless}}
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container-fluid"> <div class="container"> 
+    <a class="navbar-brand" href="#">
+      <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="Brand Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        {{#unless profile}}
+        <li class="nav-item">
+          <a class="nav-link" href="/protected">My Profile</a>
+        </li>
+        {{/unless}}
+      </ul>
     </div>
-  </nav>
+  </div> </div> 
+</nav>
 
   {{#if profile}}
   <div class="container">
