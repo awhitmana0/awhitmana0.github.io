@@ -67,6 +67,7 @@
   min-height: 40px; /* Reduced navbar height further */
   padding-top: 0.5rem; /* Adjust padding to reduce spacing */
   padding-bottom: 0.5rem;
+  margin-top: 0; /* Remove default margin-top */ 
 }
 
 .navbar-brand img {
@@ -152,24 +153,73 @@
   </div>
 
   {{else}}
+{{else}}
 
-  <div class="hero-image">
-    <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="logo" class="hero-logo">
-    <div class="hero-text">Secure authentication with less friction</div>
-  </div>
+<div class="hero-image">
+  <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="logo" class="hero-logo">
+  <div class="hero-text">Secure authentication with less friction</div>
+</div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
 
-        <div class="section text-center">
-          <a href="/protected" class="btn btn-primary btn-lg">Login</a>
+      <div class="section">
+        <div class="row align-items-center"> 
+          <div class="col-md-9">
+            <img src="your-logo.png" alt="Section Logo" class="img-fluid mb-3" style="max-width: 100px;"> 
+            <h3>Section Title</h3>
+            <p>Section Subtitle</p>
+          </div>
+          <div class="col-md-3 text-end"> 
+            <a href="/protected" class="btn btn-primary btn-lg">Login</a>
+          </div>
         </div>
-
       </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="section">
+            <a href="your-link-1"> 
+              <img src="tile-1-logo.png" alt="Tile 1 Logo" class="img-fluid mb-3" style="max-width: 50px;">
+              <h4>Tile 1 Title</h4>
+              <p>Tile 1 Subtitle</p>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="section">
+            <a href="your-link-2"> 
+              <img src="tile-2-logo.png" alt="Tile 2 Logo" class="img-fluid mb-3" style="max-width: 50px;">
+              <h4>Tile 2 Title</h4>
+              <p>Tile 2 Subtitle</p>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="section">
+            <a href="your-link-3"> 
+              <img src="tile-3-logo.png" alt="Tile 3 Logo" class="img-fluid mb-3" style="max-width: 50px;">
+              <h4>Tile 3 Title</h4>
+              <p>Tile 3 Subtitle</p>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="section">
+            <a href="your-link-4">
+              <img src="tile-4-logo.png" alt="Tile 4 Logo" class="img-fluid mb-3" style="max-width: 50px;">
+              <h4>Tile 4 Title</h4>
+              <p>Tile 4 Subtitle</p>
+            </a>
+          </div>
+        </div>
+      </div> 
+
     </div>
   </div>
-  {{/if}}
+</div>
+{{/if}}
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
