@@ -41,9 +41,10 @@
 
     .hero-image {
       background-image: url("https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0banner2.png?v=1737596013410");
-      background-size: cover;
-      background-position: center;
-      min-height: 400px;
+   background-repeat: no-repeat; 
+      background-position: center center; 
+      background-size: contain; 
+      min-height: 400px; 
       display: flex;
       align-items: center;
       justify-content: center;
@@ -69,7 +70,7 @@
           </li>
           {{#unless profile}}
           <li class="nav-item">
-            <a class="nav-link" href="/protected">Protected</a>
+            <a class="nav-link" href="/protected">My Profile</a>
           </li>
           {{/unless}}
         </ul>
@@ -130,8 +131,8 @@
 
   <div class="hero-image">
     <div class="hero-text">
-      <h1>Welcome to the Cruise!</h1>
-      <p>Some catchy tagline here.</p>
+      <h1>Bank0</h1>
+      <p>Secure authentication with less friction.</p>
     </div>
   </div>
 
