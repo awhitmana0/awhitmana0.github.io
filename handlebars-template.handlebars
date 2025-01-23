@@ -135,6 +135,15 @@
 </head>
 <body>
     <div id="app">
+        <p>{{#if profile}}
+    {{#each profile}}
+    <li><b>{{@key}}</b>: {{this}}</li>
+    {{/each}}
+    <a class="" href="/logout">logout</a>
+    {{else}}
+    <a class="" href="/protected">Login</a>
+    {{/if}}
+</p>
         {{#if profile}}
         <script>
   console.log({{profile}}); 
