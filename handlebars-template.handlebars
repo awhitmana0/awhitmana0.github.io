@@ -1,212 +1,103 @@
 <!DOCTYPE html>
 <html>
-// V6
 <head>
     <meta charset="utf-8">
     <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        html {
-            background: lightgrey; 
+        body {
+            background-color: #f8f9fa; 
         }
-
-        body{
-            font-family: 'Roboto', sans-serif;
-            color: #333; 
+        .container {
+            margin-top: 50px;
         }
-
-        html, body, .viewport {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-          }
-
-        #app{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        #BrandLogo {
+            max-width: 400px; 
+            height: auto; 
+            margin: 0 auto 30px; 
+            display: block;
         }
-
-        #BrandLogo{ 
-            height: 200px;
-            width: 400px;
-        }
-
-        .content{
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            font-weight: lighter;
-        }
-
-        p {
-            text-align: center;
-        }
-
         .section {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            font-weight: lighter;
-            background-color: lightgrey; 
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
         }
-
-        .section h1,h2,h3,h4 {
-            margin: 5px;
-            text-align: center;
-        }
-
-        a{
-            text-decoration: none;
-        }
-
-        .btn {
-            text-transform: uppercase;
-            position: relative;
-            font-weight: bold;
-            display: block;
-            margin: 30px auto;
-            padding: 0;
-
-            overflow: hidden;
-
-            border-width: 0;
-            outline: none;
-            border-radius: 2px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-
+        .btn-primary {
             background-color: #e22866;
-            color: #ecf0f1;
-
-            transition: background-color .3s;
-
-          }
-
-          .btn:hover, .btn:focus {
-            background-color: transparent;
-            border: 2px #e22866 solid;
-            cursor: pointer;
-          }
-
-          .btn > * {
-            position: relative;
-          }
-
-          .btn span {
-            display: block;
-            padding: 12px 24px;
-          }
-
-          .btn:before {
-            content: "";
-
-            position: absolute;
-            top: 50%;
-            left: 50%;
-
-            display: block;
-            width: 0;
-            padding-top: 0;
-
-            border-radius: 100%;
-
-            background-color: transparent;
-
-            -webkit-transform: translate(-50%, -50%);
-            -moz-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            -o-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-          }
-
-          .btn:active:before {
-            width: 120%;
-            padding-top: 120%;
-
-            transition: width .2s ease-out, padding-top .2s ease-out;
-          }
+            border-color: #e22866;
+        }
+        .btn-primary:hover {
+            background-color: #d91e5a;
+            border-color: #d91e5a;
+        }
     </style>
 </head>
 <body>
-    <div id="app">
-        <p>{{#if profile}}
-    {{#each profile}}
-    <li><b>{{@key}}</b>: {{this}}</li>
-    {{/each}}
-    <a class="" href="/logout">logout</a>
-    {{else}}
-    <a class="" href="/protected">Login</a>
-    {{/if}}
-</p>
-        {{#if profile}}
-        <script>
-  console.log({{profile}}); 
-</script>
-        <div id="BrandLogo"></div> 
-        <div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2"> 
 
-            <div class="section">
-                <p>Welcome to the {{profile.current_sailing.ship}} {{profile.given_name}}.</p>
-            </div>
-
-            <div class="section">
-                <h1>Your Cabin</h1>
-                <p>You are staying in cabin {{profile.current_sailing.cabin}}</p>
-            </div>
-
-            {{#if profile.ageVerified}}
-                <div class="section">
-                    <h1>Gaming</h1>
-                    <p>Thank you for verifying your age you can now access gaming services.</p>
-                </div>
-                {{#else}}
-                <div class="section">
-                    <h1>Age Verified Services</h1>
-                    <p>Please see an on board staff member to verify your age to access these services.</p>
-                </div>
-                {{/else}}
-            {{/if}}
-
-            <div class="section">
-                <h1>Peninsular</h1>
-                <p>You current Peninsular tier is <b>{{profile.template.tier}}</b>. You have a <b>{{profile.spendDiscount}}</b> discount on your onboard spend.</p>
-            </div>
-
-          <div class="section">
-              <h1>Profile Data</h1>
-              <ul>
                 {{#if profile}}
-                  {{#each profile}}
-                    <li><b>{{@key}}</b>: {{this}}</li>
-                  {{/each}}
+                    <img id="BrandLogo" src="your-logo.png" alt="Brand Logo"> 
+
+                    <div class="section">
+                        <h2 class="text-center">Welcome to the {{profile.current_sailing.ship}}, {{profile.given_name}}!</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Your Cabin</h3>
+                        <p>You are staying in cabin {{profile.current_sailing.cabin}}</p>
+                    </div>
+
+                    {{#if profile.ageVerified}}
+                        <div class="section">
+                            <h3>Gaming</h3>
+                            <p>Thank you for verifying your age. You can now access gaming services.</p>
+                        </div>
+                    {{else}}
+                        <div class="section">
+                            <h3>Age Verified Services</h3>
+                            <p>Please see an onboard staff member to verify your age to access these services.</p>
+                        </div>
+                    {{/if}}
+
+                    <div class="section">
+                        <h3>Peninsular</h3>
+                        <p>Your current Peninsular tier is <b>{{profile.template.tier}}</b>. You have a <b>{{profile.spendDiscount}}</b> discount on your onboard spend.</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>Profile Data</h3>
+                        <ul>
+                            {{#each profile}}
+                                <li><b>{{@key}}</b>: {{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="section text-center">
+                        <a href="/logout" class="btn btn-primary btn-lg">Logout</a>
+                    </div>
+
                 {{else}}
-                  <li>No profile data available.</li> 
+                    <img id="BrandLogo" src="your-logo.png" alt="Brand Logo"> 
+
+                    <div class="section">
+                        <h2 class="text-center">Welcome!</h2>
+                    </div>
+
+                    <div class="section text-center">
+                        <a href="/protected" class="btn btn-primary btn-lg">Login</a>
+                    </div>
                 {{/if}}
-              </ul>
-            </div>
 
-
-            <div class="section">
-                <a href="/logout"><button class="btn" type="button"><span>Logout</span></button></a>
-            </div>
-        {{else}}
-        <div id="BrandLogo"></div>
-        <div class="content">
-            <div class="section">
-                <p>Welcome!</p> 
-            </div>
-
-            <div class="section">
-            <a href="/protected"><button class="btn" type="button"><span>Login</span></button></a>
             </div>
         </div>
-        {{/if}}    
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
