@@ -81,32 +81,51 @@
   margin: 0 auto; /* Centered logo */
   display: block;
 }
+    .tile-link {
+  display: flex; /* Make the tile content flexible */
+  align-items: center; /* Vertically align items */
+}
+
+.tile-link-content {
+  display: flex; /* Make the link content flexible */
+  width: 100%; /* Ensure the link takes up the full width */
+  text-decoration: none; /* Remove default link underline */
+  color: inherit; /* Inherit color from parent */
+}
+
+.tile-link-icon {
+  margin-right: 20px; /* Add space between icon and text */
+}
+
+.tile-link-text {
+  flex-grow: 1; /* Allow the text to grow and fill the space */
+}
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container-fluid"> <div class="container"> 
-    <a class="navbar-brand" href="#">
-      <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="Brand Logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        {{#unless profile}}
-        <li class="nav-item">
-          <a class="nav-link" href="/protected">My Profile</a>
-        </li>
-        {{/unless}}
-      </ul>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="Brand Logo" height="40">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          {{#unless profile}}
+          <li class="nav-item">
+            <a class="nav-link" href="/protected">My Profile</a>
+          </li>
+          {{/unless}}
+        </ul>
+      </div>
     </div>
-  </div> </div> 
-</nav>
+  </nav>
 
   {{#if profile}}
   <div class="container">
@@ -180,44 +199,60 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="section">
-            <a href="your-link-1"> 
-              <img src="tile-1-logo.png" alt="Tile 1 Logo" class="img-fluid mb-3" style="max-width: 50px;">
-              <h4>Tile 1 Title</h4>
-              <p>Tile 1 Subtitle</p>
-            </a>
-          </div>
+     <div class="row">
+  <div class="col-md-6">
+    <div class="section tile-link"> 
+      <a href="your-link-1" class="tile-link-content">
+        <div class="tile-link-icon"> 
+          <img src="tile-1-logo.png" alt="Tile 1 Logo" class="img-fluid" style="max-width: 50px;">
         </div>
-        <div class="col-md-6">
-          <div class="section">
-            <a href="your-link-2"> 
-              <img src="tile-2-logo.png" alt="Tile 2 Logo" class="img-fluid mb-3" style="max-width: 50px;">
-              <h4>Tile 2 Title</h4>
-              <p>Tile 2 Subtitle</p>
-            </a>
-          </div>
+        <div class="tile-link-text">
+          <h4>Tile 1 Title</h4>
+          <p>Tile 1 Subtitle</p>
         </div>
-        <div class="col-md-6">
-          <div class="section">
-            <a href="your-link-3"> 
-              <img src="tile-3-logo.png" alt="Tile 3 Logo" class="img-fluid mb-3" style="max-width: 50px;">
-              <h4>Tile 3 Title</h4>
-              <p>Tile 3 Subtitle</p>
-            </a>
-          </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="section tile-link">
+      <a href="your-link-2" class="tile-link-content">
+        <div class="tile-link-icon">
+          <img src="tile-2-logo.png" alt="Tile 2 Logo" class="img-fluid" style="max-width: 50px;">
         </div>
-        <div class="col-md-6">
-          <div class="section">
-            <a href="your-link-4">
-              <img src="tile-4-logo.png" alt="Tile 4 Logo" class="img-fluid mb-3" style="max-width: 50px;">
-              <h4>Tile 4 Title</h4>
-              <p>Tile 4 Subtitle</p>
-            </a>
-          </div>
+        <div class="tile-link-text">
+          <h4>Tile 2 Title</h4>
+          <p>Tile 2 Subtitle</p>
         </div>
-      </div> 
+      </a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="section tile-link">
+      <a href="your-link-3" class="tile-link-content">
+        <div class="tile-link-icon">
+          <img src="tile-3-logo.png" alt="Tile 3 Logo" class="img-fluid" style="max-width: 50px;">
+        </div>
+        <div class="tile-link-text">
+          <h4>Tile 3 Title</h4>
+          <p>Tile 3 Subtitle</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="section tile-link">
+      <a href="your-link-4" class="tile-link-content">
+        <div class="tile-link-icon">
+          <img src="tile-4-logo.png" alt="Tile 4 Logo" class="img-fluid" style="max-width: 50px;">
+        </div>
+        <div class="tile-link-text">
+          <h4>Tile 4 Title</h4>
+          <p>Tile 4 Subtitle</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
 
     </div>
   </div>
