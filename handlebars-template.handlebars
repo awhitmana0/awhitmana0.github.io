@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-// V4
+// V5
 <head>
     <meta charset="utf-8">
     <title></title>
@@ -178,16 +178,29 @@
                 <p>You current Peninsular tier is <b>{{profile.template.tier}}</b>. You have a <b>{{profile.spendDiscount}}</b> discount on your onboard spend.</p>
             </div>
 
-          <div class="section">
-  <h1>Profile Data (JSON)</h1> 
-  <pre id="profile-json"></pre>
+ <div class="section">
+  <h1>Profile Data</h1>
+  <ul>
+    {{#if profile}}
+      {{#each profile}}
+        <li>
+          <b>{{@key}}</b>: 
+          {{#if (is-object this)}} 
+            <ul>
+              {{#each this}}
+                <li><b>{{@key}}</b>: {{this}}</li>
+              {{/each}}
+            </ul>
+          {{else}}
+            {{this}}
+          {{/if}}
+        </li>
+      {{/each}}
+    {{else}}
+      <li>No profile data available.</li> 
+    {{/if}}
+  </ul>
 </div>
-
-<script>
-  const profile = {{{profile}}}; 
-  const profileJson = JSON.stringify(profile, null, 2);
-  document.getElementById('profile-json').textContent = profileJson;
-</script>
             <div class="section">
                 <a href="/logout"><button class="btn" type="button"><span>Logout</span></button></a>
             </div>
