@@ -40,26 +40,39 @@
     }
 
     .hero-image {
-      background-image: linear-gradient(to bottom, #FE8338, #EDC13F); 
+      background-image: linear-gradient(to bottom, #FE8338, #EDC13F);
       background-size: cover;
       background-position: center;
       min-height: 400px;
       display: flex;
-      flex-direction: column; 
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: white;
+      padding-top: 30px; /* Added top padding */
+      padding-bottom: 30px; /* Added bottom padding */
     }
 
     .hero-logo {
-      max-width: 200px; 
-      margin-bottom: 20px; 
+      max-width: 300px; /* Increased logo size */
+      margin-bottom: 20px;
     }
 
     .hero-text {
-      font-size: 24px; 
-      font-weight: bold; 
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar {
+      min-height: 60px; /* Reduced navbar height */
+    }
+
+    .navbar-brand img {
+      max-width: 200px; /* Adjusted logo size */
+      height: auto;
+      margin: 0 auto; /* Centered logo */
+      display: block;
     }
   </style>
 </head>
@@ -139,7 +152,7 @@
 
   {{else}}
 
-    <div class="hero-image">
+  <div class="hero-image">
     <img src="https://cdn.glitch.global/c9f45299-bc6c-42f3-98bb-7f211bd8798b/bank0.svg?v=1737595928848" alt="logo" class="hero-logo">
     <div class="hero-text">Secure authentication with less friction</div>
   </div>
