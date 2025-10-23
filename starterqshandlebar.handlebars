@@ -464,10 +464,10 @@
     </script>
     
     <!-- HIDDEN ELEMENT: Captures Handlebars variables as JSON for debug visibility -->
-    <!-- NOTE: We manually construct JSON to ensure it serializes without needing external helpers (like toJSON). -->
+    <!-- FIX: Ensures 'profile' is serialized as JSON using the 'json' helper -->
     <script id="handlebars-context-data" type="application/json">
         {
-            "profile": {{#if profile}} {{json profile}} {{else}} null {{/if}},
+            "profile": {{#if profile}} {{{json profile}}} {{else}} null {{/if}},
             "access_token": "{{access_token}}",
             "id_token": "{{id_token}}",
             "isAuthenticated": {{#if profile}} true {{else}} false {{/if}}
@@ -533,11 +533,14 @@
                 <div class="profile-card">
                     <h3 style="margin-top: 0;">User Profile Details</h3>
                     <ul class="profile-list" style="list-style: none; padding: 0;">
-                        {{#each profile}}
-                        <li style="color: var(--text-dark);">
-                            <b style="color: var(--primary-color);">{{@key}}</b>: {{this}}
-                        </li>
-                        {{/each}}
+                        <!-- FIX: Ensure we only iterate if profile is an object and not null -->
+                        {{#if profile}}
+                            {{#each profile}}
+                            <li style="color: var(--text-dark);">
+                                <b style="color: var(--primary-color);">{{@key}}</b>: {{this}}
+                            </li>
+                            {{/each}}
+                        {{/if}}
                     </ul>
                 </div>
             </aside>
@@ -687,8 +690,14 @@
                     // Show the button
                     debugBtn.style.display = 'block';
 
-                    // Parse the Handlebars context data
-                    const contextData = JSON.parse(contextScript.textContent.trim());
+                    // Parse the Handlebars context data (must handle null if profile doesn't exist)
+                    let contextData;
+                    try {
+                        contextData = JSON.parse(contextScript.textContent.trim());
+                    } catch (e) {
+                        console.error("Failed to parse Handlebars context JSON:", e);
+                        contextData = { error: "Failed to parse context data. Check Handlebars output.", raw: contextScript.textContent.trim() };
+                    }
                     
                     // Format the JSON content nicely
                     const formattedJson = JSON.stringify(contextData, (key, value) => {
@@ -721,7 +730,7 @@
                     });
                 }
             } catch (e) {
-                console.error("Error setting up debug mode or parsing Handlebars context:", e);
+                console.error("Error setting up debug mode:", e);
             }
         });
     </script>
