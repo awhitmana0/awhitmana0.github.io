@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Launch Your Digital Future</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="A simple, powerful platform designed to scale with your ambition." />
+    <link rel="icon" href="favicon.png">
+    <!-- Optional: Use a modern font from Google Fonts, like 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- FADE-IN LOADER (Preserved from original template) -->
+    <div id="fadein"></div>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- 🔥 EDITORIAL CONTENT VARIABLES (EASY TO CHANGE HERE) 🔥 -->
+    <!-- ------------------------------------------------------------------ -->
+    <script>
+        const HERO_TITLE = "Launch Your Integrated Platform Today.";
+        const HERO_DESCRIPTION = "A simple, powerful platform designed to scale with your ambition. Built with modern security and results in mind.";
+    </script>
+    
+    <style>
+        /* ---------------------------------------------------- */
+        /* FADE IN ANIMATION CSS (Preserved from original template) */
+        /* ---------------------------------------------------- */
+        @keyframes fadeinall {
+            0% { opacity: 1; }
+            97% { opacity: 0; }
+            98% { opacity: 0; -webkit-transform: translateY(0); transform: translateY(0); }
+            100% { opacity: 0; -webkit-transform: translateY(-100%); transform: translateY(-100%); z-index: -1; }
+        }
+
+        #fadein {
+            opacity: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+            transform: translateY(0);
+            background-color: #FFFFFF;
+            z-index: 999;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation: fadeinall 1s normal both;
+            animation: fadeinall 1s normal both;
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 1. Global Reset & Variables (Modern Design) */
+        /* ---------------------------------------------------- */
+
+        :root {
+            /* Colors */
+            --primary-color: #3b82f6; /* A clean blue */
+            --secondary-color: #10b981; /* A nice green for contrast */
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --background-light: #f9fafb;
+            --background-white: #ffffff;
+            --border-light: #e5e7eb;
+
+            /* Fonts */
+            --font-family: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--background-light);
+        }
+
+        /* Base Container for Centering */
+        section, header, footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 2. Typography */
+        /* ---------------------------------------------------- */
+
+        h1 {
+            font-size: 3.5rem; /* Large and bold for the hero */
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 3. Buttons & Links */
+        /* ---------------------------------------------------- */
+
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px; /* Slightly rounded */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: var(--background-white);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .primary-button:hover {
+            background-color: #2563eb; /* Darker shade on hover */
+            transform: translateY(-1px);
+        }
+
+        .link-secondary {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .link-secondary:hover {
+            color: #2563eb;
+        }
+
+        .large-button {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 4. Navbar & Handlebars Auth Status */
+        /* ---------------------------------------------------- */
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+            background-color: var(--background-white);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .auth-status .button {
+            /* Inherit button styling but use custom padding */
+            padding: 8px 18px;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        /* Override primary button for logout style consistency */
+        .auth-status .primary-button {
+             background-color: var(--primary-color);
+             color: var(--background-white);
+             border: 1px solid var(--primary-color);
+        }
+
+
+        /* ---------------------------------------------------- */
+        /* 5. Hero Section */
+        /* ---------------------------------------------------- */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            background-color: var(--background-white);
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .placeholder-box {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background-color: var(--border-light);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            font-weight: 600;
+            border: 3px solid var(--border-light);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ---------------------------------------------------- */
+        /* 6. Features Grid */
+        /* ---------------------------------------------------- */
+
+        .features-grid {
+            display: flex;
+            gap: 30px;
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .feature-card {
+            flex: 1;
+            padding: 30px;
+            background-color: var(--background-white);
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ---------------------------------------------------- */
+        /* 7. CTA Banner (UPDATED WITH GRADIENT) */
+        /* ---------------------------------------------------- */
+
+        .cta-banner {
+            text-align: center;
+            padding: 80px 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            /* New Gradient Background and subtle lift shadow */
+            background: linear-gradient(135deg, var(--primary-color), #2563eb);
+            color: var(--background-white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); 
+        }
+
+        .cta-banner h2 {
+            color: var(--background-white);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 8. Footer */
+        /* ---------------------------------------------------- */
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+
+        /* ---------------------------------------------------- */
+        /* 9. Responsiveness (Simple Media Query) */
+        /* ---------------------------------------------------- */
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .hero-content .primary-button {
+                margin-bottom: 15px;
+            }
+
+            .hero-image {
+                margin-top: 30px;
+            }
+
+            .placeholder-box {
+                height: 200px;
+            }
+
+            .features-grid {
+                flex-direction: column;
+            }
+        }
+
+        /* Remove unused mobile menu CSS from original template */
+        .nav a:not(:first-child), .nav a#menu-toggle, .nav.nav--open { display: none !important; }
+        .menu-toggle__bar1, .menu-toggle__bar2, .menu-toggle__bar3 { display: none !important; }
+    </style>
+    
+    <!-- Header & Navigation (Handlebars Integrated) -->
+    <header class="navbar">
+        <div class="logo">🚀 **VIRTUAL**</div>
+        
+        <!-- Authentication Status: Login/Logout Button -->
+        <div class="auth-status">
+            {{#if profile}}
+                <!-- Logged In: Show Logout -->
+                <a href="/logout" class="button primary-button">Logout</a>
+            {{else}}
+                <!-- Logged Out: Show Login -->
+                <a href="/protected" class="button">Login</a>
+            {{/if}}
+        </div>
+    </header>
+
+    <!-- Hero Section (Handlebars Integrated Profile Display & Dynamic Text) -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- Dynamic Title -->
+            <h1 id="hero-title">Default Hero Title</h1>
+            <!-- Dynamic Description -->
+            <p id="hero-description">Default hero description that will be replaced by JavaScript.</p>
+            
+            <a href="#cta" class="button primary-button">Get Started Free</a>
+            
+            {{#if profile}}
+                <!-- Display Profile Data if logged in (Replacing the "Watch Demo" link) -->
+                <div style="
+                    margin-top: 20px; 
+                    padding: 15px 20px; 
+                    background: var(--background-light); 
+                    border-radius: 8px; 
+                    border: 1px solid var(--border-light);
+                    text-align: left;
+                    display: inline-block;
+                    margin-left: 20px;
+                ">
+                    <p style="margin-bottom: 8px; color: var(--text-dark); font-weight: 600;">Welcome back! Your Profile Data:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        {{#each profile}}
+                        <li style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 3px;">
+                            <b style="color: var(--primary-color);">{{@key}}</b>: {{this}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            {{else}}
+                <!-- Logged Out: Show secondary action link -->
+                <a href="#" class="link-secondary">Watch Demo Video →</a>
+            {{/if}}
+        </div>
+        <div class="hero-image">
+            <!-- Simple Placeholder for an Image/Illustration -->
+            <div class="placeholder-box">Auth0 Integrated App Dashboard</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-grid">
+        <div class="feature-card">
+            <h3>⚡️ Performance</h3>
+            <p>Blazing fast load times and optimized performance for the best user experience.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔒 Security</h3>
+            <p>Enterprise-grade security and compliance to protect your data around the clock.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎨 Simplicity</h3>
+            <p>An intuitive interface that makes powerful tools accessible to everyone.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta-banner">
+        <h2>Ready to build something amazing?</h2>
+        <a href="#" class="button primary-button large-button">Join Thousands of Creators</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            &copy;
+            <small>
+                <script>document.write(new Date().getFullYear())</script>
+                Your company name. All Rights Reserved.
+            </small>
+        </p>
+    </footer>
+    
+    <!-- Preserve user's scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Fade-in animation logic
+        window.onload = function () {
+            setTimeout(function () {
+                document.getElementById("fadein").remove();
+            }, 1000);
+        };
+
+        // Apply dynamic content from the HERO_TITLE/HERO_DESCRIPTION variables defined above
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // Check if variables are defined in the script block at the top
+                if (typeof HERO_TITLE !== 'undefined') {
+                    document.getElementById('hero-title').textContent = HERO_TITLE;
+                }
+                if (typeof HERO_DESCRIPTION !== 'undefined') {
+                    document.getElementById('hero-description').textContent = HERO_DESCRIPTION;
+                }
+            } catch (e) {
+                console.error("Failed to apply hero content variables:", e);
+            }
+        });
+    </script>
+</body>
+
+</html>
