@@ -9,6 +9,12 @@
     <link rel="icon" href="favicon.png">
     <!-- Optional: Use a modern font from Google Fonts, like 'Inter' -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- 
+    ===================================================================
+    CORE STYLES - Structure, Layout, and Global Element Rules 
+    ===================================================================
+    -->
     <style>
         /* ---------------------------------------------------- */
         /* FADE IN ANIMATION CSS (Preserved from original template) */
@@ -41,40 +47,8 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 1. Global Reset & Variables (Dark/Light Mode) */
+        /* 2. Layout, Typography, and Base Component Styling */
         /* ---------------------------------------------------- */
-
-        :root {
-            /* Light Mode Default */
-            --primary-color: #3b82f6; 
-            --secondary-color: #10b981; 
-            --text-dark: #1f2937;
-            --text-light: #4b5563;
-            --background-light: #f3f4f6; /* Subtle Light Grey */
-            --background-white: #ffffff;
-            --border-light: #e5e7eb;
-            --code-bg: #f7f7f7;
-            --body-bg: #f8faff; /* Gradient Start */
-            --body-bg-end: #ffffff; /* Gradient End */
-            --card-bg: var(--background-white);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        /* Dark Mode Colors */
-        .dark-mode {
-            --primary-color: #60a5fa; /* Lighter blue for dark mode visibility */
-            --secondary-color: #34d399;
-            --text-dark: #e5e7eb; 
-            --text-light: #9ca3af; 
-            --background-light: #374151; 
-            --background-white: #111827; 
-            --border-light: #374151;
-            --code-bg: #1f2937;
-            --body-bg: #111827;
-            --body-bg-end: #0f172a;
-            --card-bg: #1f2937;
-            --shadow-color: rgba(255, 255, 255, 0.1);
-        }
 
         * {
             margin: 0;
@@ -83,7 +57,7 @@
         }
 
         body {
-            /* Applied subtle gradient and theme transition */
+            /* Applied subtle gradient and theme transition (Variables defined in Theme Styles below) */
             background: linear-gradient(135deg, var(--body-bg), var(--body-bg-end)); 
             font-family: var(--font-family);
             color: var(--text-dark);
@@ -117,329 +91,129 @@
             padding: 20px 0;
         }
 
-        /* ---------------------------------------------------- */
-        /* 2. Typography */
-        /* ---------------------------------------------------- */
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 30px; text-align: center; }
+        h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; }
+        p { color: var(--text-light); margin-bottom: 15px; }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: var(--text-light);
-            margin-bottom: 15px;
-        }
-
-        /* ---------------------------------------------------- */
-        /* 3. Buttons & Links */
-        /* ---------------------------------------------------- */
-
+        /* Buttons & Links */
         .button {
-            display: inline-block;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s, transform 0.1s;
-            border: none;
-            cursor: pointer;
+            display: inline-block; padding: 12px 25px; border-radius: 8px; text-decoration: none;
+            font-weight: 600; transition: background-color 0.2s, transform 0.1s; border: none; cursor: pointer;
         }
-
         .primary-button {
-            background-color: var(--primary-color);
-            color: var(--background-white);
+            background-color: var(--primary-color); color: var(--background-white);
             box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
         }
-
         .primary-button:hover {
-            background-color: var(--primary-color);
-            filter: brightness(0.9);
-            transform: translateY(-1px);
+            background-color: var(--primary-color); filter: brightness(0.9); transform: translateY(-1px);
         }
-
         .link-secondary {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 20px;
-            transition: color 0.2s;
+            color: var(--primary-color); text-decoration: none; font-weight: 600; margin-left: 20px; transition: color 0.2s;
         }
+        .link-secondary:hover { color: #2563eb; }
+        .large-button { padding: 15px 35px; font-size: 1.1rem; }
 
-        .link-secondary:hover {
-            color: #2563eb;
-        }
-
-        .large-button {
-            padding: 15px 35px;
-            font-size: 1.1rem;
-        }
-
-        /* ---------------------------------------------------- */
-        /* 4. Navbar & Authentication */
-        /* ---------------------------------------------------- */
-
+        /* Navbar */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 20px;
-            border-bottom: 1px solid var(--border-light);
-            background-color: var(--card-bg);
+            display: flex; justify-content: space-between; align-items: center; padding: 20px 20px;
+            border-bottom: 1px solid var(--border-light); background-color: var(--card-bg);
         }
-        
-        .navbar-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-
+        .navbar-actions { display: flex; gap: 15px; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); }
         .auth-status .button {
-            padding: 8px 18px;
-            background-color: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
+            padding: 8px 18px; background-color: transparent; border: 1px solid var(--primary-color); color: var(--primary-color);
         }
-        
         .auth-status .primary-button {
-             background-color: var(--primary-color);
-             color: var(--background-white);
-             border: 1px solid var(--primary-color);
+             background-color: var(--primary-color); color: var(--background-white); border: 1px solid var(--primary-color);
         }
         
         /* Theme Toggle Button */
         .theme-toggle-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-dark);
-            font-size: 1.5rem;
-            line-height: 1;
-            padding: 5px;
-            transition: color 0.2s;
+            background: none; border: none; cursor: pointer; color: var(--text-dark);
+            font-size: 1.5rem; line-height: 1; padding: 5px; transition: color 0.2s;
         }
+        .theme-toggle-btn:hover { color: var(--primary-color); }
 
-        .theme-toggle-btn:hover {
-            color: var(--primary-color);
-        }
-
-        /* ---------------------------------------------------- */
-        /* 5. Hero Section (Logged-Out View) */
-        /* ---------------------------------------------------- */
-
+        /* Hero Section */
         .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 80px 0;
-            background-color: var(--card-bg);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            padding: 80px 0; background-color: var(--card-bg);
         }
+        .hero-content { max-width: 800px; }
 
-        .hero-content {
-            max-width: 800px; 
-        }
-
-        /* ---------------------------------------------------- */
-        /* 6. Features Grid (Logged-Out View) */
-        /* ---------------------------------------------------- */
-
-        .features-grid {
-            display: flex;
-            gap: 30px;
-        }
-
+        /* Features Grid */
+        .features-grid { display: flex; gap: 30px; }
         .feature-card {
-            flex: 1;
-            padding: 30px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
+            flex: 1; padding: 30px; background-color: var(--card-bg); border-radius: 10px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px var(--shadow-color); }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-color);
-        }
-
-        /* ---------------------------------------------------- */
-        /* 7. CTA Banner (Updated Gradient and Shadow) */
-        /* ---------------------------------------------------- */
-
+        /* CTA Banner */
         .cta-banner {
-            text-align: center;
-            padding: 80px 40px;
-            margin-top: 40px;
-            margin-bottom: 40px;
-            /* Enhanced Gradient */
+            text-align: center; padding: 80px 40px; margin-top: 40px; margin-bottom: 40px;
             background: linear-gradient(135deg, var(--primary-color), #2563eb); 
-            color: var(--background-white);
-            border-radius: 12px;
+            color: var(--background-white); border-radius: 12px;
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); 
         }
 
-        /* ---------------------------------------------------- */
-        /* 8. Dashboard/Profile View (Logged-In View) */
-        /* ---------------------------------------------------- */
-        
+        /* Dashboard/Profile View */
         .dashboard-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
-            padding-top: 50px;
-            padding-bottom: 50px;
+            display: grid; grid-template-columns: 2fr 1fr; gap: 40px;
+            padding-top: 50px; padding-bottom: 50px;
         }
-
         .token-display {
-            background-color: var(--code-bg);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            word-break: break-all;
-            font-family: monospace;
-            border: 1px solid var(--border-light);
-            font-size: 0.9rem;
-            color: var(--text-dark); /* Ensure text is readable in dark/light code block */
+            background-color: var(--code-bg); border-radius: 10px; padding: 20px;
+            margin-bottom: 20px; word-break: break-all; font-family: monospace;
+            border: 1px solid var(--border-light); font-size: 0.9rem; color: var(--text-dark);
         }
-        
         .token-title {
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            font-family: var(--font-family);
+            font-weight: 600; color: var(--text-dark); margin-bottom: 8px; font-family: var(--font-family);
         }
-        
         .profile-card {
-            padding: 30px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
+            padding: 30px; background-color: var(--card-bg); border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        
         .profile-list li {
-            font-size: 0.95rem;
-            padding: 5px 0;
-            border-bottom: 1px dashed var(--border-light);
+            font-size: 0.95rem; padding: 5px 0; border-bottom: 1px dashed var(--border-light);
         }
-        
-        .profile-list li:last-child {
-            border-bottom: none;
-        }
+        .profile-list li:last-child { border-bottom: none; }
 
-        /* ---------------------------------------------------- */
-        /* 9. Debug Button and Modal */
-        /* ---------------------------------------------------- */
+        /* Debug Button and Modal */
         .debug-float-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            transition: background-color 0.2s;
-            text-align: center;
+            position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; border-radius: 50%;
+            background-color: var(--primary-color); color: white; border: none; cursor: pointer;
+            font-size: 0.8rem; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000; transition: background-color 0.2s; text-align: center;
         }
-        
-        .debug-float-btn:hover {
-            background-color: #2563eb;
-        }
-
+        .debug-float-btn:hover { background-color: #2563eb; }
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);
+            display: flex; justify-content: center; align-items: center; z-index: 1001;
         }
-
         .modal-content {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 90%;
-            width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-light);
+            background-color: var(--card-bg); border-radius: 12px; padding: 30px; max-width: 90%;
+            width: 700px; max-height: 80vh; overflow-y: auto; position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); border: 1px solid var(--border-light);
         }
-
         .modal-content pre {
-            background-color: var(--code-bg);
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            color: var(--text-dark);
-            border: 1px solid var(--border-light);
+            background-color: var(--code-bg); padding: 15px; border-radius: 8px; overflow-x: auto;
+            white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem; line-height: 1.4;
+            color: var(--text-dark); border: 1px solid var(--border-light);
         }
-
         .modal-close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: var(--text-light);
         }
 
-
-        /* ---------------------------------------------------- */
-        /* 10. Responsiveness */
-        /* ---------------------------------------------------- */
-
-        @media (max-width: 900px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-        
+        /* Responsiveness */
+        @media (max-width: 900px) { .dashboard-layout { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 1.8rem; }
+            h1 { font-size: 2.5rem; } h2 { font-size: 1.8rem; }
             .hero { padding-top: 40px; padding-bottom: 40px; }
-            .hero-content { max-width: 100%; }
-            .hero-content .primary-button { margin-bottom: 15px; }
+            .hero-content { max-width: 100%; } .hero-content .primary-button { margin-bottom: 15px; }
             .features-grid { flex-direction: column; }
             .debug-float-btn { width: 40px; height: 40px; font-size: 0.7rem; }
         }
@@ -447,6 +221,48 @@
         /* Clean up unused mobile menu CSS from original template */
         .nav a:not(:first-child), .nav a#menu-toggle, .nav.nav--open { display: none !important; }
         .menu-toggle__bar1, .menu-toggle__bar2, .menu-toggle__bar3 { display: none !important; }
+    </style>
+
+    <!-- 
+    ===================================================================
+    THEME STYLES - Variables and Dark Mode Overrides
+    ===================================================================
+    -->
+    <style>
+        /* 1. Global Reset & Variables (Dark/Light Mode) */
+
+        :root {
+            /* Light Mode Default */
+            --primary-color: #3b82f6; 
+            --secondary-color: #10b981; 
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --background-light: #f3f4f6; /* Subtle Light Grey */
+            --background-white: #ffffff;
+            --border-light: #e5e7eb;
+            --code-bg: #f7f7f7;
+            --body-bg: #f8faff; /* Gradient Start */
+            --body-bg-end: #ffffff; /* Gradient End */
+            --card-bg: var(--background-white);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --font-family: 'Inter', sans-serif;
+        }
+
+        /* Dark Mode Colors */
+        .dark-mode {
+            --primary-color: #60a5fa; 
+            --secondary-color: #34d399;
+            --text-dark: #e5e7eb; 
+            --text-light: #9ca3af; 
+            --background-light: #374151; 
+            --background-white: #111827; 
+            --border-light: #374151;
+            --code-bg: #1f2937;
+            --body-bg: #111827;
+            --body-bg-end: #0f172a;
+            --card-bg: #1f2937;
+            --shadow-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 
@@ -464,10 +280,10 @@
     </script>
     
     <!-- HIDDEN ELEMENT: Captures Handlebars variables as JSON for debug visibility -->
-    <!-- FIX: Ensures 'profile' is serialized as JSON using the 'json' helper -->
+    <!-- FIX: Store the complex profile object as a single, quoted string to guarantee valid JSON structure. -->
     <script id="handlebars-context-data" type="application/json">
         {
-            "profile": {{#if profile}} {{{json profile}}} {{else}} null {{/if}},
+            "profile_raw_string": "{{#if profile}}{{{json profile}}}{{else}}null{{/if}}",
             "access_token": "{{access_token}}",
             "id_token": "{{id_token}}",
             "isAuthenticated": {{#if profile}} true {{else}} false {{/if}}
@@ -656,8 +472,8 @@
 
         // Toggle listener
         themeToggleBtn.addEventListener('click', () => {
-            isDarkMode = !document.body.classList.contains('dark-mode');
-            applyTheme(isDarkMode);
+            const currentlyDarkMode = document.body.classList.contains('dark-mode');
+            applyTheme(!currentlyDarkMode);
         });
 
 
@@ -690,17 +506,38 @@
                     // Show the button
                     debugBtn.style.display = 'block';
 
-                    // Parse the Handlebars context data (must handle null if profile doesn't exist)
+                    // --- FIX FOR JSON PARSE ERROR ---
                     let contextData;
                     try {
+                        // 1. Parse the main wrapper JSON
                         contextData = JSON.parse(contextScript.textContent.trim());
                     } catch (e) {
                         console.error("Failed to parse Handlebars context JSON:", e);
-                        contextData = { error: "Failed to parse context data. Check Handlebars output.", raw: contextScript.textContent.trim() };
+                        contextData = { error: "Failed to parse main context data.", raw: contextScript.textContent.trim() };
                     }
                     
+                    // 2. Safely parse the profile JSON string back into an object
+                    let profileData = null;
+                    if (contextData.profile_raw_string && contextData.profile_raw_string !== "null") {
+                        try {
+                            // Parse the string value stored under profile_raw_string
+                            profileData = JSON.parse(contextData.profile_raw_string);
+                        } catch (e) {
+                            console.warn("Failed to parse profile JSON string. Displaying raw token data.", e);
+                            profileData = { error: "JSON parse failed", raw_string: contextData.profile_raw_string };
+                        }
+                    }
+                    
+                    // 3. Re-create the cleaned context object for display
+                    const cleanContextData = {
+                        isAuthenticated: contextData.isAuthenticated,
+                        access_token: contextData.access_token,
+                        id_token: contextData.id_token,
+                        profile: profileData
+                    };
+
                     // Format the JSON content nicely
-                    const formattedJson = JSON.stringify(contextData, (key, value) => {
+                    const formattedJson = JSON.stringify(cleanContextData, (key, value) => {
                         // Truncate long token strings for better display
                         if (typeof value === 'string' && (key === 'access_token' || key === 'id_token')) {
                             if (value.length > 50) {
