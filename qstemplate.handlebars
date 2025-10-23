@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Launch Your Digital Future</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="A simple, powerful platform designed to scale with your ambition." />
+    <link rel="icon" href="favicon.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://awhitmana0.github.io/qstemplate.css">
+</head>
+
+<body>
+    <div id="fadein"></div>
+
+    <script id="handlebars-context-data" type="application/json">
+        {
+            "profile_raw_string": "{{#if profile}}{{{json profile}}}{{else}}null{{/if}}",
+            "access_token": "{{access_token}}",
+            "id_token": "{{id_token}}",
+            "isAuthenticated": {{#if profile}} true {{else}} false {{/if}}
+        }
+    </script>
+
+    <header class="navbar container">
+        <div class="logo">🚀 <strong>VIRTUAL</strong></div>
+        
+        <div class="navbar-actions">
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <span id="theme-icon">🔆</span>
+            </button>
+            
+            <div class="auth-status">
+                {{#if profile}}
+                    <a href="/logout" class="button primary-button">Logout</a>
+                {{else}}
+                    <a href="/protected" class="button">Login</a>
+                {{/if}}
+            </div>
+        </div>
+    </header>
+
+    {{#if profile}}
+    <main class="container">
+        <section class="dashboard-header">
+            <h1>Dashboard for {{profile.email}}</h1>
+            <p class="dashboard-intro">
+                Your session tokens and user profile details are displayed below.
+            </p>
+        </section>
+        
+        <div class="dashboard-layout">
+            <div class="main-content">
+                <div class="token-title">Access Token (Used for API calls)</div>
+                <div class="token-display">
+                    {{access_token}}
+                    {{^access_token}}...Access Token not available...{{/access_token}}
+                </div>
+
+                <div class="token-title">ID Token (Contains User Identity)</div>
+                <div class="token-display">
+                    {{id_token}}
+                    {{^id_token}}...ID Token not available...{{/id_token}}
+                </div>
+            </div>
+            
+            <aside class="sidebar">
+                <div class="profile-card">
+                    <h3>User Profile Details</h3>
+                    <ul class="profile-list">
+                        {{#if profile}}
+                            {{#each profile}}
+                            <li>
+                                <b>{{@key}}</b>: {{this}}
+                            </li>
+                            {{/each}}
+                        {{/if}}
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+    {{/if}}
+
+    {{#unless profile}}
+    <main>
+        <section class="hero container">
+            <div class="hero-content">
+                <h1 id="hero-title">Default Hero Title</h1>
+                <p id="hero-description">Default hero description.</p>
+                
+                <a href="#cta" class="button primary-button">Get Started Free</a>
+                <a href="#" class="link-secondary">Watch Demo Video →</a>
+            </div>
+        </section>
+
+        <div class="section-light-bg">
+            <section id="features" class="features-grid container">
+                <div class="feature-card">
+                    <h3>⚡️ Performance</h3>
+                    <p>Blazing fast load times and optimized performance for the best user experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔒 Security</h3>
+                    <p>Enterprise-grade security and compliance to protect your data around the clock.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Simplicity</h3>
+                    <p>An intuitive interface that makes powerful tools accessible to everyone.</p>
+                </div>
+            </section>
+        </div>
+
+        <section class="container">
+            <div id="cta" class="cta-banner">
+                <h2>Ready to build something amazing?</h2>
+                <a href="#" class="button primary-button large-button">Join Thousands of Creators</a>
+            </div>
+        </section>
+    </main>
+    {{/unless}}
+
+    <footer>
+        <div class="container">
+            <p>
+                &copy;
+                <small>
+                    <span id="current-year"></span>
+                    Your company name. All Rights Reserved.
+                </small>
+            </p>
+        </div>
+    </footer>
+    
+    <div id="debug-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <h3 class="modal-title">Handlebars Context Variables</h3>
+            <p class="modal-intro">
+                This JSON represents the key variables passed to the template.
+            </p>
+            <pre id="debug-content"></pre>
+        </div>
+    </div>
+
+    <button id="debug-float-btn" class="debug-float-btn">
+        DEBUG
+    </button>
+    
+    <script>
+        /* ------------------------------------------------------------------
+         🔥 EDITORIAL CONTENT & DEBUG VARIABLES (EASY TO CHANGE HERE) 🔥
+         ------------------------------------------------------------------
+        */
+        const HERO_TITLE = "Launch Your Integrated Platform Today.";
+        const HERO_DESCRIPTION = "A simple, powerful platform designed to scale with your ambition. Built with modern security and results in mind.";
+        const IS_DEBUG_MODE = true; // TOGGLE: Set to 'true' to show the floating debug button.
+
+        // --- Fade-in animation logic ---
+        window.onload = function () {
+            setTimeout(function () {
+                const fadein = document.getElementById("fadein");
+                if (fadein) {
+                    fadein.remove();
+                }
+            }, 1000);
+        };
+
+        // --- Theme Toggle Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        function applyTheme(isDark) {
+            document.body.classList.toggle('dark-mode', isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            if (themeIcon) {
+                themeIcon.textContent = isDark ? '🌙' : '🔆';
+            }
+        }
+
+        // Initialize theme based on local storage or system preference
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let isDarkMode = storedTheme === 'dark' || (!storedTheme && prefersDark);
+        applyTheme(isDarkMode);
+
+        // Toggle listener
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const currentlyDarkMode = document.body.classList.contains('dark-mode');
+                applyTheme(!currentlyDarkMode);
+            });
+        }
+
+        // --- Dynamic Content & Debug Logic (Runs after DOM is loaded) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Apply Hero Content
+            try {
+                const heroTitleElement = document.getElementById('hero-title');
+                const heroDescElement = document.getElementById('hero-description');
+
+                if (typeof HERO_TITLE !== 'undefined' && heroTitleElement) {
+                    heroTitleElement.textContent = HERO_TITLE;
+                }
+                if (typeof HERO_DESCRIPTION !== 'undefined' && heroDescElement) {
+                    heroDescElement.textContent = HERO_DESCRIPTION;
+                }
+            } catch (e) {
+                console.error("Failed to apply hero content variables:", e);
+            }
+
+            // 2. Set Footer Year
+            try {
+                const yearSpan = document.getElementById('current-year');
+                if (yearSpan) {
+                    yearSpan.textContent = new Date().getFullYear();
+                }
+            } catch (e) {
+                 console.error("Failed to set footer year:", e);
+            }
+
+            // 3. Debug Modal Logic
+            try {
+                if (typeof IS_DEBUG_MODE !== 'undefined' && IS_DEBUG_MODE) {
+                    const debugBtn = document.getElementById('debug-float-btn');
+                    const modalOverlay = document.getElementById('debug-modal-overlay');
+                    const modalCloseBtn = document.getElementById('modal-close-btn');
+                    const debugContent = document.getElementById('debug-content');
+                    const contextScript = document.getElementById('handlebars-context-data');
+
+                    // Show the button
+                    if (debugBtn) {
+                        debugBtn.style.display = 'block';
+                    }
+
+                    let contextData;
+                    try {
+                        contextData = JSON.parse(contextScript.textContent.trim());
+                    } catch (e) {
+                        console.error("Failed to parse Handlebars context JSON:", e);
+                        contextData = { error: "Failed to parse main context data.", raw: contextScript.textContent.trim() };
+                    }
+                    
+                    let profileData = null;
+                    if (contextData.profile_raw_string && contextData.profile_raw_string !== "null") {
+                        try {
+                            profileData = JSON.parse(contextData.profile_raw_string);
+                        } catch (e) {
+                            console.warn("Failed to parse profile JSON string.", e);
+                            profileData = { error: "JSON parse failed", raw_string: contextData.profile_raw_string };
+                        }
+                    }
+                    
+                    const cleanContextData = {
+                        isAuthenticated: contextData.isAuthenticated,
+                        access_token: contextData.access_token,
+                        id_token: contextData.id_token,
+                        profile: profileData
+                    };
+
+                    const formattedJson = JSON.stringify(cleanContextData, (key, value) => {
+                        if (typeof value === 'string' && (key === 'access_token' || key === 'id_token')) {
+                            if (value.length > 50) {
+                                return value.substring(0, 50) + '... (truncated, length: ' + value.length + ')';
+                            }
+                        }
+                        return value;
+                    }, 2); 
+
+                    if (debugContent) {
+                         debugContent.textContent = formattedJson;
+                    }
+
+                    // Open modal
+                    if (debugBtn) {
+                        debugBtn.addEventListener('click', () => {
+                            if (modalOverlay) modalOverlay.style.display = 'flex';
+                        });
+                    }
+
+                    // Close modal
+                    if (modalCloseBtn) {
+                        modalCloseBtn.addEventListener('click', () => {
+                            if (modalOverlay) modalOverlay.style.display = 'none';
+                        });
+                    }
+                    
+                    // Close modal on outside click
+                    if (modalOverlay) {
+                        modalOverlay.addEventListener('click', (e) => {
+                            if (e.target === modalOverlay) {
+                                modalOverlay.style.display = 'none';
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error("Error setting up debug mode:", e);
+            }
+        });
+    </script>
+</body>
+</html>
