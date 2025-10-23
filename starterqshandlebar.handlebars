@@ -64,9 +64,10 @@
             --secondary-color: #10b981; /* A nice green for contrast */
             --text-dark: #1f2937;
             --text-light: #4b5563;
-            --background-light: #f9fafb;
+            --background-light: #f3f4f6; /* Subtle Light Grey */
             --background-white: #ffffff;
             --border-light: #e5e7eb;
+            --code-bg: #f7f7f7;
 
             /* Fonts */
             --font-family: 'Inter', sans-serif;
@@ -82,14 +83,25 @@
             font-family: var(--font-family);
             color: var(--text-dark);
             line-height: 1.6;
-            background-color: var(--background-light);
+            /* FIX 1: Set body background to white for clean transition */
+            background-color: var(--background-white); 
         }
 
         /* Base Container for Centering */
-        section, header, footer {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 20px;
+            padding: 0 20px;
+        }
+
+        /* Wrapper for full-width light background sections */
+        .section-light-bg {
+            background-color: var(--background-light);
+            padding: 60px 0; /* Vertical padding applied to the gray band */
+        }
+        
+        section {
+            padding: 20px 0;
         }
 
         /* ---------------------------------------------------- */
@@ -165,15 +177,15 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 4. Navbar & Handlebars Auth Status */
+        /* 4. Navbar & Authentication */
         /* ---------------------------------------------------- */
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding: 20px 20px;
+            /* Header/Navbar will use the container class for max-width */
             border-bottom: 1px solid var(--border-light);
             background-color: var(--background-white);
         }
@@ -185,23 +197,20 @@
         }
 
         .auth-status .button {
-            /* Inherit button styling but use custom padding */
             padding: 8px 18px;
             background-color: transparent;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
         }
         
-        /* Override primary button for logout style consistency */
         .auth-status .primary-button {
              background-color: var(--primary-color);
              color: var(--background-white);
              border: 1px solid var(--primary-color);
         }
 
-
         /* ---------------------------------------------------- */
-        /* 5. Hero Section */
+        /* 5. Hero Section (Logged-Out View) */
         /* ---------------------------------------------------- */
 
         .hero {
@@ -209,8 +218,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 40px;
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding: 80px 0;
             background-color: var(--background-white);
         }
 
@@ -242,14 +250,13 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 6. Features Grid */
+        /* 6. Features Grid (Logged-Out View) */
         /* ---------------------------------------------------- */
 
         .features-grid {
             display: flex;
             gap: 30px;
-            padding-top: 60px;
-            padding-bottom: 60px;
+            /* Remove vertical padding here, it's on .section-light-bg wrapper */
         }
 
         .feature-card {
@@ -267,7 +274,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 7. CTA Banner (UPDATED WITH GRADIENT) */
+        /* 7. CTA Banner */
         /* ---------------------------------------------------- */
 
         .cta-banner {
@@ -275,7 +282,6 @@
             padding: 80px 40px;
             margin-top: 40px;
             margin-bottom: 40px;
-            /* New Gradient Background and subtle lift shadow */
             background: linear-gradient(135deg, var(--primary-color), #2563eb);
             color: var(--background-white);
             border-radius: 12px;
@@ -289,66 +295,86 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 8. Footer */
+        /* 8. Dashboard/Profile View (Logged-In View) */
         /* ---------------------------------------------------- */
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-light);
-            font-size: 0.9rem;
+        
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
 
+        .token-display {
+            background-color: var(--code-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            word-break: break-all;
+            font-family: monospace;
+            border: 1px solid var(--border-light);
+            font-size: 0.9rem;
+        }
+        
+        .token-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-family: var(--font-family);
+        }
+        
+        .profile-card {
+            padding: 30px;
+            background-color: var(--background-white);
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .profile-list li {
+            font-size: 0.95rem;
+            padding: 5px 0;
+            border-bottom: 1px dashed var(--border-light);
+        }
+        
+        .profile-list li:last-child {
+            border-bottom: none;
+        }
 
         /* ---------------------------------------------------- */
-        /* 9. Responsiveness (Simple Media Query) */
+        /* 9. Responsiveness */
         /* ---------------------------------------------------- */
 
+        @media (max-width: 900px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr; /* Stack dashboard columns on tablet/mobile */
+            }
+        }
+        
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
             .hero {
                 flex-direction: column;
                 text-align: center;
                 padding-top: 40px;
                 padding-bottom: 40px;
             }
-
-            .hero-content {
-                max-width: 100%;
-            }
-
-            .hero-content .primary-button {
-                margin-bottom: 15px;
-            }
-
-            .hero-image {
-                margin-top: 30px;
-            }
-
-            .placeholder-box {
-                height: 200px;
-            }
-
-            .features-grid {
-                flex-direction: column;
-            }
+            .hero-content { max-width: 100%; }
+            .hero-content .primary-button { margin-bottom: 15px; }
+            .hero-image { margin-top: 30px; }
+            .placeholder-box { height: 200px; }
+            .features-grid { flex-direction: column; }
         }
 
-        /* Remove unused mobile menu CSS from original template */
+        /* Clean up unused mobile menu CSS from original template */
         .nav a:not(:first-child), .nav a#menu-toggle, .nav.nav--open { display: none !important; }
         .menu-toggle__bar1, .menu-toggle__bar2, .menu-toggle__bar3 { display: none !important; }
     </style>
     
     <!-- Header & Navigation (Handlebars Integrated) -->
-    <header class="navbar">
+    <header class="navbar container">
         <div class="logo">🚀 **VIRTUAL**</div>
         
         <!-- Authentication Status: Login/Logout Button -->
@@ -363,79 +389,117 @@
         </div>
     </header>
 
-    <!-- Hero Section (Handlebars Integrated Profile Display & Dynamic Text) -->
-    <section class="hero">
-        <div class="hero-content">
-            <!-- Dynamic Title -->
-            <h1 id="hero-title">Default Hero Title</h1>
-            <!-- Dynamic Description -->
-            <p id="hero-description">Default hero description that will be replaced by JavaScript.</p>
+    <!-- =================================================================== -->
+    <!-- LOGGED-IN VIEW: DASHBOARD / PROFILE PAGE -->
+    <!-- =================================================================== -->
+    {{#if profile}}
+    <main class="container">
+        <section>
+            <h1 style="text-align: left; padding-top: 20px; font-size: 3rem;">
+                Dashboard for {{profile.email}}
+            </h1>
+            <p style="text-align: left; font-size: 1.2rem; color: var(--text-light);">
+                Your session tokens and user profile details are displayed below.
+            </p>
+        </section>
+        
+        <div class="dashboard-layout">
+            <div class="main-content">
+                <!-- TOKEN DISPLAY: Access Token -->
+                <div class="token-title">Access Token (Used for API calls)</div>
+                <div class="token-display">
+                    <!-- ASSUMPTION: 'access_token' variable is passed by the server -->
+                    {{access_token}} 
+                    {{^access_token}}...Access Token not available in context...{{/access_token}}
+                </div>
+
+                <!-- TOKEN DISPLAY: ID Token -->
+                <div class="token-title">ID Token (Contains User Identity)</div>
+                <div class="token-display">
+                    <!-- ASSUMPTION: 'id_token' variable is passed by the server -->
+                    {{id_token}}
+                    {{^id_token}}...ID Token not available in context...{{/id_token}}
+                </div>
+            </div>
             
-            <a href="#cta" class="button primary-button">Get Started Free</a>
-            
-            {{#if profile}}
-                <!-- Display Profile Data if logged in (Replacing the "Watch Demo" link) -->
-                <div style="
-                    margin-top: 20px; 
-                    padding: 15px 20px; 
-                    background: var(--background-light); 
-                    border-radius: 8px; 
-                    border: 1px solid var(--border-light);
-                    text-align: left;
-                    display: inline-block;
-                    margin-left: 20px;
-                ">
-                    <p style="margin-bottom: 8px; color: var(--text-dark); font-weight: 600;">Welcome back! Your Profile Data:</p>
-                    <ul style="list-style: none; padding: 0;">
+            <aside class="sidebar">
+                <!-- PROFILE DATA CARD -->
+                <div class="profile-card">
+                    <h3 style="margin-top: 0;">User Profile Details</h3>
+                    <ul class="profile-list" style="list-style: none; padding: 0;">
                         {{#each profile}}
-                        <li style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 3px;">
+                        <li style="color: var(--text-dark);">
                             <b style="color: var(--primary-color);">{{@key}}</b>: {{this}}
                         </li>
                         {{/each}}
                     </ul>
                 </div>
-            {{else}}
-                <!-- Logged Out: Show secondary action link -->
+            </aside>
+        </div>
+    </main>
+    {{/if}}
+
+    <!-- =================================================================== -->
+    <!-- LOGGED-OUT VIEW: LANDING PAGE -->
+    <!-- =================================================================== -->
+    {{#unless profile}}
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-content">
+                <!-- Dynamic Title -->
+                <h1 id="hero-title">Default Hero Title</h1>
+                <!-- Dynamic Description -->
+                <p id="hero-description">Default hero description that will be replaced by JavaScript.</p>
+                
+                <a href="#cta" class="button primary-button">Get Started Free</a>
                 <a href="#" class="link-secondary">Watch Demo Video →</a>
-            {{/if}}
-        </div>
-        <div class="hero-image">
-            <!-- Simple Placeholder for an Image/Illustration -->
-            <div class="placeholder-box">Auth0 Integrated App Dashboard</div>
-        </div>
-    </section>
+            </div>
+            <div class="hero-image">
+                <!-- Simple Placeholder for an Image/Illustration -->
+                <div class="placeholder-box">Auth0 Integrated App Dashboard</div>
+            </div>
+        </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features-grid">
-        <div class="feature-card">
-            <h3>⚡️ Performance</h3>
-            <p>Blazing fast load times and optimized performance for the best user experience.</p>
+        <!-- Features Section (Wrapped in full-width gray background band) -->
+        <div class="section-light-bg">
+            <section id="features" class="features-grid container">
+                <div class="feature-card">
+                    <h3>⚡️ Performance</h3>
+                    <p>Blazing fast load times and optimized performance for the best user experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔒 Security</h3>
+                    <p>Enterprise-grade security and compliance to protect your data around the clock.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Simplicity</h3>
+                    <p>An intuitive interface that makes powerful tools accessible to everyone.</p>
+                </div>
+            </section>
         </div>
-        <div class="feature-card">
-            <h3>🔒 Security</h3>
-            <p>Enterprise-grade security and compliance to protect your data around the clock.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🎨 Simplicity</h3>
-            <p>An intuitive interface that makes powerful tools accessible to everyone.</p>
-        </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section id="cta" class="cta-banner">
-        <h2>Ready to build something amazing?</h2>
-        <a href="#" class="button primary-button large-button">Join Thousands of Creators</a>
-    </section>
+        <!-- CTA Section -->
+        <section class="container">
+            <div id="cta" class="cta-banner">
+                <h2>Ready to build something amazing?</h2>
+                <a href="#" class="button primary-button large-button">Join Thousands of Creators</a>
+            </div>
+        </section>
+    </main>
+    {{/unless}}
 
     <!-- Footer -->
     <footer>
-        <p>
-            &copy;
-            <small>
-                <script>document.write(new Date().getFullYear())</script>
-                Your company name. All Rights Reserved.
-            </small>
-        </p>
+        <div class="container">
+            <p>
+                &copy;
+                <small>
+                    <script>document.write(new Date().getFullYear())</script>
+                    Your company name. All Rights Reserved.
+                </small>
+            </p>
+        </div>
     </footer>
     
     <!-- Preserve user's scripts -->
@@ -451,12 +515,15 @@
         // Apply dynamic content from the HERO_TITLE/HERO_DESCRIPTION variables defined above
         document.addEventListener('DOMContentLoaded', () => {
             try {
+                const heroTitleElement = document.getElementById('hero-title');
+                const heroDescElement = document.getElementById('hero-description');
+
                 // Check if variables are defined in the script block at the top
-                if (typeof HERO_TITLE !== 'undefined') {
-                    document.getElementById('hero-title').textContent = HERO_TITLE;
+                if (typeof HERO_TITLE !== 'undefined' && heroTitleElement) {
+                    heroTitleElement.textContent = HERO_TITLE;
                 }
-                if (typeof HERO_DESCRIPTION !== 'undefined') {
-                    document.getElementById('hero-description').textContent = HERO_DESCRIPTION;
+                if (typeof HERO_DESCRIPTION !== 'undefined' && heroDescElement) {
+                    heroDescElement.textContent = HERO_DESCRIPTION;
                 }
             } catch (e) {
                 console.error("Failed to apply hero content variables:", e);
