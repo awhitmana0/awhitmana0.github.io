@@ -19,12 +19,30 @@ https://awhitmana0.github.io/qstemplate.handlebars
 
 ## Brand Assets
 
-### Auth0 Shield (White)
-```text
-https://awhitmana0.github.io/Auth0_Shield%20Logomark_White_RGB.svg
-```
+<img src="Auth0_Shield Logomark_Black_RGB.svg" alt="Auth0 Logomark" width="100">
 
 ### Auth0 Shield (Black)
 ```text
 https://awhitmana0.github.io/Auth0_Shield%20Logomark_Black_RGB.svg
 ```
+
+
+### Auth0 Shield (White)
+```text
+https://awhitmana0.github.io/Auth0_Shield%20Logomark_White_RGB.svg
+```
+
+<img src="Auth0_Shield Lockup_Black_RGB.svg" alt="Auth0 Lockup" width="300">
+
+### Auth0 Shield and Text (Black)
+```text
+https://awhitmana0.github.io/Auth0_Shield%20Lockup_Black_RGB.svg
+```
+
+
+### Auth0 Shield and Text (White)
+```text
+https://awhitmana0.github.io/Auth0_Shield%20Lockup_White_RGB.svg
+```
+
+
