@@ -1,12 +1,30 @@
-Hello!
+# Quick Links
 
+## Base Site
+```text
+[https://awhitmana0.github.io/](https://awhitmana0.github.io/)
+```
 
-Example URL: https://awhitmana0.github.io/
+## Handlebars Templates
 
-https://awhitmana0.github.io/handlebars-template-new.handlebars
+### New Template
+```text
+[https://awhitmana0.github.io/handlebars-template-new.handlebars](https://awhitmana0.github.io/handlebars-template-new.handlebars)
+```
 
-https://awhitmana0.github.io/qstemplate.handlebars
+### QS Template
+```text
+[https://awhitmana0.github.io/qstemplate.handlebars](https://awhitmana0.github.io/qstemplate.handlebars)
+```
 
-https://awhitmana0.github.io/Auth0_Shield Logomark_White_RGB.svg
+## Brand Assets
 
-https://awhitmana0.github.io/Auth0_Shield Logomark_Black_RGB.svg
+### Auth0 Shield (White)
+```text
+[https://awhitmana0.github.io/Auth0_Shield%20Logomark_White_RGB.svg](https://awhitmana0.github.io/Auth0_Shield%20Logomark_White_RGB.svg)
+```
+
+### Auth0 Shield (Black)
+```text
+[https://awhitmana0.github.io/Auth0_Shield%20Logomark_Black_RGB.svg](https://awhitmana0.github.io/Auth0_Shield%20Logomark_Black_RGB.svg)
+```
