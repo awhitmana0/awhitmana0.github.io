@@ -1,13 +1,6 @@
 # Images
 Preview and links for all image assets.
 
-## Arcteryx
-<img src="Arcteryx.svg" alt="Arcteryx" width="300">
-
-```text
-https://awhitmana0.github.io/images/Arcteryx.svg
-```
-
 ## Auth0 Shield Lockup Black RGB
 <img src="Auth0_Shield Lockup_Black_RGB.svg" alt="Auth0 Shield Lockup Black RGB" width="300">
 

@@ -24,7 +24,7 @@ FONT_EXTENSIONS = {'.woff', '.woff2', '.ttf', '.otf'}
 IGNORE_PATTERNS = {
     '.git', '.gitignore', '.DS_Store', 'README.md',
     '_config.yml', 'index.html', 'organize_repo.py',
-    'untitled folder'
+    'untitled folder', 'scripts'
 }
 
 def get_url(file_path):
@@ -291,6 +291,7 @@ def review_readme_links():
     readme_files = list(REPO_ROOT.rglob('README.md'))
 
     updates_made = False
+    all_changes = []
 
     for readme_path in readme_files:
         with open(readme_path, 'r') as f:
@@ -351,6 +352,8 @@ def review_readme_links():
             print(f"README: {readme_path.relative_to(REPO_ROOT)}")
             print('='*60)
 
+            applied_changes = []
+
             for i, change in enumerate(changes, 1):
                 print(f"\n[{i}/{len(changes)}] {change['reason']}")
                 print(f"\n  Current:   {change['current']}")
@@ -377,6 +380,7 @@ def review_readme_links():
                         print(f"  ✓ Applied: Updated URL")
                         print(f"    FROM: {old_val}")
                         print(f"    TO:   {new_val}")
+                        applied_changes.append(f"URL: {old_val} → {new_val}")
                     elif change['type'] == 'img':
                         old_val = change['current']
                         new_val = change['suggested']
@@ -384,6 +388,7 @@ def review_readme_links():
                         print(f"  ✓ Applied: Updated image path")
                         print(f"    FROM: {old_val}")
                         print(f"    TO:   {new_val}")
+                        applied_changes.append(f"Image: {old_val} → {new_val}")
 
                     updates_made = True
                 else:
@@ -393,10 +398,32 @@ def review_readme_links():
             if content != original_content:
                 with open(readme_path, 'w') as f:
                     f.write(content)
-                print(f"\n✓ Updated {readme_path.relative_to(REPO_ROOT)}")
+                print(f"\n{'='*60}")
+                print(f"✓ SAVED: {readme_path.relative_to(REPO_ROOT)}")
+                print(f"  Changes applied: {len(applied_changes)}")
+                for change in applied_changes:
+                    print(f"  - {change}")
+                print('='*60)
+
+                # Track changes for final summary
+                all_changes.append({
+                    'readme': readme_path.relative_to(REPO_ROOT),
+                    'changes': applied_changes
+                })
 
     if not updates_made:
         print("  All links look good!")
+    else:
+        # Print final summary
+        print(f"\n{'='*60}")
+        print("SUMMARY OF ALL CHANGES")
+        print('='*60)
+        for item in all_changes:
+            print(f"\n{item['readme']}:")
+            for change in item['changes']:
+                print(f"  • {change}")
+        print(f"\nTotal READMEs updated: {len(all_changes)}")
+        print('='*60)
 
     return updates_made
 
