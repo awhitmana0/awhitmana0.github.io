@@ -147,9 +147,11 @@ def generate_images_readme():
                 # Calculate relative path from README location
                 rel_to_readme = img_file.relative_to(images_dir)
 
-                # Add preview for images with light grey background
+                # Add preview for images with light grey background (using table for GitHub compatibility)
                 readme_content.append(f"### {name}\n")
-                readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300" style="background-color: #f1f5f9; padding: 16px; border-radius: 8px;">\n\n')
+                readme_content.append(f'<table><tr><td bgcolor="#f1f5f9" style="padding: 16px;">\n')
+                readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300">\n')
+                readme_content.append(f'</td></tr></table>\n\n')
                 readme_content.append("```text\n")
                 readme_content.append(f"{url}\n")
                 readme_content.append("```\n\n")
@@ -273,7 +275,7 @@ def generate_fonts_readme():
 def generate_main_readme():
     """Generate main landing page README"""
     readme_content = ["# Public Assets Repository\n"]
-    readme_content.append("\nPublic file hosting for demos and projects.\n\n")
+    readme_content.append("\nTemp file hosting for demos and test projects.\n\n")
     readme_content.append("## Quick Access\n\n")
 
     # Add base site

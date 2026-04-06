@@ -1,4 +1,4 @@
-# Assets Repository
+# Public Assets Repository
 
 Temp file hosting for demos and test projects.
 
