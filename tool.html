@@ -37,10 +37,11 @@
             width: 32px;
             height: 32px;
             flex-shrink: 0;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 6px;
-            background: #f8fafc;
+            background: #f1f5f9;
             border: 1px solid #e2e8f0;
+            padding: 4px;
         }
         .file-icon {
             width: 32px;
@@ -169,8 +170,8 @@
                 <!-- Image Preview -->
                 <div id="imagePreviewContainer" class="hidden pt-4 space-y-2">
                     <label class="text-sm font-bold text-slate-700 ml-1">Preview</label>
-                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex items-center justify-center">
-                        <img id="imagePreview" src="" alt="Preview" class="max-w-full max-h-64 rounded-lg shadow-md">
+                    <div class="bg-slate-100 rounded-2xl p-8 border border-slate-200 flex items-center justify-center">
+                        <img id="imagePreview" src="" alt="Preview" class="max-w-full max-h-64 rounded-lg">
                     </div>
                 </div>
 

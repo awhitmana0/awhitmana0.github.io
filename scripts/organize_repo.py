@@ -147,9 +147,9 @@ def generate_images_readme():
                 # Calculate relative path from README location
                 rel_to_readme = img_file.relative_to(images_dir)
 
-                # Add preview for images
+                # Add preview for images with light grey background
                 readme_content.append(f"### {name}\n")
-                readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300">\n\n')
+                readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300" style="background-color: #f1f5f9; padding: 16px; border-radius: 8px;">\n\n')
                 readme_content.append("```text\n")
                 readme_content.append(f"{url}\n")
                 readme_content.append("```\n\n")
@@ -281,6 +281,17 @@ def generate_main_readme():
     readme_content.append("```text\n")
     readme_content.append(f"{BASE_URL}/\n")
     readme_content.append("```\n\n")
+
+    # Add Link Generator Tool
+    readme_content.append("### 🔧 Link Generator Tool\n")
+    readme_content.append("**Browse and search all repository files with live previews**\n\n")
+    readme_content.append(f"[**Launch Tool →**]({BASE_URL}/tool.html)\n\n")
+    readme_content.append("Features:\n")
+    readme_content.append("- 🔍 Smart search with autocomplete\n")
+    readme_content.append("- 🖼️ Image previews\n")
+    readme_content.append("- 🔤 Font previews\n")
+    readme_content.append("- 🏷️ Filter by type and tags\n")
+    readme_content.append("- 📋 One-click URL copying\n\n")
 
     # Add directory links
     sections = []
