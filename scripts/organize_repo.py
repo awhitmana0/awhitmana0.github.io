@@ -452,14 +452,13 @@ def review_readme_links():
     # Find all README files
     readme_files = list(REPO_ROOT.rglob('README.md'))
 
-    updates_made = False
-    all_changes = []
+    # Collect all changes across all READMEs
+    all_readme_changes = []
 
     for readme_path in readme_files:
         with open(readme_path, 'r') as f:
             content = f.read()
 
-        original_content = content
         changes = []
 
         # Check URLs in code blocks
@@ -508,86 +507,94 @@ def review_readme_links():
                     except ValueError:
                         pass
 
-        # If there are suggested changes, prompt user
+        # Store changes for this README
         if changes:
-            print(f"\n{'='*60}")
-            print(f"README: {readme_path.relative_to(REPO_ROOT)}")
-            print('='*60)
+            all_readme_changes.append({
+                'readme_path': readme_path,
+                'content': content,
+                'changes': changes
+            })
 
-            applied_changes = []
-
-            for i, change in enumerate(changes, 1):
-                print(f"\n[{i}/{len(changes)}] {change['reason']}")
-                print(f"\n  Current:   {change['current']}")
-                print(f"  Suggested: {change['suggested']}")
-
-                while True:
-                    response = input("\n  Apply this change? [y/n/q to quit]: ").lower().strip()
-
-                    if response == 'q':
-                        print("\nQuitting review process.")
-                        return updates_made
-
-                    if response in ['y', 'n']:
-                        break
-
-                    print("  Please enter 'y', 'n', or 'q'")
-
-                if response == 'y':
-                    # Apply the change
-                    if change['type'] == 'url':
-                        old_val = change['current']
-                        new_val = change['suggested']
-                        content = content.replace(old_val, new_val)
-                        print(f"  ✓ Applied: Updated URL")
-                        print(f"    FROM: {old_val}")
-                        print(f"    TO:   {new_val}")
-                        applied_changes.append(f"URL: {old_val} → {new_val}")
-                    elif change['type'] == 'img':
-                        old_val = change['current']
-                        new_val = change['suggested']
-                        content = content.replace(f'src="{old_val}"', f'src="{new_val}"')
-                        print(f"  ✓ Applied: Updated image path")
-                        print(f"    FROM: {old_val}")
-                        print(f"    TO:   {new_val}")
-                        applied_changes.append(f"Image: {old_val} → {new_val}")
-
-                    updates_made = True
-                else:
-                    print("  ✗ Skipped")
-
-            # Write updated content if changes were made
-            if content != original_content:
-                with open(readme_path, 'w') as f:
-                    f.write(content)
-                print(f"\n{'='*60}")
-                print(f"✓ SAVED: {readme_path.relative_to(REPO_ROOT)}")
-                print(f"  Changes applied: {len(applied_changes)}")
-                for change in applied_changes:
-                    print(f"  - {change}")
-                print('='*60)
-
-                # Track changes for final summary
-                all_changes.append({
-                    'readme': readme_path.relative_to(REPO_ROOT),
-                    'changes': applied_changes
-                })
-
-    if not updates_made:
+    # If no changes found, exit early
+    if not all_readme_changes:
         print("  All links look good!")
-    else:
-        # Print final summary
-        print(f"\n{'='*60}")
-        print("SUMMARY OF ALL CHANGES")
-        print('='*60)
-        for item in all_changes:
-            print(f"\n{item['readme']}:")
-            for change in item['changes']:
-                print(f"  • {change}")
-        print(f"\nTotal READMEs updated: {len(all_changes)}")
-        print('='*60)
+        return False
 
-    return updates_made
+    # Preview all changes
+    print(f"\n{'='*60}")
+    print("PREVIEW OF ALL PROPOSED CHANGES")
+    print('='*60)
+
+    total_changes = 0
+    for readme_item in all_readme_changes:
+        readme_path = readme_item['readme_path']
+        changes = readme_item['changes']
+        total_changes += len(changes)
+
+        print(f"\n{readme_path.relative_to(REPO_ROOT)}:")
+        print('-'*60)
+
+        for i, change in enumerate(changes, 1):
+            print(f"\n  [{i}] {change['reason']}")
+            print(f"      Current:   {change['current']}")
+            print(f"      Suggested: {change['suggested']}")
+
+    # Ask for confirmation once
+    print(f"\n{'='*60}")
+    print(f"Total: {total_changes} change(s) across {len(all_readme_changes)} README file(s)")
+    print('='*60)
+
+    while True:
+        response = input("\nApply all changes? [y/n]: ").lower().strip()
+        if response in ['y', 'n']:
+            break
+        print("Please enter 'y' or 'n'")
+
+    if response == 'n':
+        print("\n✗ Changes cancelled. No files were modified.")
+        return False
+
+    # Apply all changes
+    print("\nApplying changes...")
+    applied_summary = []
+
+    for readme_item in all_readme_changes:
+        readme_path = readme_item['readme_path']
+        content = readme_item['content']
+        changes = readme_item['changes']
+
+        # Apply all changes to this README
+        for change in changes:
+            if change['type'] == 'url':
+                old_val = change['current']
+                new_val = change['suggested']
+                content = content.replace(old_val, new_val)
+            elif change['type'] == 'img':
+                old_val = change['current']
+                new_val = change['suggested']
+                content = content.replace(f'src="{old_val}"', f'src="{new_val}"')
+
+        # Write updated content
+        with open(readme_path, 'w') as f:
+            f.write(content)
+
+        applied_summary.append({
+            'readme': readme_path.relative_to(REPO_ROOT),
+            'count': len(changes)
+        })
+
+        print(f"  ✓ Updated: {readme_path.relative_to(REPO_ROOT)} ({len(changes)} change(s))")
+
+    # Print final summary
+    print(f"\n{'='*60}")
+    print("✓ SUMMARY: ALL CHANGES APPLIED")
+    print('='*60)
+    for item in applied_summary:
+        print(f"  • {item['readme']}: {item['count']} change(s)")
+    print(f"\nTotal READMEs updated: {len(applied_summary)}")
+    print('='*60)
+
+    return True
 
 def main():
     """Main execution"""

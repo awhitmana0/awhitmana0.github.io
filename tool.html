@@ -55,6 +55,9 @@
             font-weight: 600;
             color: #64748b;
         }
+        #chevronIcon {
+            transition: transform 0.2s ease;
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen p-4 md:p-8 text-slate-900">
@@ -141,8 +144,26 @@
 
                 <!-- Tags (subdirectory filters) -->
                 <div id="tagsContainer" class="hidden space-y-2">
-                    <label class="text-sm font-bold text-slate-700 ml-1">Filter by Folder</label>
+                    <label class="text-sm font-bold text-slate-700 ml-1">Filter by Tags</label>
                     <div id="tagsList" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Filtered Files List -->
+                <div class="space-y-2">
+                    <button
+                        id="toggleFilesList"
+                        onclick="toggleFilesList()"
+                        class="flex items-center justify-between w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 rounded-xl transition-all group"
+                    >
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-bold text-slate-700">Matching Files</span>
+                            <span id="filesCount" class="text-xs font-semibold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <svg id="chevronIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down text-slate-400 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div id="filesList" class="hidden bg-slate-50 rounded-xl border border-slate-200 max-h-96 overflow-y-auto">
+                        <div id="filesListContent" class="divide-y divide-slate-200"></div>
+                    </div>
                 </div>
 
                 <!-- Output Display -->
@@ -285,7 +306,66 @@
             updateTags();
             document.getElementById('fileSearch').value = '';
             document.getElementById('autocompleteDropdown').classList.add('hidden');
+            updateFilesList();
             updateSnippet();
+        }
+
+        function toggleFilesList() {
+            const filesList = document.getElementById('filesList');
+            const chevronIcon = document.getElementById('chevronIcon');
+
+            if (filesList.classList.contains('hidden')) {
+                filesList.classList.remove('hidden');
+                chevronIcon.style.transform = 'rotate(180deg)';
+            } else {
+                filesList.classList.add('hidden');
+                chevronIcon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function updateFilesList() {
+            const searchQuery = document.getElementById('fileSearch').value.trim().toLowerCase();
+            let files = getFilteredFiles();
+
+            // Apply search filter if present
+            if (searchQuery) {
+                files = files.filter(path => path.toLowerCase().includes(searchQuery));
+            }
+
+            const filesCount = document.getElementById('filesCount');
+            const filesListContent = document.getElementById('filesListContent');
+
+            filesCount.textContent = files.length;
+
+            if (files.length === 0) {
+                filesListContent.innerHTML = '<div class="px-4 py-8 text-center text-sm text-slate-500">No files match the current filters</div>';
+                return;
+            }
+
+            // Sort files alphabetically
+            files.sort();
+
+            filesListContent.innerHTML = files.map(path => {
+                const isImage = isImageFile(path);
+                const encodedPath = path.split('/').map(encodeURIComponent).join('/');
+                const fileUrl = `https://${OWNER}.github.io/${encodedPath}`;
+
+                let iconHtml = '';
+                if (isImage) {
+                    iconHtml = `<img src="${fileUrl}" class="preview-icon" alt="">`;
+                } else {
+                    const ext = path.split('.').pop().toUpperCase().substring(0, 4);
+                    iconHtml = `<div class="file-icon">${ext}</div>`;
+                }
+
+                return `
+                    <div class="flex items-center gap-3 px-4 py-3 hover:bg-white transition-colors cursor-pointer"
+                         onclick="selectFile('${path.replace(/'/g, "\\'")}')">
+                        ${iconHtml}
+                        <span class="flex-1 text-sm text-slate-700">${path}</span>
+                    </div>
+                `;
+            }).join('');
         }
 
         function handleSearch() {
@@ -294,6 +374,9 @@
             const dropdown = document.getElementById('autocompleteDropdown');
 
             selectedIndex = -1;
+
+            // Update the files list
+            updateFilesList();
 
             if (query === '') {
                 dropdown.classList.add('hidden');
@@ -419,6 +502,7 @@
             // Clear search and refresh dropdown
             document.getElementById('fileSearch').value = '';
             document.getElementById('autocompleteDropdown').classList.add('hidden');
+            updateFilesList();
             updateSnippet();
         }
 
@@ -452,8 +536,9 @@
                 loading.classList.add('hidden');
                 toolUI.classList.remove('hidden');
 
-                // Initialize tags
+                // Initialize tags and files list
                 updateTags();
+                updateFilesList();
             } catch (err) {
                 loading.classList.add('hidden');
                 errorBox.classList.remove('hidden');
