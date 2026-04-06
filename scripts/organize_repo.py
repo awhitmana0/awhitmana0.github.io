@@ -147,9 +147,9 @@ def generate_images_readme():
                 # Calculate relative path from README location
                 rel_to_readme = img_file.relative_to(images_dir)
 
-                # Add preview for images with light grey background (using table for GitHub compatibility)
+                # Add preview for images with border
                 readme_content.append(f"### {name}\n")
-                readme_content.append(f'<table bgcolor="#f1f5f9" cellpadding="16" border="0"><tr><td>\n')
+                readme_content.append(f'<table><tr><td>\n')
                 readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300">\n')
                 readme_content.append(f'</td></tr></table>\n\n')
                 readme_content.append("```text\n")
