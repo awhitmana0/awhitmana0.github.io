@@ -4,6 +4,7 @@ Repository organizer script for awhitmana0.github.io
 Automatically organizes files and generates READMEs with previews and URLs
 """
 
+import json
 import os
 import re
 import shutil
@@ -12,7 +13,7 @@ from urllib.parse import quote, unquote
 
 # Configuration
 BASE_URL = "https://awhitmana0.github.io"
-REPO_ROOT = Path(__file__).parent.resolve()
+REPO_ROOT = Path(__file__).parent.parent.resolve()  # Go up from scripts/ to repo root
 
 # File type mappings
 IMAGE_EXTENSIONS = {'.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp'}
@@ -24,7 +25,7 @@ FONT_EXTENSIONS = {'.woff', '.woff2', '.ttf', '.otf'}
 IGNORE_PATTERNS = {
     '.git', '.gitignore', '.DS_Store', 'README.md',
     '_config.yml', 'index.html', 'organize_repo.py',
-    'untitled folder', 'scripts'
+    'untitled folder', 'scripts', 'manifest.json', 'tool.html'
 }
 
 def get_url(file_path):
@@ -308,6 +309,123 @@ def generate_main_readme():
         f.write(''.join(readme_content))
     print(f"Generated {readme_path}")
 
+def get_file_type(file_path):
+    """Determine file type from extension"""
+    ext = file_path.suffix.lower()
+
+    if ext in {'.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp'}:
+        return 'image'
+    elif ext in {'.woff', '.woff2', '.ttf', '.otf'}:
+        return 'font'
+    elif ext in {'.js', '.css', '.html', '.json', '.yml', '.yaml'}:
+        return 'code'
+    elif ext in {'.handlebars', '.hbs'}:
+        return 'template'
+    else:
+        return 'other'
+
+def generate_manifest():
+    """Generate manifest.json with all file metadata"""
+    print("Generating manifest.json...")
+
+    # Load existing manifest if it exists
+    manifest_path = REPO_ROOT / 'manifest.json'
+    existing_manifest = {}
+    if manifest_path.exists():
+        try:
+            with open(manifest_path, 'r') as f:
+                old_manifest = json.load(f)
+                # Create lookup by path
+                existing_manifest = {file['path']: file for file in old_manifest.get('files', [])}
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    manifest = {
+        "generated_at": "",
+        "base_url": BASE_URL,
+        "files": []
+    }
+
+    # Track all current files in repo
+    current_files = set()
+
+    # Scan ENTIRE repository recursively
+    for file_path in REPO_ROOT.rglob('*'):
+        # Skip directories
+        if not file_path.is_file():
+            continue
+
+        # Skip ignored patterns
+        rel_path = file_path.relative_to(REPO_ROOT)
+
+        # Check if any part of the path matches ignore patterns
+        if any(ignore in rel_path.parts for ignore in IGNORE_PATTERNS):
+            continue
+
+        # Skip hidden files and directories
+        if any(part.startswith('.') for part in rel_path.parts):
+            continue
+
+        path_str = str(rel_path)
+        current_files.add(path_str)
+
+        # Determine category based on first directory
+        category = None
+        tags = []
+        if len(rel_path.parts) > 1:
+            category = rel_path.parts[0]
+            # Add subdirectory tags (everything except the first directory and filename)
+            if len(rel_path.parts) > 2:
+                tags = list(rel_path.parts[1:-1])
+
+        # Create file entry
+        file_entry = {
+            "path": path_str,
+            "url": get_url(file_path),
+            "type": get_file_type(file_path),
+            "name": file_path.stem,
+            "extension": file_path.suffix.lstrip('.'),
+            "title": file_path.stem.replace('_', ' ').replace('-', ' ').title(),
+            "tags": tags
+        }
+
+        # Add category if file is in a subdirectory
+        if category:
+            file_entry["category"] = category
+
+        manifest["files"].append(file_entry)
+
+    # Sort files by path
+    manifest["files"].sort(key=lambda x: x["path"])
+
+    # Add timestamp
+    from datetime import datetime
+    manifest["generated_at"] = datetime.now().isoformat()
+
+    # Report changes
+    old_files = set(existing_manifest.keys())
+    added_files = current_files - old_files
+    removed_files = old_files - current_files
+
+    if added_files:
+        print(f"  Added {len(added_files)} new file(s):")
+        for f in sorted(added_files):
+            print(f"    + {f}")
+
+    if removed_files:
+        print(f"  Removed {len(removed_files)} missing file(s):")
+        for f in sorted(removed_files):
+            print(f"    - {f}")
+
+    if not added_files and not removed_files:
+        print(f"  No changes (all {len(current_files)} files up to date)")
+
+    # Write manifest
+    with open(manifest_path, 'w') as f:
+        json.dump(manifest, f, indent=2)
+
+    print(f"Generated {manifest_path} ({len(manifest['files'])} total files)")
+
 def find_similar_file(missing_file):
     """Try to find a similar file that exists"""
     missing_path = Path(missing_file)
@@ -494,6 +612,10 @@ def main():
     generate_templates_readme()
     generate_fonts_readme()
     generate_main_readme()
+    print()
+
+    # Step 4: Generate manifest.json
+    generate_manifest()
     print()
 
     print("=" * 60)

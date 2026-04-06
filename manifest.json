@@ -1,0 +1,511 @@
+{
+  "generated_at": "2026-04-06T15:20:24.260938",
+  "base_url": "https://awhitmana0.github.io",
+  "files": [
+    {
+      "path": "code/css/main.css",
+      "url": "https://awhitmana0.github.io/code/css/main.css",
+      "type": "code",
+      "name": "main",
+      "extension": "css",
+      "title": "Main",
+      "tags": [
+        "css"
+      ],
+      "category": "code"
+    },
+    {
+      "path": "code/css/util.css",
+      "url": "https://awhitmana0.github.io/code/css/util.css",
+      "type": "code",
+      "name": "util",
+      "extension": "css",
+      "title": "Util",
+      "tags": [
+        "css"
+      ],
+      "category": "code"
+    },
+    {
+      "path": "code/login.min.css",
+      "url": "https://awhitmana0.github.io/code/login.min.css",
+      "type": "code",
+      "name": "login.min",
+      "extension": "css",
+      "title": "Login.Min",
+      "tags": [],
+      "category": "code"
+    },
+    {
+      "path": "code/passkeyformsenroll-remote.js",
+      "url": "https://awhitmana0.github.io/code/passkeyformsenroll-remote.js",
+      "type": "code",
+      "name": "passkeyformsenroll-remote",
+      "extension": "js",
+      "title": "Passkeyformsenroll Remote",
+      "tags": [],
+      "category": "code"
+    },
+    {
+      "path": "exampleCustomTemplate.html",
+      "url": "https://awhitmana0.github.io/exampleCustomTemplate.html",
+      "type": "code",
+      "name": "exampleCustomTemplate",
+      "extension": "html",
+      "title": "Examplecustomtemplate",
+      "tags": []
+    },
+    {
+      "path": "fonts/GeneralSans-Light.woff2",
+      "url": "https://awhitmana0.github.io/fonts/GeneralSans-Light.woff2",
+      "type": "font",
+      "name": "GeneralSans-Light",
+      "extension": "woff2",
+      "title": "Generalsans Light",
+      "tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/GeneralSans-Medium.woff2",
+      "url": "https://awhitmana0.github.io/fonts/GeneralSans-Medium.woff2",
+      "type": "font",
+      "name": "GeneralSans-Medium",
+      "extension": "woff2",
+      "title": "Generalsans Medium",
+      "tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "images/backgrounds/Travel background 1.png",
+      "url": "https://awhitmana0.github.io/images/backgrounds/Travel%20background%201.png",
+      "type": "image",
+      "name": "Travel background 1",
+      "extension": "png",
+      "title": "Travel Background 1",
+      "tags": [
+        "backgrounds"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/backgrounds/background.png",
+      "url": "https://awhitmana0.github.io/images/backgrounds/background.png",
+      "type": "image",
+      "name": "background",
+      "extension": "png",
+      "title": "Background",
+      "tags": [
+        "backgrounds"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/backgrounds/gradient.png",
+      "url": "https://awhitmana0.github.io/images/backgrounds/gradient.png",
+      "type": "image",
+      "name": "gradient",
+      "extension": "png",
+      "title": "Gradient",
+      "tags": [
+        "backgrounds"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/auth0dem0logo-white.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/auth0dem0logo-white.svg",
+      "type": "image",
+      "name": "auth0dem0logo-white",
+      "extension": "svg",
+      "title": "Auth0Dem0Logo White",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/auth0dem0logo.png",
+      "url": "https://awhitmana0.github.io/images/demo-logos/auth0dem0logo.png",
+      "type": "image",
+      "name": "auth0dem0logo",
+      "extension": "png",
+      "title": "Auth0Dem0Logo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/auth0dem0logo.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/auth0dem0logo.svg",
+      "type": "image",
+      "name": "auth0dem0logo",
+      "extension": "svg",
+      "title": "Auth0Dem0Logo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/lock0-icon.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/lock0-icon.svg",
+      "type": "image",
+      "name": "lock0-icon",
+      "extension": "svg",
+      "title": "Lock0 Icon",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/lock0-logo-dark.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/lock0-logo-dark.svg",
+      "type": "image",
+      "name": "lock0-logo-dark",
+      "extension": "svg",
+      "title": "Lock0 Logo Dark",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/lock0-logo.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/lock0-logo.svg",
+      "type": "image",
+      "name": "lock0-logo",
+      "extension": "svg",
+      "title": "Lock0 Logo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/lock0-wordmark.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/lock0-wordmark.svg",
+      "type": "image",
+      "name": "lock0-wordmark",
+      "extension": "svg",
+      "title": "Lock0 Wordmark",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/logo.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/logo.svg",
+      "type": "image",
+      "name": "logo",
+      "extension": "svg",
+      "title": "Logo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/org-logo-dark.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/org-logo-dark.svg",
+      "type": "image",
+      "name": "org-logo-dark",
+      "extension": "svg",
+      "title": "Org Logo Dark",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/org-logo.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/org-logo.svg",
+      "type": "image",
+      "name": "org-logo",
+      "extension": "svg",
+      "title": "Org Logo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/travel0-fulllogo-white.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/travel0-fulllogo-white.svg",
+      "type": "image",
+      "name": "travel0-fulllogo-white",
+      "extension": "svg",
+      "title": "Travel0 Fulllogo White",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/travel0-fulllogo.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/travel0-fulllogo.svg",
+      "type": "image",
+      "name": "travel0-fulllogo",
+      "extension": "svg",
+      "title": "Travel0 Fulllogo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/demo-logos/travel0-squarelogo.svg",
+      "url": "https://awhitmana0.github.io/images/demo-logos/travel0-squarelogo.svg",
+      "type": "image",
+      "name": "travel0-squarelogo",
+      "extension": "svg",
+      "title": "Travel0 Squarelogo",
+      "tags": [
+        "demo-logos"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/apple-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/apple-original.svg",
+      "type": "image",
+      "name": "apple-original",
+      "extension": "svg",
+      "title": "Apple Original",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/facebook-plain.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/facebook-plain.svg",
+      "type": "image",
+      "name": "facebook-plain",
+      "extension": "svg",
+      "title": "Facebook Plain",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/github-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/github-original.svg",
+      "type": "image",
+      "name": "github-original",
+      "extension": "svg",
+      "title": "Github Original",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/google-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/google-original.svg",
+      "type": "image",
+      "name": "google-original",
+      "extension": "svg",
+      "title": "Google Original",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/key.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/key.svg",
+      "type": "image",
+      "name": "key",
+      "extension": "svg",
+      "title": "Key",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/passkey.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/passkey.svg",
+      "type": "image",
+      "name": "passkey",
+      "extension": "svg",
+      "title": "Passkey",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/generic-icons/windows11-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic-icons/windows11-original.svg",
+      "type": "image",
+      "name": "windows11-original",
+      "extension": "svg",
+      "title": "Windows11 Original",
+      "tags": [
+        "generic-icons"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Auth0_Shield Lockup_Black_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Auth0_Shield%20Lockup_Black_RGB.svg",
+      "type": "image",
+      "name": "Auth0_Shield Lockup_Black_RGB",
+      "extension": "svg",
+      "title": "Auth0 Shield Lockup Black Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Auth0_Shield Lockup_White_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Auth0_Shield%20Lockup_White_RGB.svg",
+      "type": "image",
+      "name": "Auth0_Shield Lockup_White_RGB",
+      "extension": "svg",
+      "title": "Auth0 Shield Lockup White Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Auth0_Shield Logomark_Black_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Auth0_Shield%20Logomark_Black_RGB.svg",
+      "type": "image",
+      "name": "Auth0_Shield Logomark_Black_RGB",
+      "extension": "svg",
+      "title": "Auth0 Shield Logomark Black Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Auth0_Shield Logomark_White_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Auth0_Shield%20Logomark_White_RGB.svg",
+      "type": "image",
+      "name": "Auth0_Shield Logomark_White_RGB",
+      "extension": "svg",
+      "title": "Auth0 Shield Logomark White Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Okta_Aura_Lockup_Black_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Okta_Aura_Lockup_Black_RGB.svg",
+      "type": "image",
+      "name": "Okta_Aura_Lockup_Black_RGB",
+      "extension": "svg",
+      "title": "Okta Aura Lockup Black Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Okta_Aura_Lockup_White_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Okta_Aura_Lockup_White_RGB.svg",
+      "type": "image",
+      "name": "Okta_Aura_Lockup_White_RGB",
+      "extension": "svg",
+      "title": "Okta Aura Lockup White Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Okta_Aura_Logomark_Black_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Okta_Aura_Logomark_Black_RGB.svg",
+      "type": "image",
+      "name": "Okta_Aura_Logomark_Black_RGB",
+      "extension": "svg",
+      "title": "Okta Aura Logomark Black Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/Okta_Aura_Logomark_White_RGB.svg",
+      "url": "https://awhitmana0.github.io/images/logo/Okta_Aura_Logomark_White_RGB.svg",
+      "type": "image",
+      "name": "Okta_Aura_Logomark_White_RGB",
+      "extension": "svg",
+      "title": "Okta Aura Logomark White Rgb",
+      "tags": [
+        "logo"
+      ],
+      "category": "images"
+    },
+    {
+      "path": "templates/handlebars-template-new.handlebars",
+      "url": "https://awhitmana0.github.io/templates/handlebars-template-new.handlebars",
+      "type": "template",
+      "name": "handlebars-template-new",
+      "extension": "handlebars",
+      "title": "Handlebars Template New",
+      "tags": [],
+      "category": "templates"
+    },
+    {
+      "path": "templates/handlebars-template.handlebars",
+      "url": "https://awhitmana0.github.io/templates/handlebars-template.handlebars",
+      "type": "template",
+      "name": "handlebars-template",
+      "extension": "handlebars",
+      "title": "Handlebars Template",
+      "tags": [],
+      "category": "templates"
+    },
+    {
+      "path": "templates/qstemplate.css",
+      "url": "https://awhitmana0.github.io/templates/qstemplate.css",
+      "type": "code",
+      "name": "qstemplate",
+      "extension": "css",
+      "title": "Qstemplate",
+      "tags": [],
+      "category": "templates"
+    },
+    {
+      "path": "templates/qstemplate.handlebars",
+      "url": "https://awhitmana0.github.io/templates/qstemplate.handlebars",
+      "type": "template",
+      "name": "qstemplate",
+      "extension": "handlebars",
+      "title": "Qstemplate",
+      "tags": [],
+      "category": "templates"
+    },
+    {
+      "path": "templates/starterqshandlebar.handlebars",
+      "url": "https://awhitmana0.github.io/templates/starterqshandlebar.handlebars",
+      "type": "template",
+      "name": "starterqshandlebar",
+      "extension": "handlebars",
+      "title": "Starterqshandlebar",
+      "tags": [],
+      "category": "templates"
+    },
+    {
+      "path": "templates/starterqshandlebar.html",
+      "url": "https://awhitmana0.github.io/templates/starterqshandlebar.html",
+      "type": "code",
+      "name": "starterqshandlebar",
+      "extension": "html",
+      "title": "Starterqshandlebar",
+      "tags": [],
+      "category": "templates"
+    }
+  ]
+}
