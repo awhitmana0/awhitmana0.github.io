@@ -1,6 +1,6 @@
-# Public Assets Repository
+# Assets Repository
 
-Public file hosting for demos and projects.
+Temp file hosting for demos and test projects.
 
 ## Quick Access
 
