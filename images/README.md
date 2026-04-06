@@ -117,55 +117,55 @@ https://awhitmana0.github.io/images/demo-logos/travel0-fulllogo.svg
 https://awhitmana0.github.io/images/demo-logos/travel0-squarelogo.svg
 ```
 
-## Generic Icons
+## Generic
 
 ### apple original
-<img src="generic-icons/apple-original.svg" alt="apple original" width="300">
+<img src="generic/apple-original.svg" alt="apple original" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/apple-original.svg
+https://awhitmana0.github.io/images/generic/apple-original.svg
 ```
 
 ### facebook plain
-<img src="generic-icons/facebook-plain.svg" alt="facebook plain" width="300">
+<img src="generic/facebook-plain.svg" alt="facebook plain" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/facebook-plain.svg
+https://awhitmana0.github.io/images/generic/facebook-plain.svg
 ```
 
 ### github original
-<img src="generic-icons/github-original.svg" alt="github original" width="300">
+<img src="generic/github-original.svg" alt="github original" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/github-original.svg
+https://awhitmana0.github.io/images/generic/github-original.svg
 ```
 
 ### google original
-<img src="generic-icons/google-original.svg" alt="google original" width="300">
+<img src="generic/google-original.svg" alt="google original" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/google-original.svg
+https://awhitmana0.github.io/images/generic/google-original.svg
 ```
 
 ### key
-<img src="generic-icons/key.svg" alt="key" width="300">
+<img src="generic/key.svg" alt="key" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/key.svg
+https://awhitmana0.github.io/images/generic/key.svg
 ```
 
 ### passkey
-<img src="generic-icons/passkey.svg" alt="passkey" width="300">
+<img src="generic/passkey.svg" alt="passkey" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/passkey.svg
+https://awhitmana0.github.io/images/generic/passkey.svg
 ```
 
 ### windows11 original
-<img src="generic-icons/windows11-original.svg" alt="windows11 original" width="300">
+<img src="generic/windows11-original.svg" alt="windows11 original" width="300">
 
 ```text
-https://awhitmana0.github.io/images/generic-icons/windows11-original.svg
+https://awhitmana0.github.io/images/generic/windows11-original.svg
 ```
 
 ## Logo

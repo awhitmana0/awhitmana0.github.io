@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-06T15:26:08.437926",
+  "generated_at": "2026-04-06T15:37:22.665815",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -9,9 +9,10 @@
       "name": "main",
       "extension": "css",
       "title": "Main",
-      "tags": [
+      "auto_tags": [
         "css"
       ],
+      "manual_tags": [],
       "category": "code"
     },
     {
@@ -21,9 +22,10 @@
       "name": "util",
       "extension": "css",
       "title": "Util",
-      "tags": [
+      "auto_tags": [
         "css"
       ],
+      "manual_tags": [],
       "category": "code"
     },
     {
@@ -33,7 +35,8 @@
       "name": "login.min",
       "extension": "css",
       "title": "Login.Min",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "code"
     },
     {
@@ -43,7 +46,8 @@
       "name": "passkeyformsenroll-remote",
       "extension": "js",
       "title": "Passkeyformsenroll Remote",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "code"
     },
     {
@@ -53,7 +57,8 @@
       "name": "exampleCustomTemplate",
       "extension": "html",
       "title": "Examplecustomtemplate",
-      "tags": []
+      "auto_tags": [],
+      "manual_tags": []
     },
     {
       "path": "fonts/GeneralSans-Light.woff2",
@@ -62,7 +67,8 @@
       "name": "GeneralSans-Light",
       "extension": "woff2",
       "title": "Generalsans Light",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "fonts"
     },
     {
@@ -72,7 +78,8 @@
       "name": "GeneralSans-Medium",
       "extension": "woff2",
       "title": "Generalsans Medium",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "fonts"
     },
     {
@@ -82,9 +89,10 @@
       "name": "Travel background 1",
       "extension": "png",
       "title": "Travel Background 1",
-      "tags": [
+      "auto_tags": [
         "backgrounds"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -94,9 +102,10 @@
       "name": "background",
       "extension": "png",
       "title": "Background",
-      "tags": [
+      "auto_tags": [
         "backgrounds"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -106,9 +115,10 @@
       "name": "gradient",
       "extension": "png",
       "title": "Gradient",
-      "tags": [
+      "auto_tags": [
         "backgrounds"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -118,9 +128,10 @@
       "name": "auth0dem0logo-white",
       "extension": "svg",
       "title": "Auth0Dem0Logo White",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -130,9 +141,10 @@
       "name": "auth0dem0logo",
       "extension": "png",
       "title": "Auth0Dem0Logo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -142,9 +154,10 @@
       "name": "auth0dem0logo",
       "extension": "svg",
       "title": "Auth0Dem0Logo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -154,9 +167,10 @@
       "name": "lock0-icon",
       "extension": "svg",
       "title": "Lock0 Icon",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -166,9 +180,10 @@
       "name": "lock0-logo-dark",
       "extension": "svg",
       "title": "Lock0 Logo Dark",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -178,9 +193,10 @@
       "name": "lock0-logo",
       "extension": "svg",
       "title": "Lock0 Logo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -190,9 +206,10 @@
       "name": "lock0-wordmark",
       "extension": "svg",
       "title": "Lock0 Wordmark",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -202,9 +219,10 @@
       "name": "logo",
       "extension": "svg",
       "title": "Logo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -214,9 +232,10 @@
       "name": "org-logo-dark",
       "extension": "svg",
       "title": "Org Logo Dark",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -226,9 +245,10 @@
       "name": "org-logo",
       "extension": "svg",
       "title": "Org Logo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -238,9 +258,10 @@
       "name": "travel0-fulllogo-white",
       "extension": "svg",
       "title": "Travel0 Fulllogo White",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -250,9 +271,10 @@
       "name": "travel0-fulllogo",
       "extension": "svg",
       "title": "Travel0 Fulllogo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -262,93 +284,101 @@
       "name": "travel0-squarelogo",
       "extension": "svg",
       "title": "Travel0 Squarelogo",
-      "tags": [
+      "auto_tags": [
         "demo-logos"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/apple-original.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/apple-original.svg",
+      "path": "images/generic/apple-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic/apple-original.svg",
       "type": "image",
       "name": "apple-original",
       "extension": "svg",
       "title": "Apple Original",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/facebook-plain.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/facebook-plain.svg",
+      "path": "images/generic/facebook-plain.svg",
+      "url": "https://awhitmana0.github.io/images/generic/facebook-plain.svg",
       "type": "image",
       "name": "facebook-plain",
       "extension": "svg",
       "title": "Facebook Plain",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/github-original.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/github-original.svg",
+      "path": "images/generic/github-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic/github-original.svg",
       "type": "image",
       "name": "github-original",
       "extension": "svg",
       "title": "Github Original",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/google-original.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/google-original.svg",
+      "path": "images/generic/google-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic/google-original.svg",
       "type": "image",
       "name": "google-original",
       "extension": "svg",
       "title": "Google Original",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/key.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/key.svg",
+      "path": "images/generic/key.svg",
+      "url": "https://awhitmana0.github.io/images/generic/key.svg",
       "type": "image",
       "name": "key",
       "extension": "svg",
       "title": "Key",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/passkey.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/passkey.svg",
+      "path": "images/generic/passkey.svg",
+      "url": "https://awhitmana0.github.io/images/generic/passkey.svg",
       "type": "image",
       "name": "passkey",
       "extension": "svg",
       "title": "Passkey",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
-      "path": "images/generic-icons/windows11-original.svg",
-      "url": "https://awhitmana0.github.io/images/generic-icons/windows11-original.svg",
+      "path": "images/generic/windows11-original.svg",
+      "url": "https://awhitmana0.github.io/images/generic/windows11-original.svg",
       "type": "image",
       "name": "windows11-original",
       "extension": "svg",
       "title": "Windows11 Original",
-      "tags": [
-        "generic-icons"
+      "auto_tags": [
+        "generic"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -358,9 +388,10 @@
       "name": "Auth0_Shield Lockup_Black_RGB",
       "extension": "svg",
       "title": "Auth0 Shield Lockup Black Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -370,9 +401,10 @@
       "name": "Auth0_Shield Lockup_White_RGB",
       "extension": "svg",
       "title": "Auth0 Shield Lockup White Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -382,9 +414,10 @@
       "name": "Auth0_Shield Logomark_Black_RGB",
       "extension": "svg",
       "title": "Auth0 Shield Logomark Black Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -394,9 +427,10 @@
       "name": "Auth0_Shield Logomark_White_RGB",
       "extension": "svg",
       "title": "Auth0 Shield Logomark White Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -406,9 +440,10 @@
       "name": "Okta_Aura_Lockup_Black_RGB",
       "extension": "svg",
       "title": "Okta Aura Lockup Black Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -418,9 +453,10 @@
       "name": "Okta_Aura_Lockup_White_RGB",
       "extension": "svg",
       "title": "Okta Aura Lockup White Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -430,9 +466,10 @@
       "name": "Okta_Aura_Logomark_Black_RGB",
       "extension": "svg",
       "title": "Okta Aura Logomark Black Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -442,9 +479,10 @@
       "name": "Okta_Aura_Logomark_White_RGB",
       "extension": "svg",
       "title": "Okta Aura Logomark White Rgb",
-      "tags": [
+      "auto_tags": [
         "logo"
       ],
+      "manual_tags": [],
       "category": "images"
     },
     {
@@ -454,7 +492,8 @@
       "name": "handlebars-template-new",
       "extension": "handlebars",
       "title": "Handlebars Template New",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "templates"
     },
     {
@@ -464,7 +503,8 @@
       "name": "handlebars-template",
       "extension": "handlebars",
       "title": "Handlebars Template",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "templates"
     },
     {
@@ -474,7 +514,8 @@
       "name": "qstemplate",
       "extension": "css",
       "title": "Qstemplate",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "templates"
     },
     {
@@ -484,7 +525,8 @@
       "name": "qstemplate",
       "extension": "handlebars",
       "title": "Qstemplate",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "templates"
     },
     {
@@ -494,7 +536,8 @@
       "name": "starterqshandlebar",
       "extension": "handlebars",
       "title": "Starterqshandlebar",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "templates"
     },
     {
@@ -504,7 +547,8 @@
       "name": "starterqshandlebar",
       "extension": "html",
       "title": "Starterqshandlebar",
-      "tags": [],
+      "auto_tags": [],
+      "manual_tags": [],
       "category": "templates"
     }
   ]

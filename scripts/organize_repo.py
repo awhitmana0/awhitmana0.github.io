@@ -371,12 +371,18 @@ def generate_manifest():
 
         # Determine category based on first directory
         category = None
-        tags = []
+        auto_tags = []
         if len(rel_path.parts) > 1:
             category = rel_path.parts[0]
-            # Add subdirectory tags (everything except the first directory and filename)
+            # Add subdirectory auto_tags (everything except the first directory and filename)
             if len(rel_path.parts) > 2:
-                tags = list(rel_path.parts[1:-1])
+                auto_tags = list(rel_path.parts[1:-1])
+
+        # Preserve manual_tags from existing manifest if file existed before
+        manual_tags = []
+        if path_str in existing_manifest:
+            # Preserve manual_tags from previous version
+            manual_tags = existing_manifest[path_str].get('manual_tags', [])
 
         # Create file entry
         file_entry = {
@@ -386,7 +392,8 @@ def generate_manifest():
             "name": file_path.stem,
             "extension": file_path.suffix.lstrip('.'),
             "title": file_path.stem.replace('_', ' ').replace('-', ' ').title(),
-            "tags": tags
+            "auto_tags": auto_tags,
+            "manual_tags": manual_tags
         }
 
         # Add category if file is in a subdirectory

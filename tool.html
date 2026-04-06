@@ -166,6 +166,14 @@
                     </div>
                 </div>
 
+                <!-- Image Preview -->
+                <div id="imagePreviewContainer" class="hidden pt-4 space-y-2">
+                    <label class="text-sm font-bold text-slate-700 ml-1">Preview</label>
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex items-center justify-center">
+                        <img id="imagePreview" src="" alt="Preview" class="max-w-full max-h-64 rounded-lg shadow-md">
+                    </div>
+                </div>
+
                 <!-- Output Display -->
                 <div class="pt-4 space-y-3">
                     <div class="flex justify-between items-end px-1">
@@ -202,6 +210,7 @@
         const OWNER = 'awhitmana0';
         const REPO = 'awhitmana0.github.io';
         let allFiles = [];
+        let manifestData = {}; // Store full manifest data
         let currentFilter = 'all';
         let currentTag = null;
         let selectedIndex = -1;
@@ -229,10 +238,39 @@
             return getFileType(path) === 'font';
         }
 
-        function getSubdirectory(path) {
-            const parts = path.split('/');
-            // If file is in a subdirectory (more than just filename), return the first directory
-            return parts.length > 1 ? parts[0] : null;
+        function getFileTags(path) {
+            // Get all tags (auto + manual) for a file
+            const fileData = manifestData[path];
+            if (!fileData) return [];
+
+            const autoTags = fileData.auto_tags || [];
+            const manualTags = fileData.manual_tags || [];
+
+            return [...autoTags, ...manualTags];
+        }
+
+        function smartMatch(path, query) {
+            // Match at the start of path segments or word boundaries
+            const lowerPath = path.toLowerCase();
+            const lowerQuery = query.toLowerCase();
+
+            // Split by / and check if any segment starts with the query
+            const segments = lowerPath.split('/');
+            for (const segment of segments) {
+                if (segment.startsWith(lowerQuery)) {
+                    return true;
+                }
+
+                // Also check word boundaries within segments (split by -, _, space, or camelCase)
+                const words = segment.split(/[-_\s]+/);
+                for (const word of words) {
+                    if (word.startsWith(lowerQuery)) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         function getFilteredFiles() {
@@ -243,8 +281,8 @@
             // Apply tag filter if active
             if (currentTag) {
                 files = files.filter(path => {
-                    const subdir = getSubdirectory(path);
-                    return subdir === currentTag;
+                    const tags = getFileTags(path);
+                    return tags.includes(currentTag);
                 });
             }
 
@@ -256,15 +294,13 @@
                 ? allFiles
                 : allFiles.filter(path => getFileType(path) === currentFilter);
 
-            const subdirs = new Set();
+            const allTags = new Set();
             filteredByType.forEach(path => {
-                const subdir = getSubdirectory(path);
-                if (subdir) {
-                    subdirs.add(subdir);
-                }
+                const tags = getFileTags(path);
+                tags.forEach(tag => allTags.add(tag));
             });
 
-            return Array.from(subdirs).sort();
+            return Array.from(allTags).sort();
         }
 
         function updateTags() {
@@ -324,12 +360,12 @@
         }
 
         function updateFilesList() {
-            const searchQuery = document.getElementById('fileSearch').value.trim().toLowerCase();
+            const searchQuery = document.getElementById('fileSearch').value.trim();
             let files = getFilteredFiles();
 
             // Apply search filter if present
             if (searchQuery) {
-                files = files.filter(path => path.toLowerCase().includes(searchQuery));
+                files = files.filter(path => smartMatch(path, searchQuery));
             }
 
             const filesCount = document.getElementById('filesCount');
@@ -370,7 +406,7 @@
 
         function handleSearch() {
             const searchInput = document.getElementById('fileSearch');
-            const query = searchInput.value.trim().toLowerCase();
+            const query = searchInput.value.trim();
             const dropdown = document.getElementById('autocompleteDropdown');
 
             selectedIndex = -1;
@@ -385,7 +421,7 @@
             }
 
             const filteredFiles = getFilteredFiles();
-            const matches = filteredFiles.filter(path => path.toLowerCase().includes(query));
+            const matches = filteredFiles.filter(path => smartMatch(path, query));
 
             if (matches.length === 0) {
                 dropdown.classList.add('hidden');
@@ -530,6 +566,12 @@
 
                 const manifest = await response.json();
 
+                // Store full manifest data
+                manifestData = {};
+                manifest.files.forEach(file => {
+                    manifestData[file.path] = file;
+                });
+
                 // Extract file paths from manifest
                 allFiles = manifest.files.map(file => file.path);
 
@@ -549,11 +591,14 @@
         function updateSnippet() {
             const path = document.getElementById('fileSearch').value.trim();
             const output = document.getElementById('output');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+            const imagePreview = document.getElementById('imagePreview');
 
             if (!path) {
                 output.innerText = "Select a file from your repository above...";
                 output.classList.add('text-slate-500');
                 output.classList.remove('text-blue-300');
+                imagePreviewContainer.classList.add('hidden');
                 return;
             }
 
@@ -562,6 +607,7 @@
                 output.innerText = "File not found. Please select from the list.";
                 output.classList.add('text-slate-500');
                 output.classList.remove('text-blue-300');
+                imagePreviewContainer.classList.add('hidden');
                 return;
             }
 
@@ -573,6 +619,14 @@
             const baseUrl = `https://${OWNER}.github.io/${encodedPath}`;
 
             output.innerText = baseUrl;
+
+            // Show image preview if it's an image
+            if (isImageFile(path)) {
+                imagePreview.src = baseUrl;
+                imagePreviewContainer.classList.remove('hidden');
+            } else {
+                imagePreviewContainer.classList.add('hidden');
+            }
         }
 
         function copyToClipboard() {
