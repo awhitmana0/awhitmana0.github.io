@@ -149,7 +149,7 @@ def generate_images_readme():
 
                 # Add preview for images with light grey background (using table for GitHub compatibility)
                 readme_content.append(f"### {name}\n")
-                readme_content.append(f'<table><tr><td bgcolor="#f1f5f9" style="padding: 16px;">\n')
+                readme_content.append(f'<table bgcolor="#f1f5f9" cellpadding="16" border="0"><tr><td>\n')
                 readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300">\n')
                 readme_content.append(f'</td></tr></table>\n\n')
                 readme_content.append("```text\n")
