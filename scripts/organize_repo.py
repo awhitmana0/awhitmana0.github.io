@@ -111,19 +111,47 @@ def generate_images_readme():
     readme_content = ["# Images\n"]
     readme_content.append("Preview and links for all image assets.\n\n")
 
-    # Get all image files sorted by name
-    image_files = sorted([f for f in images_dir.iterdir() if f.is_file() and is_image(f)])
+    # Get all image files recursively, organized by subfolder
+    all_image_files = [f for f in images_dir.rglob('*') if f.is_file() and is_image(f)]
 
-    for img_file in image_files:
-        name = img_file.stem.replace('_', ' ').replace('-', ' ')
-        url = get_url(img_file)
+    if not all_image_files:
+        readme_content.append("No images found.\n")
+    else:
+        # Group images by subdirectory
+        images_by_folder = {}
+        for img_file in all_image_files:
+            rel_path = img_file.relative_to(images_dir)
+            folder = str(rel_path.parent) if rel_path.parent != Path('.') else 'root'
 
-        # Add preview for images
-        readme_content.append(f"## {name}\n")
-        readme_content.append(f'<img src="{img_file.name}" alt="{name}" width="300">\n\n')
-        readme_content.append("```text\n")
-        readme_content.append(f"{url}\n")
-        readme_content.append("```\n\n")
+            if folder not in images_by_folder:
+                images_by_folder[folder] = []
+            images_by_folder[folder].append(img_file)
+
+        # Sort folders (root first, then alphabetically)
+        sorted_folders = sorted(images_by_folder.keys(), key=lambda x: (x != 'root', x))
+
+        for folder in sorted_folders:
+            # Add folder heading if there are subfolders
+            if len(sorted_folders) > 1 and folder != 'root':
+                folder_name = folder.replace('/', ' / ').replace('_', ' ').replace('-', ' ').title()
+                readme_content.append(f"## {folder_name}\n\n")
+
+            # Sort images in this folder
+            sorted_images = sorted(images_by_folder[folder], key=lambda x: x.name)
+
+            for img_file in sorted_images:
+                name = img_file.stem.replace('_', ' ').replace('-', ' ')
+                url = get_url(img_file)
+
+                # Calculate relative path from README location
+                rel_to_readme = img_file.relative_to(images_dir)
+
+                # Add preview for images
+                readme_content.append(f"### {name}\n")
+                readme_content.append(f'<img src="{rel_to_readme}" alt="{name}" width="300">\n\n')
+                readme_content.append("```text\n")
+                readme_content.append(f"{url}\n")
+                readme_content.append("```\n\n")
 
     # Write README
     readme_path = images_dir / 'README.md'
@@ -174,23 +202,31 @@ def generate_code_readme():
 def generate_templates_readme():
     """Generate README for templates directory"""
     templates_dir = REPO_ROOT / 'templates'
-    if not templates_dir.exists() or not any(templates_dir.iterdir()):
+    if not templates_dir.exists():
         return
 
     readme_content = ["# Templates\n"]
     readme_content.append("Handlebars and other template files.\n\n")
 
-    # Get all template files sorted by name
-    template_files = sorted([f for f in templates_dir.iterdir() if f.is_file()])
+    # Get all template files recursively
+    template_files = sorted([f for f in templates_dir.rglob('*') if f.is_file()])
 
-    for template_file in template_files:
-        name = template_file.stem.replace('-', ' ').replace('_', ' ').title()
-        url = get_url(template_file)
+    if not template_files:
+        readme_content.append("No templates found.\n")
+    else:
+        for template_file in template_files:
+            name = template_file.stem.replace('-', ' ').replace('_', ' ').title()
+            url = get_url(template_file)
 
-        readme_content.append(f"## {name}\n")
-        readme_content.append("```text\n")
-        readme_content.append(f"{url}\n")
-        readme_content.append("```\n\n")
+            # Show relative path if in subfolder
+            rel_path = template_file.relative_to(templates_dir)
+            if rel_path.parent != Path('.'):
+                name = f"{rel_path.parent} / {name}"
+
+            readme_content.append(f"## {name}\n")
+            readme_content.append("```text\n")
+            readme_content.append(f"{url}\n")
+            readme_content.append("```\n\n")
 
     # Write README
     readme_path = templates_dir / 'README.md'
@@ -201,23 +237,31 @@ def generate_templates_readme():
 def generate_fonts_readme():
     """Generate README for fonts directory"""
     fonts_dir = REPO_ROOT / 'fonts'
-    if not fonts_dir.exists() or not any(fonts_dir.iterdir()):
+    if not fonts_dir.exists():
         return
 
     readme_content = ["# Fonts\n"]
     readme_content.append("Web font files.\n\n")
 
-    # Get all font files sorted by name
-    font_files = sorted([f for f in fonts_dir.iterdir() if f.is_file()])
+    # Get all font files recursively
+    font_files = sorted([f for f in fonts_dir.rglob('*') if f.is_file()])
 
-    for font_file in font_files:
-        name = font_file.stem
-        url = get_url(font_file)
+    if not font_files:
+        readme_content.append("No fonts found.\n")
+    else:
+        for font_file in font_files:
+            name = font_file.stem
+            url = get_url(font_file)
 
-        readme_content.append(f"## {name}\n")
-        readme_content.append("```text\n")
-        readme_content.append(f"{url}\n")
-        readme_content.append("```\n\n")
+            # Show relative path if in subfolder
+            rel_path = font_file.relative_to(fonts_dir)
+            if rel_path.parent != Path('.'):
+                name = f"{rel_path.parent} / {name}"
+
+            readme_content.append(f"## {name}\n")
+            readme_content.append("```text\n")
+            readme_content.append(f"{url}\n")
+            readme_content.append("```\n\n")
 
     # Write README
     readme_path = fonts_dir / 'README.md'
