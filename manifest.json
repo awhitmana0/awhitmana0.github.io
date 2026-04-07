@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-06T16:06:30.242147",
+  "generated_at": "2026-04-07T12:10:18.208792",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -61,6 +61,17 @@
       "manual_tags": []
     },
     {
+      "path": "fonts/Bricolage_Grotesque_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Bricolage_Grotesque_Regular.woff2",
+      "type": "font",
+      "name": "Bricolage_Grotesque_Regular",
+      "extension": "woff2",
+      "title": "Bricolage Grotesque Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
       "path": "fonts/GeneralSans-Light.woff2",
       "url": "https://awhitmana0.github.io/fonts/GeneralSans-Light.woff2",
       "type": "font",
@@ -78,6 +89,226 @@
       "name": "GeneralSans-Medium",
       "extension": "woff2",
       "title": "Generalsans Medium",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Instrument_Sans_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Instrument_Sans_Regular.woff2",
+      "type": "font",
+      "name": "Instrument_Sans_Regular",
+      "extension": "woff2",
+      "title": "Instrument Sans Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Inter_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Inter_Regular.woff2",
+      "type": "font",
+      "name": "Inter_Regular",
+      "extension": "woff2",
+      "title": "Inter Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Lalezar_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Lalezar_Regular.woff2",
+      "type": "font",
+      "name": "Lalezar_Regular",
+      "extension": "woff2",
+      "title": "Lalezar Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Lato_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Lato_Regular.woff2",
+      "type": "font",
+      "name": "Lato_Regular",
+      "extension": "woff2",
+      "title": "Lato Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Lora_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Lora_Regular.woff2",
+      "type": "font",
+      "name": "Lora_Regular",
+      "extension": "woff2",
+      "title": "Lora Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Merriweather_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Merriweather_Regular.woff2",
+      "type": "font",
+      "name": "Merriweather_Regular",
+      "extension": "woff2",
+      "title": "Merriweather Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Montserrat_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Montserrat_Regular.woff2",
+      "type": "font",
+      "name": "Montserrat_Regular",
+      "extension": "woff2",
+      "title": "Montserrat Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Noto_Sans_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Noto_Sans_Regular.woff2",
+      "type": "font",
+      "name": "Noto_Sans_Regular",
+      "extension": "woff2",
+      "title": "Noto Sans Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Open_Sans_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Open_Sans_Regular.woff2",
+      "type": "font",
+      "name": "Open_Sans_Regular",
+      "extension": "woff2",
+      "title": "Open Sans Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Oswald_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Oswald_Regular.woff2",
+      "type": "font",
+      "name": "Oswald_Regular",
+      "extension": "woff2",
+      "title": "Oswald Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/PT_Sans_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/PT_Sans_Regular.woff2",
+      "type": "font",
+      "name": "PT_Sans_Regular",
+      "extension": "woff2",
+      "title": "Pt Sans Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Playfair_Display_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Playfair_Display_Regular.woff2",
+      "type": "font",
+      "name": "Playfair_Display_Regular",
+      "extension": "woff2",
+      "title": "Playfair Display Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Plus_Jakarta_Sans_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Plus_Jakarta_Sans_Regular.woff2",
+      "type": "font",
+      "name": "Plus_Jakarta_Sans_Regular",
+      "extension": "woff2",
+      "title": "Plus Jakarta Sans Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Poppins_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Poppins_Regular.woff2",
+      "type": "font",
+      "name": "Poppins_Regular",
+      "extension": "woff2",
+      "title": "Poppins Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Raleway_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Raleway_Regular.woff2",
+      "type": "font",
+      "name": "Raleway_Regular",
+      "extension": "woff2",
+      "title": "Raleway Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Roboto_Condensed_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Roboto_Condensed_Regular.woff2",
+      "type": "font",
+      "name": "Roboto_Condensed_Regular",
+      "extension": "woff2",
+      "title": "Roboto Condensed Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Roboto_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Roboto_Regular.woff2",
+      "type": "font",
+      "name": "Roboto_Regular",
+      "extension": "woff2",
+      "title": "Roboto Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Source_Sans_3_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Source_Sans_3_Regular.woff2",
+      "type": "font",
+      "name": "Source_Sans_3_Regular",
+      "extension": "woff2",
+      "title": "Source Sans 3 Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Ubuntu_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Ubuntu_Regular.woff2",
+      "type": "font",
+      "name": "Ubuntu_Regular",
+      "extension": "woff2",
+      "title": "Ubuntu Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Work_Sans_Regular.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Work_Sans_Regular.woff2",
+      "type": "font",
+      "name": "Work_Sans_Regular",
+      "extension": "woff2",
+      "title": "Work Sans Regular",
       "auto_tags": [],
       "manual_tags": [],
       "category": "fonts"
