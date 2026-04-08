@@ -59,6 +59,11 @@
         #chevronIcon {
             transition: transform 0.2s ease;
         }
+
+        /* Font preview styling */
+        #fontPreviewText, #fontPreviewAlphabet {
+            font-weight: normal !important;
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen p-4 md:p-8 text-slate-900">
@@ -392,14 +397,23 @@
             // Sort files alphabetically
             files.sort();
 
-            filesListContent.innerHTML = files.map(path => {
+            filesListContent.innerHTML = files.map((path, index) => {
                 const isImage = isImageFile(path);
+                const isFont = isFontFile(path);
                 const encodedPath = path.split('/').map(encodeURIComponent).join('/');
                 const fileUrl = `https://${OWNER}.github.io/${encodedPath}`;
 
                 let iconHtml = '';
+                let textStyle = '';
+
                 if (isImage) {
                     iconHtml = `<img src="${fileUrl}" class="preview-icon" alt="">`;
+                } else if (isFont) {
+                    const ext = path.split('.').pop().toUpperCase().substring(0, 4);
+                    iconHtml = `<div class="file-icon">${ext}</div>`;
+                    // Load font and apply it to the text
+                    const fontFamily = loadFontForListItem(fileUrl, `list_${index}`);
+                    textStyle = ` style="font-family: '${fontFamily}', sans-serif; font-size: 16px;"`;
                 } else {
                     const ext = path.split('.').pop().toUpperCase().substring(0, 4);
                     iconHtml = `<div class="file-icon">${ext}</div>`;
@@ -409,7 +423,7 @@
                     <div class="flex items-center gap-3 px-4 py-3 hover:bg-white transition-colors cursor-pointer"
                          onclick="selectFile('${path.replace(/'/g, "\\'")}')">
                         ${iconHtml}
-                        <span class="flex-1 text-sm text-slate-700">${path}</span>
+                        <span class="flex-1 text-sm text-slate-700"${textStyle}>${path}</span>
                     </div>
                 `;
             }).join('');
@@ -673,9 +687,50 @@
                     src: url('${fontUrl}') format('${format}');
                     font-weight: normal;
                     font-style: normal;
+                    font-display: swap;
                 }
             `;
             document.head.appendChild(style);
+
+            // Force the browser to load the font
+            document.fonts.load('1em PreviewFont').then(() => {
+                console.log('Font loaded successfully');
+            }).catch(err => {
+                console.error('Font failed to load:', err);
+            });
+        }
+
+        function loadFontForListItem(fontUrl, fontId) {
+            // Create unique font family name for this font
+            const fontFamily = `Font_${fontId}`;
+
+            // Check if style already exists
+            if (document.getElementById(`fontStyle_${fontId}`)) {
+                return fontFamily;
+            }
+
+            // Determine font format based on extension
+            const ext = fontUrl.split('.').pop().split('?')[0].toLowerCase();
+            let format = 'woff2';
+            if (ext === 'woff') format = 'woff';
+            else if (ext === 'ttf') format = 'truetype';
+            else if (ext === 'otf') format = 'opentype';
+
+            // Create style element
+            const style = document.createElement('style');
+            style.id = `fontStyle_${fontId}`;
+            style.textContent = `
+                @font-face {
+                    font-family: '${fontFamily}';
+                    src: url('${fontUrl}') format('${format}');
+                    font-weight: normal;
+                    font-style: normal;
+                    font-display: swap;
+                }
+            `;
+            document.head.appendChild(style);
+
+            return fontFamily;
         }
 
         function copyToClipboard() {
