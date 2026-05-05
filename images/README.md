@@ -1,6 +1,15 @@
 # Images
 Preview and links for all image assets.
 
+### auth0dem0logo white
+<table><tr><td>
+<img src="auth0dem0logo-white.svg" alt="auth0dem0logo white" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/auth0dem0logo-white.svg
+```
+
 ## Backgrounds
 
 ### Travel background 1
@@ -19,6 +28,15 @@ https://awhitmana0.github.io/images/backgrounds/Travel%20background%201.png
 
 ```text
 https://awhitmana0.github.io/images/backgrounds/background.png
+```
+
+### bluepurple
+<table><tr><td>
+<img src="backgrounds/bluepurple.png" alt="bluepurple" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/backgrounds/bluepurple.png
 ```
 
 ### gradient
