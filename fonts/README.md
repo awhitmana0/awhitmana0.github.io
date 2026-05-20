@@ -66,6 +66,11 @@ https://awhitmana0.github.io/fonts/Open_Sans_Regular.woff2
 https://awhitmana0.github.io/fonts/Oswald_Regular.woff2
 ```
 
+## Oxanium
+```text
+https://awhitmana0.github.io/fonts/Oxanium.woff2
+```
+
 ## PT_Sans_Regular
 ```text
 https://awhitmana0.github.io/fonts/PT_Sans_Regular.woff2

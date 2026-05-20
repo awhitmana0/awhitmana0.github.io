@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T23:13:21.920150",
+  "generated_at": "2026-05-19T23:18:07.453750",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -210,6 +210,17 @@
       "name": "Oswald_Regular",
       "extension": "woff2",
       "title": "Oswald Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/Oxanium.woff2",
+      "url": "https://awhitmana0.github.io/fonts/Oxanium.woff2",
+      "type": "font",
+      "name": "Oxanium",
+      "extension": "woff2",
+      "title": "Oxanium",
       "auto_tags": [],
       "manual_tags": [],
       "category": "fonts"
