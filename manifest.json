@@ -1,7 +1,18 @@
 {
-  "generated_at": "2026-05-04T21:46:39.163359",
+  "generated_at": "2026-05-19T17:39:59.619206",
   "base_url": "https://awhitmana0.github.io",
   "files": [
+    {
+      "path": "code/client.json",
+      "url": "https://awhitmana0.github.io/code/client.json",
+      "type": "code",
+      "name": "client",
+      "extension": "json",
+      "title": "Client",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "code"
+    },
     {
       "path": "code/css/main.css",
       "url": "https://awhitmana0.github.io/code/css/main.css",

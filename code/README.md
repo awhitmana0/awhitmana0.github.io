@@ -1,6 +1,11 @@
 # Code Assets
 Links to all code files and stylesheets.
 
+### client.json
+```text
+https://awhitmana0.github.io/code/client.json
+```
+
 ### login.min.css
 ```text
 https://awhitmana0.github.io/code/login.min.css
