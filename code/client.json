@@ -8,7 +8,8 @@
     "redirect_uris": [
       "http://localhost:3003/callback",
       "https://mcp.mycompany.com/callback",
-      "https://oauth.pstmn.io/v1/callback"
+      "https://oauth.pstmn.io/v1/callback", 
+      "http://localhost:6274/oauth/callback"
     ],
     "token_endpoint_auth_method": "none",
     "response_types": ["code"],
