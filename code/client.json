@@ -1,0 +1,15 @@
+  {
+    "client_id": " https://awhitmana0.github.io/code/client.json",
+    "client_name": "MyCompany MCP Server",
+    "description": "Enterprise MCP server for internal tools",
+    "logo_uri": "https://assets.mycompany.com/images/mcp-logo.png",
+    "application_type": "web",
+    "grant_types": ["authorization_code", "refresh_token"],
+    "redirect_uris": [
+      "http://localhost:3003/callback",
+      "https://mcp.mycompany.com/callback",
+      "https://oauth.pstmn.io/v1/callback"
+    ],
+    "token_endpoint_auth_method": "none",
+    "response_types": ["code"]
+  }
