@@ -11,5 +11,6 @@
       "https://oauth.pstmn.io/v1/callback"
     ],
     "token_endpoint_auth_method": "none",
-    "response_types": ["code"]
+    "response_types": ["code"],
+    "scope": "tool:greet tool:whoami"
   }
