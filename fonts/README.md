@@ -106,6 +106,11 @@ https://awhitmana0.github.io/fonts/Roboto_Condensed_Regular.woff2
 https://awhitmana0.github.io/fonts/Roboto_Regular.woff2
 ```
 
+## ScienceGothic
+```text
+https://awhitmana0.github.io/fonts/ScienceGothic.woff2
+```
+
 ## Source_Sans_3_Regular
 ```text
 https://awhitmana0.github.io/fonts/Source_Sans_3_Regular.woff2

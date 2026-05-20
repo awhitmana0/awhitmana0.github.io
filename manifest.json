@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T17:39:59.619206",
+  "generated_at": "2026-05-19T23:13:21.920150",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -287,6 +287,17 @@
       "name": "Roboto_Regular",
       "extension": "woff2",
       "title": "Roboto Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/ScienceGothic.woff2",
+      "url": "https://awhitmana0.github.io/fonts/ScienceGothic.woff2",
+      "type": "font",
+      "name": "ScienceGothic",
+      "extension": "woff2",
+      "title": "Sciencegothic",
       "auto_tags": [],
       "manual_tags": [],
       "category": "fonts"
