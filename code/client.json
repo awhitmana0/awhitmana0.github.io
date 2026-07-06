@@ -1,14 +1,16 @@
   {
     "client_id": "https://awhitmana0.github.io/code/client.json",
-    "client_name": "MyCompany MCP Server",
-    "description": "Enterprise MCP server for internal tools",
-    "logo_uri": "https://assets.mycompany.com/images/mcp-logo.png",
+    "client_name": "MCP Server",
+    "description": "CIMD Demo - Enterprise MCP server for internal tools",
+    "logo_uri": "https://awhitmana0.github.io/images/logo/Auth0_Shield%20Logomark_Black_RGB.svg",
     "application_type": "web",
     "grant_types": ["authorization_code", "refresh_token"],
     "redirect_uris": [
       "http://localhost:3003/callback",
       "https://mcp.mycompany.com/callback",
-      "https://oauth.pstmn.io/v1/callback"
+      "https://oauth.pstmn.io/v1/callback", 
+      "http://localhost:6274/oauth/callback",
+      "https://claude.ai/api/mcp/auth_callback"
     ],
     "token_endpoint_auth_method": "none",
     "response_types": ["code"],
