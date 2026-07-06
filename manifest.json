@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T23:18:07.453750",
+  "generated_at": "2026-07-06T14:41:03.023659",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -767,6 +767,58 @@
       "name": "Okta_Aura_Logomark_White_RGB",
       "extension": "svg",
       "title": "Okta Aura Logomark White Rgb",
+      "auto_tags": [
+        "logo"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/auth0_fga_dark_mode.png",
+      "url": "https://awhitmana0.github.io/images/logo/auth0_fga_dark_mode.png",
+      "type": "image",
+      "name": "auth0_fga_dark_mode",
+      "extension": "png",
+      "title": "Auth0 Fga Dark Mode",
+      "auto_tags": [
+        "logo"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/auth0_fga_dark_mode.svg",
+      "url": "https://awhitmana0.github.io/images/logo/auth0_fga_dark_mode.svg",
+      "type": "image",
+      "name": "auth0_fga_dark_mode",
+      "extension": "svg",
+      "title": "Auth0 Fga Dark Mode",
+      "auto_tags": [
+        "logo"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/auth0_fga_light_mode.png",
+      "url": "https://awhitmana0.github.io/images/logo/auth0_fga_light_mode.png",
+      "type": "image",
+      "name": "auth0_fga_light_mode",
+      "extension": "png",
+      "title": "Auth0 Fga Light Mode",
+      "auto_tags": [
+        "logo"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/logo/auth0_fga_light_mode.svg",
+      "url": "https://awhitmana0.github.io/images/logo/auth0_fga_light_mode.svg",
+      "type": "image",
+      "name": "auth0_fga_light_mode",
+      "extension": "svg",
+      "title": "Auth0 Fga Light Mode",
       "auto_tags": [
         "logo"
       ],

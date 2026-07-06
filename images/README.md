@@ -306,3 +306,39 @@ https://awhitmana0.github.io/images/logo/Okta_Aura_Logomark_Black_RGB.svg
 https://awhitmana0.github.io/images/logo/Okta_Aura_Logomark_White_RGB.svg
 ```
 
+### auth0 fga dark mode
+<table><tr><td>
+<img src="logo/auth0_fga_dark_mode.png" alt="auth0 fga dark mode" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/logo/auth0_fga_dark_mode.png
+```
+
+### auth0 fga dark mode
+<table><tr><td>
+<img src="logo/auth0_fga_dark_mode.svg" alt="auth0 fga dark mode" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/logo/auth0_fga_dark_mode.svg
+```
+
+### auth0 fga light mode
+<table><tr><td>
+<img src="logo/auth0_fga_light_mode.png" alt="auth0 fga light mode" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/logo/auth0_fga_light_mode.png
+```
+
+### auth0 fga light mode
+<table><tr><td>
+<img src="logo/auth0_fga_light_mode.svg" alt="auth0 fga light mode" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/logo/auth0_fga_light_mode.svg
+```
+
