@@ -48,6 +48,24 @@ https://awhitmana0.github.io/images/backgrounds/bluepurple.png
 https://awhitmana0.github.io/images/backgrounds/gradient.png
 ```
 
+### neon gradient1
+<table><tr><td>
+<img src="backgrounds/neon-gradient1.png" alt="neon gradient1" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/backgrounds/neon-gradient1.png
+```
+
+### neon gradient2
+<table><tr><td>
+<img src="backgrounds/neon-gradient2.png" alt="neon gradient2" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/backgrounds/neon-gradient2.png
+```
+
 ## Demo Logos
 
 ### auth0dem0logo white

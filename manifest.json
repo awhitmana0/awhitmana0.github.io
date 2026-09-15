@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-06T14:41:03.023659",
+  "generated_at": "2026-09-14T18:33:47.454616",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -403,6 +403,32 @@
       "name": "gradient",
       "extension": "png",
       "title": "Gradient",
+      "auto_tags": [
+        "backgrounds"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/backgrounds/neon-gradient1.png",
+      "url": "https://awhitmana0.github.io/images/backgrounds/neon-gradient1.png",
+      "type": "image",
+      "name": "neon-gradient1",
+      "extension": "png",
+      "title": "Neon Gradient1",
+      "auto_tags": [
+        "backgrounds"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/backgrounds/neon-gradient2.png",
+      "url": "https://awhitmana0.github.io/images/backgrounds/neon-gradient2.png",
+      "type": "image",
+      "name": "neon-gradient2",
+      "extension": "png",
+      "title": "Neon Gradient2",
       "auto_tags": [
         "backgrounds"
       ],
