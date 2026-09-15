@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T18:33:47.454616",
+  "generated_at": "2026-09-14T21:34:03.482782",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -243,6 +243,17 @@
       "name": "Playfair_Display_Regular",
       "extension": "woff2",
       "title": "Playfair Display Regular",
+      "auto_tags": [],
+      "manual_tags": [],
+      "category": "fonts"
+    },
+    {
+      "path": "fonts/PlusJakartaSans-ExtraBold.woff2",
+      "url": "https://awhitmana0.github.io/fonts/PlusJakartaSans-ExtraBold.woff2",
+      "type": "font",
+      "name": "PlusJakartaSans-ExtraBold",
+      "extension": "woff2",
+      "title": "Plusjakartasans Extrabold",
       "auto_tags": [],
       "manual_tags": [],
       "category": "fonts"

@@ -81,6 +81,11 @@ https://awhitmana0.github.io/fonts/PT_Sans_Regular.woff2
 https://awhitmana0.github.io/fonts/Playfair_Display_Regular.woff2
 ```
 
+## PlusJakartaSans-ExtraBold
+```text
+https://awhitmana0.github.io/fonts/PlusJakartaSans-ExtraBold.woff2
+```
+
 ## Plus_Jakarta_Sans_Regular
 ```text
 https://awhitmana0.github.io/fonts/Plus_Jakarta_Sans_Regular.woff2
