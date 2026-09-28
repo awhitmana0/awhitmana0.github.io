@@ -16,6 +16,36 @@ https://awhitmana0.github.io/fonts/GeneralSans-Light.woff2
 https://awhitmana0.github.io/fonts/GeneralSans-Medium.woff2
 ```
 
+## HankenGrotesk-ExtraBold
+```text
+https://awhitmana0.github.io/fonts/HankenGrotesk-ExtraBold.woff2
+```
+
+## HankenGrotesk-ExtraLight
+```text
+https://awhitmana0.github.io/fonts/HankenGrotesk-ExtraLight.woff2
+```
+
+## HankenGrotesk-Light
+```text
+https://awhitmana0.github.io/fonts/HankenGrotesk-Light.woff2
+```
+
+## HankenGrotesk-Medium
+```text
+https://awhitmana0.github.io/fonts/HankenGrotesk-Medium.woff2
+```
+
+## HankenGrotesk-Regular
+```text
+https://awhitmana0.github.io/fonts/HankenGrotesk-Regular.woff2
+```
+
+## HankenGrotesk-SemiBold
+```text
+https://awhitmana0.github.io/fonts/HankenGrotesk-SemiBold.woff2
+```
+
 ## Instrument_Sans_Regular
 ```text
 https://awhitmana0.github.io/fonts/Instrument_Sans_Regular.woff2

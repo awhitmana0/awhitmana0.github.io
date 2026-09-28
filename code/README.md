@@ -1,6 +1,11 @@
 # Code Assets
 Links to all code files and stylesheets.
 
+### backgrounds.html
+```text
+https://awhitmana0.github.io/code/backgrounds.html
+```
+
 ### client.json
 ```text
 https://awhitmana0.github.io/code/client.json
