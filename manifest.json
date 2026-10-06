@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T19:19:20.001823",
+  "generated_at": "2026-10-06T12:10:12.158126",
   "base_url": "https://awhitmana0.github.io",
   "files": [
     {
@@ -543,6 +543,19 @@
       "name": "neon-green2",
       "extension": "png",
       "title": "Neon Green2",
+      "auto_tags": [
+        "backgrounds"
+      ],
+      "manual_tags": [],
+      "category": "images"
+    },
+    {
+      "path": "images/backgrounds/wallpaper-1080p-60a9a4-484847-lucide.png",
+      "url": "https://awhitmana0.github.io/images/backgrounds/wallpaper-1080p-60a9a4-484847-lucide.png",
+      "type": "image",
+      "name": "wallpaper-1080p-60a9a4-484847-lucide",
+      "extension": "png",
+      "title": "Wallpaper 1080P 60A9A4 484847 Lucide",
       "auto_tags": [
         "backgrounds"
       ],

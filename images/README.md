@@ -84,6 +84,15 @@ https://awhitmana0.github.io/images/backgrounds/neon-green.png
 https://awhitmana0.github.io/images/backgrounds/neon-green2.png
 ```
 
+### wallpaper 1080p 60a9a4 484847 lucide
+<table><tr><td>
+<img src="backgrounds/wallpaper-1080p-60a9a4-484847-lucide.png" alt="wallpaper 1080p 60a9a4 484847 lucide" width="300">
+</td></tr></table>
+
+```text
+https://awhitmana0.github.io/images/backgrounds/wallpaper-1080p-60a9a4-484847-lucide.png
+```
+
 ## Demo Logos
 
 ### auth0dem0logo white
