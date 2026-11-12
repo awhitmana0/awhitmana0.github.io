@@ -214,37 +214,13 @@
     </div>
 
     <!-- Studio Two-Column Workspace -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+    <div class="flex flex-col gap-4">
 
-      <!-- LEFT: JSON Configuration Editor -->
-      <section class="lg:col-span-5 bg-white rounded-2xl border border-neutral-200 flex flex-col shadow-xs overflow-hidden h-[720px]">
-        <div class="bg-neutral-50 border-b border-neutral-200 px-3.5 py-2.5 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span class="text-xs font-bold text-neutral-700 uppercase tracking-wider font-mono">diagram-config.json</span>
-          </div>
-          <span id="jsonStatus" class="text-[11px] font-mono text-emerald-600 font-medium">Valid JSON</span>
-        </div>
-
-        <!-- Textarea Editor with line wrapping disabled for pure code feel -->
-        <div class="relative flex-1 p-0 bg-[#0F172A]">
-          <textarea id="jsonEditor" spellcheck="false" class="w-full h-full p-4 font-mono text-xs sm:text-[13px] leading-relaxed bg-[#0F172A] text-slate-50 resize-none focus:outline-none selection:bg-brandPurple/40 caret-indigo-400 whitespace-pre border-none placeholder:text-neutral-500"></textarea>
-        </div>
-
-        <!-- Editor Bottom Bar -->
-        <div class="bg-neutral-50 border-t border-neutral-200 p-2.5 px-3 flex items-center justify-between text-xs">
-          <span class="text-neutral-500">Edits render in real-time</span>
-          <button id="formatJsonBtn" class="px-2.5 py-1 bg-white border border-neutral-300 rounded hover:bg-neutral-100 font-medium text-neutral-700 transition">
-            Auto-Format JSON
-          </button>
-        </div>
-      </section>
-
-      <!-- RIGHT: Real-time Rendered Diagram Preview -->
-      <section class="lg:col-span-7 flex flex-col gap-3">
+      <!-- TOP: Real-time Rendered Diagram Preview -->
+      <section class="flex flex-col gap-3">
         <!-- Diagram Outer Frame Container (Matching original aesthetic) -->
         <div id="diagramOuterContainer" class="bg-[#EEEDE7] p-3 sm:p-5 rounded-[28px] border border-[#E3E1DA] shadow-md transition-all">
-          
+
           <!-- Inner SVG Canvas Mount Point -->
           <div id="svgCanvasWrapper" class="relative bg-[#FAFAF8] rounded-[20px] border border-[#E5E4DE] overflow-hidden shadow-inner">
             <!-- Dynamically injected SVG generated from JSON -->
@@ -279,6 +255,30 @@
         </div>
       </section>
 
+      <!-- BOTTOM: JSON Configuration Editor -->
+      <section class="bg-white rounded-2xl border border-neutral-200 flex flex-col shadow-xs overflow-hidden h-[720px]">
+        <div class="bg-neutral-50 border-b border-neutral-200 px-3.5 py-2.5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold text-neutral-700 uppercase tracking-wider font-mono">diagram-config.json</span>
+          </div>
+          <span id="jsonStatus" class="text-[11px] font-mono text-emerald-600 font-medium">Valid JSON</span>
+        </div>
+
+        <!-- Textarea Editor with line wrapping disabled for pure code feel -->
+        <div class="relative flex-1 p-0 bg-[#0F172A]">
+          <textarea id="jsonEditor" spellcheck="false" class="w-full h-full p-4 font-mono text-xs sm:text-[13px] leading-relaxed bg-[#0F172A] text-slate-50 resize-none focus:outline-none selection:bg-brandPurple/40 caret-indigo-400 whitespace-pre border-none placeholder:text-neutral-500"></textarea>
+        </div>
+
+        <!-- Editor Bottom Bar -->
+        <div class="bg-neutral-50 border-t border-neutral-200 p-2.5 px-3 flex items-center justify-between text-xs">
+          <span class="text-neutral-500">Edits render in real-time</span>
+          <button id="formatJsonBtn" class="px-2.5 py-1 bg-white border border-neutral-300 rounded hover:bg-neutral-100 font-medium text-neutral-700 transition">
+            Auto-Format JSON
+          </button>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -307,6 +307,33 @@
         <div class="p-3.5 bg-neutral-50 rounded-xl border border-neutral-200">
           <span class="text-xs font-bold font-mono text-brandPurple uppercase">3. Orthogonal Connectors</span>
           <p class="text-xs text-neutral-600 mt-1">Flow paths follow strict 90-degree orthogonal routes with clean dashed strokes (`#9CA3AF`, `3.5 3.5`) and centered pill badges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Example Prompts for the Production Examples -->
+    <section class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-xs">
+      <h3 class="text-base font-bold text-neutral-900 mb-2 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brandPurple"></span>
+        Example Prompts
+      </h3>
+      <p class="text-xs text-neutral-600 mb-4">A plain-English prompt that, combined with the rules in this spec, generates each production example below (also included alongside the JSON in the downloaded .md file).</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-2.5">
+          <span class="font-bold text-neutral-800 font-sans">Enterprise MCP + Identity Broker</span>
+          <p class="text-neutral-600 font-sans leading-relaxed flex-1">"Show how an enterprise user authenticates through our corporate SSO to use an MCP client (Claude Code, ChatGPT, Gemini, or Copilot), which obtains an agent identity token from Auth0 acting as the authorization server, checks fine-grained access policies with Auth0 FGA, then calls tools and resources on our Enterprise MCP Server via the Auth0 SDK, which in turn calls our Enterprise APIs."</p>
+          <button class="example-prompt-load-btn self-start px-2.5 py-1 bg-white border border-neutral-300 rounded hover:bg-neutral-100 font-medium text-neutral-700 transition" data-preset="enterprise_mcp">Load in Studio</button>
+        </div>
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-2.5">
+          <span class="font-bold text-neutral-800 font-sans">Minimal 3-Tier Pattern</span>
+          <p class="text-neutral-600 font-sans leading-relaxed flex-1">"Diagram a simple 3-tier web app: a browser-based web application talks to an API gateway over HTTPS/JSON, which queries a PostgreSQL database over SQL."</p>
+          <button class="example-prompt-load-btn self-start px-2.5 py-1 bg-white border border-neutral-300 rounded hover:bg-neutral-100 font-medium text-neutral-700 transition" data-preset="minimal">Load in Studio</button>
+        </div>
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-2.5">
+          <span class="font-bold text-neutral-800 font-sans">Agentic AI Pipeline</span>
+          <p class="text-neutral-600 font-sans leading-relaxed flex-1">"Show an agentic AI pipeline: an engineer's prompt goes into an agent reasoning core (orchestrator), which does a RAG search against a memory group containing a vector embeddings database and a short-term scratchpad, and dispatches tool calls to a sandboxed MCP tool executor."</p>
+          <button class="example-prompt-load-btn self-start px-2.5 py-1 bg-white border border-neutral-300 rounded hover:bg-neutral-100 font-medium text-neutral-700 transition" data-preset="agentic">Load in Studio</button>
         </div>
       </div>
     </section>
@@ -349,32 +376,32 @@
               <td class="py-2 px-3">`#FFFFFF` / `#E2E2DC` (1.2px)</td>
               <td class="py-2 px-3">`rx="16"`</td>
               <td class="py-2 px-3">`soft-shadow` (dy: 2.5, stdDev: 4)</td>
-              <td class="py-2 px-3">Width: 140–180, Height: 70–85</td>
+              <td class="py-2 px-3">Width: 140–180, Height: 70–100</td>
             </tr>
             <tr>
               <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Group Boundary Container</td>
               <td class="py-2 px-3">`#F8F7FF` or `#EEF2FF` / 1.2px</td>
               <td class="py-2 px-3">`rx="18"`</td>
               <td class="py-2 px-3">None (flat tint)</td>
-              <td class="py-2 px-3">Width: 200–260, Height: 200–240</td>
+              <td class="py-2 px-3">Width: 200–260, Height: 180–240</td>
             </tr>
             <tr>
               <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Subcards inside Group</td>
               <td class="py-2 px-3">`#FFFFFF` / `#E2E2DC` (1.2px)</td>
               <td class="py-2 px-3">`rx="14"`</td>
               <td class="py-2 px-3">`soft-shadow`</td>
-              <td class="py-2 px-3">Width: 180–210, Height: 60–80</td>
+              <td class="py-2 px-3">Width: 180–220, Height: 55–80</td>
             </tr>
             <tr>
               <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Connector Line</td>
               <td class="py-2 px-3">Stroke: `#9CA3AF`, 1.3px, dash `3.5 3.5`</td>
               <td class="py-2 px-3">N/A</td>
               <td class="py-2 px-3">N/A</td>
-              <td class="py-2 px-3">Dashed orthogonal path</td>
+              <td class="py-2 px-3">Dashed orthogonal path, or anchor-based (see routing guide below)</td>
             </tr>
             <tr>
               <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Badge Pill Overlay</td>
-              <td class="py-2 px-3">Fill: `#FAFAF8`, Stroke: none</td>
+              <td class="py-2 px-3">Fill: inherits `theme.canvasBg`, Stroke: none</td>
               <td class="py-2 px-3">`rx="4"`</td>
               <td class="py-2 px-3">Masks path behind text</td>
               <td class="py-2 px-3">Padding 4px around text</td>
@@ -403,8 +430,8 @@
   nodes: DiagramNode[];
   connectors: DiagramConnector[];
   footer?: {
-    text: string;
-    tags?: string[];
+    text: string; // renders as a caption strip BELOW the SVG canvas, not inside it
+    tags?: string[]; // renders as individual pill badges, not inline text
   };
 }
 
@@ -461,7 +488,7 @@ interface CardNode {
 
   // Optional Client Icon Chips (as used in MCP Client)
   chips?: Array<{
-    title: string;
+    title: string; // renders ONLY as a hover tooltip (SVG &lt;title&gt;), never visible canvas text
     iconUrl: string;
     x: number;
     y: number;
@@ -490,18 +517,22 @@ interface GroupNode {
 
 interface DiagramConnector {
   id: string;
-  path: string; // SVG path string e.g. "M 190 72 L 318 72"
+  path?: string; // SVG path string, e.g. "M 190 72 L 318 72". Omit when using from/to anchors below.
+  from?: string; // source node (or group-child) id — anchor-based connector
+  fromSide?: "top" | "bottom" | "left" | "right"; // default: "right"
+  to?: string; // target node (or group-child) id
+  toSide?: "top" | "bottom" | "left" | "right"; // default: "left"
   stroke?: string; // default: "#9CA3AF"
   strokeWidth?: number; // default: 1.3
   dash?: string; // default: "3.5 3.5"
-  animated?: boolean;
-  markerEnd?: string; // default: "url(#arrow)"
+  animated?: boolean; // permanent dash-travel animation on this connector only
+  markerEnd?: string; // default: "url(#arrow)"; use "url(#arrow-active)" to emphasize one flow
   badge?: {
-    x: number;
-    y: number;
+    x?: number; // required if using `path`; optional (auto-computed midpoint) if using from/to
+    y?: number; // required if using `path`; optional (auto-computed midpoint) if using from/to
     width?: number;
     height?: number;
-    bg?: string; // default: matches canvas "#FAFAF8"
+    bg?: string; // default: inherits meta.theme.canvasBg (falls back to "#FAFAF8")
     lines: Array<{
       text: string;
       color?: string;
@@ -519,7 +550,7 @@ interface DiagramConnector {
         How to Route Connectors &amp; Place Badges
       </h3>
       <p class="text-xs text-neutral-600 leading-relaxed mb-4">
-        Connectors use standard SVG path `d` strings. To maintain the crisp architectural look, avoid arbitrary diagonals. Always use <strong>straight lines</strong> or <strong>right-angle orthogonal turns</strong>.
+        Prefer anchor-based connectors — <code class="font-mono text-brandPurple">{"from":"nodeId","fromSide":"right","to":"nodeId","toSide":"left"}</code> — and let the engine compute the path and badge midpoint. Raw <code class="font-mono">path</code> strings remain available for multi-bend "runway" routes that need to dodge other nodes. Either way, keep to <strong>straight lines</strong> or <strong>right-angle orthogonal turns</strong> — no arbitrary diagonals.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
@@ -537,6 +568,23 @@ interface DiagramConnector {
           <code class="text-brandPurple font-semibold">"M {x1} {y1} L {x2} {y1} L {x2} {y2}"</code>
           <p class="text-neutral-500 mt-2 font-sans">
             Moves horizontally from $(x1, y1)$ to corner $(x2, y1)$, then vertically down to target $(x2, y2)$.
+          </p>
+        </div>
+
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+          <p class="font-bold text-neutral-800 mb-2 font-sans">3. U-Shaped Runway</p>
+          <code class="text-brandPurple font-semibold">"M {x1} {y1} L {x1} {yC} L {x2} {yC} L {x2} {y2}"</code>
+          <p class="text-neutral-500 mt-2 font-sans">
+            Badge centered on the horizontal runway:
+            $$x = \frac{x1 + x2}{2}, \quad y = yC$$
+          </p>
+        </div>
+
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+          <p class="font-bold text-neutral-800 mb-2 font-sans">4. Anchor-Based (Recommended)</p>
+          <code class="text-brandPurple font-semibold">{ from, fromSide, to, toSide }</code>
+          <p class="text-neutral-500 mt-2 font-sans">
+            The engine resolves both nodes' bounding boxes, finds the edge midpoints, and auto-routes a straight line or single bend — with the badge midpoint computed to match. No manual pixel math.
           </p>
         </div>
       </div>
@@ -784,6 +832,7 @@ interface DiagramConnector {
         {
           "id": "path-auth-mcp",
           "path": "M 390 110 L 390 156",
+          "markerEnd": "url(#arrow-active)",
           "badge": {
             "x": 390,
             "y": 133,
@@ -889,17 +938,19 @@ interface DiagramConnector {
       "connectors": [
         {
           "id": "c1",
-          "path": "M 210 150 L 320 150",
+          "from": "user-node", "fromSide": "right",
+          "to": "gateway-node", "toSide": "left",
           "badge": {
-            "x": 265, "y": 150, "width": 70, "height": 18,
+            "width": 70, "height": 18,
             "lines": [{ "text": "HTTPS / JSON", "color": "#6B7280", "size": 9 }]
           }
         },
         {
           "id": "c2",
-          "path": "M 480 150 L 590 150",
+          "from": "gateway-node", "fromSide": "right",
+          "to": "db-node", "toSide": "left",
           "badge": {
-            "x": 535, "y": 150, "width": 64, "height": 18,
+            "width": 64, "height": 18,
             "lines": [{ "text": "SQL QUERY", "color": "#6B7280", "size": 9 }]
           }
         }
@@ -1000,10 +1051,138 @@ interface DiagramConnector {
     // SVG RENDERING ENGINE
     // -----------------------------------------------------------------------
 
+    // Escapes text before it is interpolated into SVG markup that gets
+    // injected via innerHTML, since config JSON may come from an untrusted file.
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Measures real rendered text width via Canvas 2D (same font the SVG uses), so
+    // card/group boxes can be sized to fit their text instead of guessing. Works without
+    // inserting anything into the DOM, so it's safe to call while just building an SVG string.
+    let _measureCanvasCtx = null;
+    function measureTextWidth(text, fontSize, fontWeight) {
+      if (!_measureCanvasCtx) _measureCanvasCtx = document.createElement('canvas').getContext('2d');
+      _measureCanvasCtx.font = `${fontWeight || 700} ${fontSize}px Inter, system-ui, sans-serif`;
+      return _measureCanvasCtx.measureText(String(text)).width;
+    }
+
+    // A node's declared width is a MINIMUM, never a clip boundary — same principle as
+    // badge sizing. Measures category/title/subtitle against the declared width and
+    // returns the width actually needed to fit all of them without overflow.
+    function computeFittedCardWidth(node) {
+      const SIDE_PAD = 18; // matches the left-aligned text inset used in renderCard
+      const CENTER_PAD = 14;
+      let required = node.width || 0;
+
+      if (node.category) {
+        const w = measureTextWidth(node.category.text, node.category.size || 10, node.category.weight || 700);
+        required = Math.max(required, w + SIDE_PAD * 2);
+      }
+      if (node.title) {
+        const w = measureTextWidth(node.title.text, node.title.size || 14, node.title.weight || 700);
+        required = Math.max(required, w + (node.title.align === 'center' ? CENTER_PAD * 2 : SIDE_PAD * 2));
+      }
+      if (node.subtitle) {
+        const w = measureTextWidth(node.subtitle.text, node.subtitle.size || 9, 500);
+        required = Math.max(required, w + CENTER_PAD * 2);
+      }
+      return required;
+    }
+
+    // Builds { nodeId: fittedWidth } for every top-level node/group and every group
+    // child, growing anything whose declared width is too small for its own text.
+    function computeFittedWidths(nodes) {
+      const fitted = {};
+      (nodes || []).forEach(node => {
+        if (node.type === 'group') {
+          const headerW = node.header ? measureTextWidth(node.header.text, node.header.size || 10.5, 700) + 28 * 2 : 0;
+          fitted[node.id] = Math.max(node.width || 0, headerW);
+          if (Array.isArray(node.children)) {
+            node.children.forEach(child => { fitted[child.id] = computeFittedCardWidth(child); });
+          }
+        } else {
+          fitted[node.id] = computeFittedCardWidth(node);
+        }
+      });
+      return fitted;
+    }
+
+    // Flat id -> {x,y,width,height} lookup, used by anchor-based connectors.
+    // Includes group containers themselves as well as their children. `fittedWidths`
+    // (from computeFittedWidths) overrides each node's declared width with the real,
+    // text-fitted width so anchor math lines up with what actually gets drawn.
+    function buildNodeMap(nodes, fittedWidths) {
+      const map = {};
+      (nodes || []).forEach(node => {
+        map[node.id] = { x: node.x, y: node.y, width: fittedWidths?.[node.id] ?? node.width, height: node.height };
+        if (node.type === 'group' && Array.isArray(node.children)) {
+          node.children.forEach(child => {
+            map[child.id] = { x: child.x, y: child.y, width: fittedWidths?.[child.id] ?? child.width, height: child.height };
+          });
+        }
+      });
+      return map;
+    }
+
+    // Point on the midpoint of a node's given edge ("top" | "bottom" | "left" | "right").
+    function getAnchorPoint(node, side) {
+      switch (side) {
+        case 'top': return { x: node.x + node.width / 2, y: node.y };
+        case 'bottom': return { x: node.x + node.width / 2, y: node.y + node.height };
+        case 'left': return { x: node.x, y: node.y + node.height / 2 };
+        default: return { x: node.x + node.width, y: node.y + node.height / 2 };
+      }
+    }
+
+    // Builds a straight or single-bend orthogonal path between two anchor points.
+    // Returns { path, mid } where `mid` is the conventional badge midpoint for that shape.
+    function buildOrthogonalPath(p1, fromSide, p2) {
+      if (p1.y === p2.y) {
+        return { path: `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`, mid: { x: (p1.x + p2.x) / 2, y: p1.y } };
+      }
+      if (p1.x === p2.x) {
+        return { path: `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`, mid: { x: p1.x, y: (p1.y + p2.y) / 2 } };
+      }
+      const exitsVertically = fromSide === 'top' || fromSide === 'bottom';
+      if (exitsVertically) {
+        return {
+          path: `M ${p1.x} ${p1.y} L ${p1.x} ${p2.y} L ${p2.x} ${p2.y}`,
+          mid: { x: p1.x, y: (p1.y + p2.y) / 2 }
+        };
+      }
+      return {
+        path: `M ${p1.x} ${p1.y} L ${p2.x} ${p1.y} L ${p2.x} ${p2.y}`,
+        mid: { x: (p1.x + p2.x) / 2, y: p1.y }
+      };
+    }
+
+    // Resolves a connector's `d` path string and default badge midpoint, supporting
+    // both the legacy raw `path` string and the anchor-based {from, fromSide, to, toSide} form.
+    function resolveConnectorGeometry(nodeMap, c) {
+      if (c.path) return { path: c.path, mid: null };
+      const fromNode = nodeMap[c.from];
+      const toNode = nodeMap[c.to];
+      if (!fromNode || !toNode) {
+        console.error(`Connector "${c.id}" references an unknown node id (from: ${c.from}, to: ${c.to})`);
+        return { path: '', mid: null };
+      }
+      const p1 = getAnchorPoint(fromNode, c.fromSide || 'right');
+      const p2 = getAnchorPoint(toNode, c.toSide || 'left');
+      return buildOrthogonalPath(p1, c.fromSide || 'right', p2);
+    }
+
     function renderDiagramSVG(config, showCoords = false) {
       const vb = config.meta?.viewBox || { width: 1000, height: 460 };
       const grid = config.meta?.grid || { size: 20, color: "#E6E5DE", dash: "2.5 2.5", opacity: 0.85 };
       const theme = config.meta?.theme || { canvasBg: "#FAFAF8" };
+      const fittedWidths = computeFittedWidths(config.nodes);
+      const nodeMap = buildNodeMap(config.nodes, fittedWidths);
 
       let svg = `
       <svg id="architectureSvg" viewBox="0 0 ${vb.width} ${vb.height}" class="w-full h-auto select-none block" xmlns="http://www.w3.org/2000/svg">
@@ -1031,17 +1210,25 @@ interface DiagramConnector {
         <rect width="${vb.width}" height="${vb.height}" fill="url(#diagram-grid)"/>
       `;
 
-      // Helper for rendering a single card node
-      function renderCard(node) {
+      // Helper for rendering a single card node. `fittedWidth` is the real,
+      // text-measured width (>= node.width, see computeFittedWidths) — the rect and
+      // all centered/right-anchored elements use it instead of the raw JSON width so
+      // the box actually grows to fit its text rather than clipping it.
+      function renderCard(node, fittedWidth) {
+        const width = Math.max(fittedWidth || 0, node.width);
         const rx = node.rx || 16;
         const fill = node.fill || '#FFFFFF';
         const stroke = node.stroke || '#E2E2DC';
         const strokeW = node.strokeWidth || 1.2;
         const shadowAttr = fill === '#FFFFFF' ? 'filter="url(#soft-shadow)"' : '';
 
+        if (width > node.width + 0.5) {
+          console.warn(`Node "${node.id}" declared width ${node.width}px is too small for its text — auto-grown to ${Math.ceil(width)}px to avoid clipping. Widen it in the JSON to stop relying on this.`);
+        }
+
         let content = `
         <g id="${node.id}" class="diagram-node" data-node="${node.id}">
-          <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}" ${shadowAttr}/>
+          <rect x="${node.x}" y="${node.y}" width="${width}" height="${node.height}" rx="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}" ${shadowAttr}/>
         `;
 
         // Category Eyebrow
@@ -1049,7 +1236,7 @@ interface DiagramConnector {
           const color = node.category.color || '#635BFF';
           const size = node.category.size || 10;
           const weight = node.category.weight || 700;
-          content += `<text x="${node.x + 18}" y="${node.y + 22}" fill="${color}" font-size="${size}" font-weight="${weight}" letter-spacing="0.08em">${node.category.text}</text>`;
+          content += `<text x="${node.x + 18}" y="${node.y + 22}" fill="${color}" font-size="${size}" font-weight="${weight}" letter-spacing="0.08em">${escapeHtml(node.category.text)}</text>`;
         }
 
         // Title
@@ -1061,10 +1248,10 @@ interface DiagramConnector {
 
           if (align === 'center') {
             const centerY = node.category ? node.y + (node.height / 2) + 8 : node.y + (node.height / 2) + 5;
-            content += `<text x="${node.x + node.width / 2}" y="${centerY}" fill="${color}" font-size="${size}" font-weight="${weight}" text-anchor="middle">${node.title.text}</text>`;
+            content += `<text x="${node.x + width / 2}" y="${centerY}" fill="${color}" font-size="${size}" font-weight="${weight}" text-anchor="middle">${escapeHtml(node.title.text)}</text>`;
           } else {
             const textY = node.category ? node.y + 48 : node.y + (node.height / 2) + 5;
-            content += `<text x="${node.x + 18}" y="${textY}" fill="${color}" font-size="${size}" font-weight="${weight}">${node.title.text}</text>`;
+            content += `<text x="${node.x + 18}" y="${textY}" fill="${color}" font-size="${size}" font-weight="${weight}">${escapeHtml(node.title.text)}</text>`;
           }
         }
 
@@ -1073,19 +1260,24 @@ interface DiagramConnector {
           const color = node.subtitle.color || '#6B7280';
           const size = node.subtitle.size || 9;
           const subY = node.subtitle.y || (node.y + node.height - 14);
-          content += `<text x="${node.x + node.width / 2}" y="${subY}" fill="${color}" font-size="${size}" font-weight="500" text-anchor="middle">${node.subtitle.text}</text>`;
+          content += `<text x="${node.x + width / 2}" y="${subY}" fill="${color}" font-size="${size}" font-weight="500" text-anchor="middle">${escapeHtml(node.subtitle.text)}</text>`;
         }
 
-        // Logo (Image or SVG Path)
+        // Logo (Image or SVG Path). If the logo was placed near the card's original
+        // right edge, shift it by the same amount the box grew so it stays glued there.
         if (node.logo) {
+          const growth = width - node.width;
+          const isRightAnchored = growth > 0 && (node.logo.x + node.logo.width) >= (node.x + node.width - 20);
+          const logoX = isRightAnchored ? node.logo.x + growth : node.logo.x;
+
           if (node.logo.type === 'svg-path') {
             content += `
-            <svg x="${node.logo.x}" y="${node.logo.y}" width="${node.logo.width}" height="${node.logo.height}" viewBox="${node.logo.viewBox || '0 0 100 100'}" preserveAspectRatio="xMidYMid meet">
+            <svg x="${logoX}" y="${node.logo.y}" width="${node.logo.width}" height="${node.logo.height}" viewBox="${node.logo.viewBox || '0 0 100 100'}" preserveAspectRatio="xMidYMid meet">
               <path d="${node.logo.path}" fill="${node.logo.fill || '#003059'}"/>
             </svg>`;
           } else if (node.logo.type === 'image') {
             content += `
-            <image href="${node.logo.url}" xlink:href="${node.logo.url}" x="${node.logo.x}" y="${node.logo.y}" width="${node.logo.width}" height="${node.logo.height}" preserveAspectRatio="xMidYMid meet"/>
+            <image href="${node.logo.url}" xlink:href="${node.logo.url}" x="${logoX}" y="${node.logo.y}" width="${node.logo.width}" height="${node.logo.height}" preserveAspectRatio="xMidYMid meet"/>
             `;
           }
         }
@@ -1099,7 +1291,7 @@ interface DiagramConnector {
             <g class="client-chip">
               <rect x="${chip.x}" y="${chip.y}" width="${chipW}" height="${chipH}" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="0.9"/>
               <image href="${chip.iconUrl}" xlink:href="${chip.iconUrl}" x="${chip.x + 5}" y="${chip.y + 5}" width="${chipW - 10}" height="${chipH - 10}" preserveAspectRatio="xMidYMid meet"/>
-              <title>${chip.title}</title>
+              <title>${escapeHtml(chip.title)}</title>
             </g>`;
           });
         }
@@ -1117,30 +1309,36 @@ interface DiagramConnector {
           const dash = c.dash || '3.5 3.5';
           const marker = c.markerEnd || 'url(#arrow)';
           const animClass = c.animated ? 'animated-flow' : '';
+          const geometry = resolveConnectorGeometry(nodeMap, c);
 
           svg += `
           <g id="${c.id}" class="flow-group">
-            <path class="flow-line ${animClass}" d="${c.path}" fill="none" stroke="${stroke}" stroke-width="${strokeW}" stroke-dasharray="${dash}" marker-end="${marker}"/>
+            <path class="flow-line ${animClass}" d="${geometry.path}" fill="none" stroke="${stroke}" stroke-width="${strokeW}" stroke-dasharray="${dash}" marker-end="${marker}"/>
           `;
 
           if (c.badge) {
-            const b = c.badge;
+            const b = { ...geometry.mid, ...c.badge };
             const lines = b.lines || [];
             const bW = b.width || 80;
             const bH = b.height || (lines.length > 1 ? 28 : 18);
             const bgFill = b.bg || theme.canvasBg || '#FAFAF8';
 
-            svg += `<rect x="${b.x - bW / 2}" y="${b.y - bH / 2}" width="${bW}" height="${bH}" fill="${bgFill}" rx="4"/>`;
+            // Wrapped + annotated with the declared center/size so fitBadgeBoxes() can
+            // grow the rect to fit the ACTUAL rendered text after this is in the live DOM.
+            // The declared width/height below is a minimum, never a clip boundary.
+            svg += `<g class="connector-badge" data-cx="${b.x}" data-cy="${b.y}" data-declared-w="${bW}" data-declared-h="${bH}">`;
+            svg += `<rect class="badge-bg" x="${b.x - bW / 2}" y="${b.y - bH / 2}" width="${bW}" height="${bH}" fill="${bgFill}" rx="4"/>`;
 
             if (lines.length === 1) {
               const l = lines[0];
-              svg += `<text x="${b.x}" y="${b.y + 3.5}" fill="${l.color || '#6B7280'}" font-size="${l.size || 9}" font-weight="${l.weight || 600}" letter-spacing="0.04em" text-anchor="middle">${l.text}</text>`;
+              svg += `<text class="badge-text" x="${b.x}" y="${b.y + 3.5}" fill="${l.color || '#6B7280'}" font-size="${l.size || 9}" font-weight="${l.weight || 600}" letter-spacing="0.04em" text-anchor="middle">${escapeHtml(l.text)}</text>`;
             } else {
               lines.forEach((l, idx) => {
                 const lineY = b.y - bH / 2 + 11 + (idx * 11);
-                svg += `<text x="${b.x}" y="${lineY}" fill="${l.color || '#6B7280'}" font-size="${l.size || 8}" font-weight="${l.weight || 700}" letter-spacing="0.03em" text-anchor="middle">${l.text}</text>`;
+                svg += `<text class="badge-text" x="${b.x}" y="${lineY}" fill="${l.color || '#6B7280'}" font-size="${l.size || 8}" font-weight="${l.weight || 700}" letter-spacing="0.03em" text-anchor="middle">${escapeHtml(l.text)}</text>`;
               });
             }
+            svg += `</g>`;
           }
 
           svg += `</g>`;
@@ -1154,19 +1352,20 @@ interface DiagramConnector {
         config.nodes.forEach(node => {
           if (node.type === 'group') {
             const rx = node.rx || 18;
+            const groupWidth = Math.max(fittedWidths[node.id] || 0, node.width);
             svg += `
             <g id="${node.id}" class="diagram-node" data-node="${node.id}">
-              <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="${rx}" fill="${node.fill}" stroke="${node.stroke || '#E2E2DC'}" stroke-width="1.2"/>
-              <text x="${node.x + node.width / 2}" y="${node.y + 26}" fill="${node.header?.color || '#1E293B'}" font-size="${node.header?.size || 10.5}" font-weight="700" letter-spacing="0.06em" text-anchor="middle">${node.header?.text || ''}</text>
+              <rect x="${node.x}" y="${node.y}" width="${groupWidth}" height="${node.height}" rx="${rx}" fill="${node.fill}" stroke="${node.stroke || '#E2E2DC'}" stroke-width="1.2"/>
+              <text x="${node.x + groupWidth / 2}" y="${node.y + 26}" fill="${node.header?.color || '#1E293B'}" font-size="${node.header?.size || 10.5}" font-weight="700" letter-spacing="0.06em" text-anchor="middle">${escapeHtml(node.header?.text || '')}</text>
             `;
             if (Array.isArray(node.children)) {
               node.children.forEach(child => {
-                svg += renderCard(child);
+                svg += renderCard(child, fittedWidths[child.id]);
               });
             }
             svg += `</g>`;
           } else {
-            svg += renderCard(node);
+            svg += renderCard(node, fittedWidths[node.id]);
           }
         });
       }
@@ -1245,9 +1444,52 @@ interface DiagramConnector {
     }
 
     // Render Pipeline
+    // Grows each badge's background rect to fit its ACTUAL rendered text, measured
+    // live in the DOM via getComputedTextLength() — the JSON-declared width/height is
+    // only a minimum, never a clip boundary, so text can never be silently truncated.
+    // Must run after the SVG has been inserted into the document (text layout requires it).
+    function fitBadgeBoxes(svgRoot) {
+      const PAD_X = 12; // px of horizontal padding on each side of the longest line
+      const LINE_HEIGHT = 11; // matches the per-line y-offset used when rendering multi-line badges
+      const VPAD = 8;
+
+      svgRoot.querySelectorAll('g.connector-badge').forEach(g => {
+        const rect = g.querySelector('rect.badge-bg');
+        const texts = Array.from(g.querySelectorAll('text.badge-text'));
+        if (!rect || texts.length === 0) return;
+
+        const cx = parseFloat(g.getAttribute('data-cx'));
+        const cy = parseFloat(g.getAttribute('data-cy'));
+        const declaredW = parseFloat(g.getAttribute('data-declared-w')) || 0;
+        const declaredH = parseFloat(g.getAttribute('data-declared-h')) || 0;
+
+        let maxTextWidth = 0;
+        texts.forEach(t => {
+          try {
+            maxTextWidth = Math.max(maxTextWidth, t.getComputedTextLength());
+          } catch (e) { /* text not measurable (e.g. detached/hidden) — fall back to declared size */ }
+        });
+
+        const requiredW = maxTextWidth > 0 ? maxTextWidth + PAD_X * 2 : declaredW;
+        const requiredH = Math.max(declaredH, texts.length * LINE_HEIGHT + VPAD);
+        const finalW = Math.max(declaredW, requiredW);
+        const finalH = Math.max(declaredH, requiredH);
+
+        if (requiredW > declaredW + 0.5 || requiredH > declaredH + 0.5) {
+          console.warn(`Badge "${texts[0].textContent}" declared box (${declaredW}x${declaredH}) is too small for its rendered text (needs ~${Math.ceil(requiredW)}x${Math.ceil(requiredH)}) — auto-grown to fit. Raise the generator's text-width formula project-wide if this happens often.`);
+        }
+
+        rect.setAttribute('x', cx - finalW / 2);
+        rect.setAttribute('y', cy - finalH / 2);
+        rect.setAttribute('width', finalW);
+        rect.setAttribute('height', finalH);
+      });
+    }
+
     function refreshDiagram() {
       try {
         svgMountPoint.innerHTML = renderDiagramSVG(currentConfig, showCoordinates);
+        fitBadgeBoxes(svgMountPoint);
 
         // Update footer text and tags
         if (currentConfig.footer) {
@@ -1714,14 +1956,24 @@ The diagrams generated by this framework follow a blueprint-style aesthetic desi
 
 | Component | Dimensions / Coordinates | Colors / Styles | Corner Radius |
 | :--- | :--- | :--- | :--- |
-| **Canvas ViewBox** | \`1000 x 460\` (recommended default) | Background: \`#FAFAF8\` | \`rx="20"\` |
+| **Canvas ViewBox** | \`1000 x 460\` (recommended default; see §8 for other sizes) | Background: \`#FAFAF8\` | \`rx="20"\` |
 | **Grid Pattern** | \`20px x 20px\` squares | Stroke: \`#E6E5DE\`, dash: \`2.5 2.5\` | N/A |
 | **Outer Border Frame** | Relative padding: \`20px\` | Fill: \`#EEEDE7\`, border: \`#E3E1DA\` | \`rx="28"\` |
-| **Individual Node** | \`width: 140–180\`, \`height: 70–85\` | Fill: \`#FFFFFF\`, stroke: \`#E2E2DC\` | \`rx="16"\` |
-| **Boundary Group** | \`width: 200–260\`, \`height: 200–240\` | Tint: \`#F8F7FF\` (purple) / \`#EEF2FF\` (blue) | \`rx="18"\` |
-| **Nested Subcards** | \`width: 180–210\`, \`height: 60–80\` | Fill: \`#FFFFFF\`, stroke: \`#E2E2DC\` | \`rx="14"\` |
-| **Connectors** | Path strings (\`M x y L x y\`) | Stroke: \`#9CA3AF\`, \`1.3px\`, dash: \`3.5 3.5\` | N/A |
-| **Connector Badges** | Centered over path segment | Fill: \`#FAFAF8\` (matches canvas), border: none | \`rx="4"\` |
+| **Individual Node** | \`width: 140–180\`, \`height: 70–100\` | Fill: \`#FFFFFF\`, stroke: \`#E2E2DC\` | \`rx="16"\` |
+| **Boundary Group** | \`width: 200–260\`, \`height: 180–240\` | Tint: \`#F8F7FF\` (purple) / \`#EEF2FF\` (blue) | \`rx="18"\` |
+| **Nested Subcards** | \`width: 180–220\`, \`height: 55–80\` | Fill: \`#FFFFFF\`, stroke: \`#E2E2DC\` | \`rx="14"\` |
+| **Connectors** | Path strings (\`M x y L x y\`) or anchor refs (§6) | Stroke: \`#9CA3AF\`, \`1.3px\`, dash: \`3.5 3.5\` | N/A |
+| **Connector Badges** | Centered over path segment | Fill: inherits \`meta.theme.canvasBg\` (falls back to \`#FAFAF8\`), border: none | \`rx="4"\` |
+
+These ranges are *typical*, not hard limits — they describe the three production examples in §13. Going outside them won't break rendering, but it will look inconsistent with the rest of the system.
+
+### Arrowhead Policy
+
+Every connector gets an arrowhead by default (\`marker-end: url(#arrow)\`, gray \`#94A3B8\`) — there is no "no arrows" mode. To call out one connector as the primary or most security-critical flow in a diagram, set \`"markerEnd": "url(#arrow-active)"\` on that connector only; it renders a purple (\`#635BFF\`) arrowhead instead. Use this sparingly — one emphasized flow per diagram at most. See \`path-auth-mcp\` in the Enterprise MCP example (§13).
+
+### Animated Connectors
+
+\`connector.animated: true\` makes that specific connector's dash pattern permanently travel (\`.animated-flow\` CSS class, \`dashTravel\` keyframe) — use it to call out a single live/streaming/real-time flow. This is independent of the Studio's global "Animate Connectors" toggle, which temporarily animates *every* connector at once for presentation purposes.
 
 ---
 
@@ -1734,7 +1986,7 @@ export interface DiagramConfig {
   meta: {
     title: string;
     description: string;
-    viewBox: { width: number; height: number };
+    viewBox: { width: number; height: number }; // see §8 for sizing guidance
     grid?: {
       size: number;
       color: string;
@@ -1743,14 +1995,14 @@ export interface DiagramConfig {
     };
     theme?: {
       outerBg?: string;
-      canvasBg?: string;
+      canvasBg?: string; // also used as the default connector-badge background
     };
   };
   nodes: (CardNode | GroupNode)[];
   connectors: DiagramConnector[];
   footer?: {
-    text: string;
-    tags?: string[];
+    text: string; // rendered as a caption line BELOW the SVG canvas, not inside it
+    tags?: string[]; // rendered as individual pill badges, not inline text
   };
 }
 
@@ -1795,7 +2047,7 @@ export interface CardNode {
     height: number;
   };
   chips?: Array<{
-    title: string;
+    title: string; // renders ONLY as a hover tooltip (SVG <title>) — never visible canvas text
     iconUrl: string;
     x: number;
     y: number;
@@ -1824,18 +2076,22 @@ export interface GroupNode {
 
 export interface DiagramConnector {
   id: string;
-  path: string; // SVG path d-string
-  stroke?: string;
-  strokeWidth?: number;
-  dash?: string;
-  animated?: boolean;
-  markerEnd?: string;
+  path?: string; // Raw SVG path d-string. Omit when using from/to anchors below.
+  from?: string; // Source node (or group-child) id — anchor-based connector, see §6.1
+  fromSide?: 'top' | 'bottom' | 'left' | 'right'; // default: 'right'
+  to?: string; // Target node (or group-child) id
+  toSide?: 'top' | 'bottom' | 'left' | 'right'; // default: 'left'
+  stroke?: string; // default: "#9CA3AF"
+  strokeWidth?: number; // default: 1.3
+  dash?: string; // default: "3.5 3.5"
+  animated?: boolean; // permanent dash-travel animation on this connector only
+  markerEnd?: string; // default: "url(#arrow)"; use "url(#arrow-active)" to emphasize one flow
   badge?: {
-    x: number;
-    y: number;
+    x?: number; // required if using \`path\`; optional if using from/to (auto-computed midpoint)
+    y?: number; // required if using \`path\`; optional if using from/to (auto-computed midpoint)
     width?: number;
     height?: number;
-    bg?: string;
+    bg?: string; // default: inherits meta.theme.canvasBg (falls back to "#FAFAF8")
     lines: Array<{
       text: string;
       color?: string;
@@ -1846,40 +2102,279 @@ export interface DiagramConnector {
 }
 \`\`\`
 
+Provide **either** \`path\` **or** \`from\`/\`to\` (+ optional \`fromSide\`/\`toSide\`) on a connector — not both. If \`path\` is present it always wins.
+
 ---
 
-## 3. How the Engine Renders Values into SVG
+## 3. Component Catalog — Recommended Defaults
+
+Use these as starting points for common node and group types instead of inventing dimensions from scratch each time. Colors come from the Semantic Color Palette in §11.
+
+| Type | Shape | Width × Height | Category Color | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| User / Actor | card | 150 × 75 | \`#635BFF\` (AI/Agent purple — shared with human actors) | e.g. category text "USER" |
+| Service | card | 170 × 80 | \`#1E293B\` (Network/Infra slate) | generic backend service |
+| Database | card | 160 × 80 | \`#10B981\` (Data green) | |
+| Gateway | card | 160 × 80 | \`#1E293B\` (Network/Infra slate) | API gateway / reverse proxy |
+| Identity Provider | card | 170 × 90 | \`#0066FF\` (Identity/Auth blue) | usually include a \`subtitle\` naming the protocol |
+| Group — Small | group | 200 × 180 | — | 1–2 children |
+| Group — Medium | group | 230 × 210 | — | 2–3 children |
+| Group — Large | group | 260 × 240 | — | 3+ children |
+
+---
+
+## 4. Icon Catalog (Auth0 Identicons)
+
+All generic node icons must come from [identicons.dev](https://identicons.dev). Each entry has a \`color\` (mono) variant and a \`gray\` variant. This catalog is the **single source of truth** for icon lookups — match a node's concept to the closest entry by name (case-insensitive, fuzzy on whitespace) rather than inventing an icon URL from another source, and respect each entry's \`usage_notes\`.
+
+**How to apply an icon:** assign the chosen URL to the existing \`logo\` field (\`{ "type": "image", "url": "<color or gray URL>", x, y, width, height }\`) for a node-level icon, or to \`chips[].iconUrl\` for an inline chip icon. A typical node icon is \`20×20\`–\`28×28\`, placed near the top-left of the card (e.g. \`x: node.x + 14, y: node.y + 14\`) unless a \`category\` eyebrow already occupies that corner, in which case place the icon as a chip instead.
+
+**Color vs. gray:** default to the \`gray\` variant whenever \`usage_notes\` calls out an inactive, legacy, or unauthenticated state, unless the diagram's own context says otherwise (e.g. a "before login" step should stay gray even if the catalog default would be mono).
+
+**Exception:** if a node already has an official, specific product brand logo defined elsewhere in the diagram (e.g. the Auth0 shield lockup, an Auth0 FGA lockup), keep that existing logo — never replace it with a generic identicon.
+
+\`\`\`json
+{
+  "icon_catalog": [
+    { "name": "Access Token", "slug": "icon-access-token", "color": "https://identicons.dev/identicons/mono/svg/icon-access-token.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-access-token.svg", "usage_notes": "Represents an OAuth access token object; typically shown as a small inline icon on a connector badge rather than a full node." },
+    { "name": "Account Takeover", "slug": "icon-account-takeover", "color": "https://identicons.dev/identicons/mono/svg/icon-account-takeover.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-account-takeover.svg", "usage_notes": "Threat-model/security diagrams only; denotes an ATO attack vector or risk callout." },
+    { "name": "Actions", "slug": "icon-actions", "color": "https://identicons.dev/identicons/mono/svg/icon-actions.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-actions.svg", "usage_notes": "Use for Auth0 Actions / extensibility pipeline steps." },
+    { "name": "Activity", "slug": "icon-activity", "color": "https://identicons.dev/identicons/mono/svg/icon-activity.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-activity.svg", "usage_notes": "Use for activity feeds or event-stream nodes in monitoring diagrams." },
+    { "name": "Advanced Options", "slug": "icon-advanced-options", "color": "https://identicons.dev/identicons/mono/svg/icon-advanced-options.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-advanced-options.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Anticipation", "slug": "icon-anticipation", "color": "https://identicons.dev/identicons/mono/svg/icon-anticipation.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-anticipation.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "API", "slug": "icon-api", "color": "https://identicons.dev/identicons/mono/svg/icon-api.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-api.svg", "usage_notes": "Default icon for any generic API node." },
+    { "name": "API Related", "slug": "icon-api-related", "color": "https://identicons.dev/identicons/mono/svg/icon-api-related.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-api-related.svg", "usage_notes": "Alternate API icon; use when the primary API icon is already used elsewhere in the same diagram." },
+    { "name": "Applications", "slug": "icon-applications", "color": "https://identicons.dev/identicons/mono/svg/icon-applications.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-applications.svg", "usage_notes": "Generic multi-application node. Use gray for not-yet-authenticated/inactive app state, mono once authenticated or active." },
+    { "name": "Attributes", "slug": "icon-attributes", "color": "https://identicons.dev/identicons/mono/svg/icon-attributes.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-attributes.svg", "usage_notes": "Use for user/profile attribute data nodes." },
+    { "name": "Auth0 Authorization Server", "slug": "icon-auth0-authorization-server", "color": "https://identicons.dev/identicons/mono/svg/icon-auth0-authorization-server.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-auth0-authorization-server.svg", "usage_notes": "Use specifically when the node is Auth0 acting as the OAuth authorization server. Gray if inactive/not-yet-reached in the flow, mono once active." },
+    { "name": "Auth0 Dashboard", "slug": "icon-auth0-dashboard", "color": "https://identicons.dev/identicons/mono/svg/icon-auth0-dashboard.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-auth0-dashboard.svg", "usage_notes": "Use for Auth0 admin/dashboard configuration nodes, not the runtime auth flow itself." },
+    { "name": "Auth0 Logo Dark", "slug": "icon-auth0-logo-dark", "color": "https://identicons.dev/identicons/mono/svg/icon-auth0-logo-dark.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-auth0-logo-dark.svg", "usage_notes": "Generic Auth0 brand mark for light backgrounds. Only use when no other official Auth0 logo asset is already defined for that node." },
+    { "name": "Auth0 Logo Light", "slug": "icon-auth0-logo-light", "color": "https://identicons.dev/identicons/mono/svg/icon-auth0-logo-light.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-auth0-logo-light.svg", "usage_notes": "Generic Auth0 brand mark for dark backgrounds. Only use when no other official Auth0 logo asset is already defined for that node." },
+    { "name": "Authentication A", "slug": "icon-authentication-a", "color": "https://identicons.dev/identicons/mono/svg/icon-authentication-a.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-authentication-a.svg", "usage_notes": "Generic authentication-step icon. If a diagram needs two distinct auth steps, pair with Authentication B for visual variety." },
+    { "name": "Authentication B", "slug": "icon-authentication-b", "color": "https://identicons.dev/identicons/mono/svg/icon-authentication-b.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-authentication-b.svg", "usage_notes": "Alternate authentication-step icon; use when Authentication A is already used elsewhere in the same diagram." },
+    { "name": "Authorization Server", "slug": "icon-authorization-server", "color": "https://identicons.dev/identicons/mono/svg/icon-authorization-server.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-authorization-server.svg", "usage_notes": "Generic (non-Auth0-branded) authorization server node. Gray if inactive, mono once active." },
+    { "name": "Backend", "slug": "icon-backend", "color": "https://identicons.dev/identicons/mono/svg/icon-backend.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-backend.svg", "usage_notes": "Generic backend/service node. Gray for inactive/legacy services, mono for active ones." },
+    { "name": "Biometrics", "slug": "icon-biometrics", "color": "https://identicons.dev/identicons/mono/svg/icon-biometrics.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-biometrics.svg", "usage_notes": "Use for biometric authentication steps (face/fingerprint), distinct from device-level biometrics." },
+    { "name": "Bot Detection", "slug": "icon-bot-detection", "color": "https://identicons.dev/identicons/mono/svg/icon-bot-detection.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-bot-detection.svg", "usage_notes": "Threat-model/security diagrams; denotes bot/automation detection controls." },
+    { "name": "Boundary Protocol", "slug": "icon-boundary-protocol", "color": "https://identicons.dev/identicons/mono/svg/icon-boundary-protocol.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-boundary-protocol.svg", "usage_notes": "Use for network/trust-boundary or protocol-edge callouts." },
+    { "name": "Branding", "slug": "icon-branding", "color": "https://identicons.dev/identicons/mono/svg/icon-branding.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-branding.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Breached Password", "slug": "icon-breached-password", "color": "https://identicons.dev/identicons/mono/svg/icon-breached-password.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-breached-password.svg", "usage_notes": "Threat-model/security diagrams; denotes breached-password detection." },
+    { "name": "Browser", "slug": "icon-browser", "color": "https://identicons.dev/identicons/mono/svg/icon-browser.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-browser.svg", "usage_notes": "Generic browser/user-agent node. Gray before authentication, mono once a session is established." },
+    { "name": "Brute Force", "slug": "icon-brute-force", "color": "https://identicons.dev/identicons/mono/svg/icon-brute-force.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-brute-force.svg", "usage_notes": "Threat-model/security diagrams; denotes brute-force attack protection." },
+    { "name": "Certificate", "slug": "icon-certificate", "color": "https://identicons.dev/identicons/mono/svg/icon-certificate.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-certificate.svg", "usage_notes": "Use for mTLS/signing-certificate nodes." },
+    { "name": "CLI Script", "slug": "icon-cli-script", "color": "https://identicons.dev/identicons/mono/svg/icon-cli-script.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-cli-script.svg", "usage_notes": "Use for CLI tools, automation scripts, or device-flow command-line clients." },
+    { "name": "Cloud", "slug": "icon-cloud", "color": "https://identicons.dev/identicons/mono/svg/icon-cloud.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-cloud.svg", "usage_notes": "Generic cloud-platform/infrastructure node." },
+    { "name": "Consistency", "slug": "icon-consistency", "color": "https://identicons.dev/identicons/mono/svg/icon-consistency.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-consistency.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Cookies", "slug": "icon-cookies", "color": "https://identicons.dev/identicons/mono/svg/icon-cookies.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-cookies.svg", "usage_notes": "Use for session-cookie storage or cookie-consent nodes/badges." },
+    { "name": "Credential Application", "slug": "icon-credential-application", "color": "https://identicons.dev/identicons/mono/svg/icon-credential-application.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-credential-application.svg", "usage_notes": "Use for an application presenting client credentials (client-credentials/m2m flows)." },
+    { "name": "Credential Stuffing", "slug": "icon-credential-stuffing", "color": "https://identicons.dev/identicons/mono/svg/icon-credential-stuffing.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-credential-stuffing.svg", "usage_notes": "Threat-model/security diagrams; denotes credential-stuffing attack protection." },
+    { "name": "Credential User", "slug": "icon-credential-user", "color": "https://identicons.dev/identicons/mono/svg/icon-credential-user.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-credential-user.svg", "usage_notes": "Use during login/credential-entry steps specifically. Gray before credentials are verified, mono after." },
+    { "name": "Customization", "slug": "icon-customization", "color": "https://identicons.dev/identicons/mono/svg/icon-customization.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-customization.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Dashboard", "slug": "icon-dashboard", "color": "https://identicons.dev/identicons/mono/svg/icon-dashboard.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-dashboard.svg", "usage_notes": "Generic admin/analytics dashboard node." },
+    { "name": "Database", "slug": "icon-database", "color": "https://identicons.dev/identicons/mono/svg/icon-database.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-database.svg", "usage_notes": "Default icon for any generic (non-legacy) database node. Gray for inactive/standby, mono for active." },
+    { "name": "Desktop App", "slug": "icon-desktop-app", "color": "https://identicons.dev/identicons/mono/svg/icon-desktop-app.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-desktop-app.svg", "usage_notes": "Native desktop client node. Gray pre-auth, mono post-auth." },
+    { "name": "Device Biometrics", "slug": "icon-device-biometrics", "color": "https://identicons.dev/identicons/mono/svg/icon-device-biometrics.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-device-biometrics.svg", "usage_notes": "Use for device-native biometric auth (Face ID/Touch ID), distinct from server-side Biometrics icon." },
+    { "name": "Efficiency", "slug": "icon-efficiency", "color": "https://identicons.dev/identicons/mono/svg/icon-efficiency.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-efficiency.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Empathy", "slug": "icon-empathy", "color": "https://identicons.dev/identicons/mono/svg/icon-empathy.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-empathy.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Enterprise Directory", "slug": "icon-enterprise-directory", "color": "https://identicons.dev/identicons/mono/svg/icon-enterprise-directory.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-enterprise-directory.svg", "usage_notes": "Use for corporate directory/SSO sources (AD, LDAP, SAML/OIDC IdPs)." },
+    { "name": "Extensions", "slug": "icon-extensions", "color": "https://identicons.dev/identicons/mono/svg/icon-extensions.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-extensions.svg", "usage_notes": "Use for plugin/extension nodes." },
+    { "name": "Fine Grained Authorization", "slug": "icon-fine-grained-authorization", "color": "https://identicons.dev/identicons/mono/svg/icon-fine-grained-authorization.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-fine-grained-authorization.svg", "usage_notes": "Use for FGA/relationship-based policy-evaluation nodes (e.g. Auth0 FGA)." },
+    { "name": "Getting Started", "slug": "icon-getting-started", "color": "https://identicons.dev/identicons/mono/svg/icon-getting-started.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-getting-started.svg", "usage_notes": "Decorative/marketing icon; rarely applicable to architecture diagrams." },
+    { "name": "Guardian Push Notification", "slug": "icon-guardian-push-notification", "color": "https://identicons.dev/identicons/mono/svg/icon-guardian-push-notification.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-guardian-push-notification.svg", "usage_notes": "Use specifically for Auth0 Guardian push-based MFA steps." },
+    { "name": "Help", "slug": "icon-help", "color": "https://identicons.dev/identicons/mono/svg/icon-help.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-help.svg", "usage_notes": "Decorative/UI icon; rarely applicable to architecture diagrams." },
+    { "name": "ID Token", "slug": "icon-id-token", "color": "https://identicons.dev/identicons/mono/svg/icon-id-token.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-id-token.svg", "usage_notes": "Represents an OIDC ID token object; typically shown inline on a connector badge." },
+    { "name": "Identifier First", "slug": "icon-identifier-first", "color": "https://identicons.dev/identicons/mono/svg/icon-identifier-first.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-identifier-first.svg", "usage_notes": "Use for identifier-first login-flow steps." },
+    { "name": "Identifier Password", "slug": "icon-identifier-password", "color": "https://identicons.dev/identicons/mono/svg/icon-identifier-password.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-identifier-password.svg", "usage_notes": "Use for classic identifier+password login-flow steps." },
+    { "name": "Integrations Marketplace", "slug": "icon-integrations-marketplace", "color": "https://identicons.dev/identicons/mono/svg/icon-integrations-marketplace.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-integrations-marketplace.svg", "usage_notes": "Use for third-party integration marketplace nodes." },
+    { "name": "IP Throttling", "slug": "icon-ip-throttling", "color": "https://identicons.dev/identicons/mono/svg/icon-ip-throttling.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-ip-throttling.svg", "usage_notes": "Threat-model/security diagrams; denotes rate-limiting/throttling controls." },
+    { "name": "Login", "slug": "icon-login", "color": "https://identicons.dev/identicons/mono/svg/icon-login.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-login.svg", "usage_notes": "Generic login-action icon, often used on the initial connector badge rather than a node." },
+    { "name": "Login Customization", "slug": "icon-login-customization", "color": "https://identicons.dev/identicons/mono/svg/icon-login-customization.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-login-customization.svg", "usage_notes": "Use for Universal Login branding/customization nodes." },
+    { "name": "Logout Token", "slug": "icon-logout-token", "color": "https://identicons.dev/identicons/mono/svg/icon-logout-token.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-logout-token.svg", "usage_notes": "Represents a back-channel logout token object." },
+    { "name": "Logs", "slug": "icon-logs", "color": "https://identicons.dev/identicons/mono/svg/icon-logs.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-logs.svg", "usage_notes": "Use for log-stream/audit-log nodes in monitoring diagrams." },
+    { "name": "Mail Message A", "slug": "icon-mail-message-a", "color": "https://identicons.dev/identicons/mono/svg/icon-mail-message-a.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-mail-message-a.svg", "usage_notes": "Email-notification step; pair with Mail Message B when two distinct email steps appear in one diagram." },
+    { "name": "Mail Message B", "slug": "icon-mail-message-b", "color": "https://identicons.dev/identicons/mono/svg/icon-mail-message-b.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-mail-message-b.svg", "usage_notes": "Alternate email-notification icon; use when Mail Message A is already used elsewhere in the same diagram." },
+    { "name": "Marketplace Approved", "slug": "icon-marketplace-approved", "color": "https://identicons.dev/identicons/mono/svg/icon-marketplace-approved.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-marketplace-approved.svg", "usage_notes": "Use for marketplace-verified/approved integration badges." },
+    { "name": "Marketplace Create", "slug": "icon-marketplace-create", "color": "https://identicons.dev/identicons/mono/svg/icon-marketplace-create.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-marketplace-create.svg", "usage_notes": "Use for marketplace-integration creation/submission steps." },
+    { "name": "Mobile App", "slug": "icon-mobile-app", "color": "https://identicons.dev/identicons/mono/svg/icon-mobile-app.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-mobile-app.svg", "usage_notes": "Native mobile client node. Gray pre-auth, mono post-auth." },
+    { "name": "Monitoring", "slug": "icon-monitoring", "color": "https://identicons.dev/identicons/mono/svg/icon-monitoring.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-monitoring.svg", "usage_notes": "Use for observability/APM nodes." },
+    { "name": "Multifactor", "slug": "icon-multifactor", "color": "https://identicons.dev/identicons/mono/svg/icon-multifactor.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-multifactor.svg", "usage_notes": "Generic MFA step. Use a more specific icon (OTP, WebAuthn, Biometrics, Guardian Push) when the method is named." },
+    { "name": "Multiple Failed Logins", "slug": "icon-multiple-failed-logins", "color": "https://identicons.dev/identicons/mono/svg/icon-multiple-failed-logins.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-multiple-failed-logins.svg", "usage_notes": "Threat-model/security diagrams; denotes failed-login-attempt detection." },
+    { "name": "One Time Password", "slug": "icon-one-time-password", "color": "https://identicons.dev/identicons/mono/svg/icon-one-time-password.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-one-time-password.svg", "usage_notes": "Use specifically for OTP/SMS/TOTP MFA steps." },
+    { "name": "Organizations", "slug": "icon-organizations", "color": "https://identicons.dev/identicons/mono/svg/icon-organizations.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-organizations.svg", "usage_notes": "Use for B2B Organizations/multi-tenant grouping nodes." },
+    { "name": "Phone Message A", "slug": "icon-phone-message-a", "color": "https://identicons.dev/identicons/mono/svg/icon-phone-message-a.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-phone-message-a.svg", "usage_notes": "SMS/voice-notification step; pair with Phone Message B when two distinct phone steps appear in one diagram." },
+    { "name": "Phone Message B", "slug": "icon-phone-message-b", "color": "https://identicons.dev/identicons/mono/svg/icon-phone-message-b.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-phone-message-b.svg", "usage_notes": "Alternate SMS/voice-notification icon; use when Phone Message A is already used elsewhere in the same diagram." },
+    { "name": "Pipeline A", "slug": "icon-pipeline-a", "color": "https://identicons.dev/identicons/mono/svg/icon-pipeline-a.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-pipeline-a.svg", "usage_notes": "Generic CI/CD or processing-pipeline node; pair with Pipeline B for a second distinct pipeline in the same diagram." },
+    { "name": "Pipeline B", "slug": "icon-pipeline-b", "color": "https://identicons.dev/identicons/mono/svg/icon-pipeline-b.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-pipeline-b.svg", "usage_notes": "Alternate pipeline icon; use when Pipeline A is already used elsewhere in the same diagram." },
+    { "name": "Refresh Token", "slug": "icon-refresh-token", "color": "https://identicons.dev/identicons/mono/svg/icon-refresh-token.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-refresh-token.svg", "usage_notes": "Represents an OAuth refresh token object; typically shown inline on a connector badge." },
+    { "name": "SDK", "slug": "icon-sdk", "color": "https://identicons.dev/identicons/mono/svg/icon-sdk.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-sdk.svg", "usage_notes": "Use for client/server SDK integration nodes (e.g. an Auth0 SDK embedded in an app or MCP server)." },
+    { "name": "Security", "slug": "icon-security", "color": "https://identicons.dev/identicons/mono/svg/icon-security.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-security.svg", "usage_notes": "Generic security-control callout; use a more specific threat icon when the threat/control is named." },
+    { "name": "Server", "slug": "icon-server", "color": "https://identicons.dev/identicons/mono/svg/icon-server.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-server.svg", "usage_notes": "Generic server/compute node. Gray for inactive/legacy, mono for active." },
+    { "name": "Settings", "slug": "icon-settings", "color": "https://identicons.dev/identicons/mono/svg/icon-settings.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-settings.svg", "usage_notes": "Use for configuration/admin-settings nodes." },
+    { "name": "Social Providers", "slug": "icon-social-providers", "color": "https://identicons.dev/identicons/mono/svg/icon-social-providers.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-social-providers.svg", "usage_notes": "Use for social-login identity sources (Google, Facebook, etc.) when no specific brand logo is required." },
+    { "name": "SPA", "slug": "icon-spa", "color": "https://identicons.dev/identicons/mono/svg/icon-spa.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-spa.svg", "usage_notes": "Single-page-application client node. Gray pre-auth, mono post-auth." },
+    { "name": "Teams", "slug": "icon-teams", "color": "https://identicons.dev/identicons/mono/svg/icon-teams.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-teams.svg", "usage_notes": "Use for internal team/group nodes (org structure, not Microsoft Teams specifically)." },
+    { "name": "Tenant", "slug": "icon-tenant", "color": "https://identicons.dev/identicons/mono/svg/icon-tenant.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-tenant.svg", "usage_notes": "Use for Auth0 tenant-boundary nodes." },
+    { "name": "User", "slug": "icon-user", "color": "https://identicons.dev/identicons/mono/svg/icon-user.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-user.svg", "usage_notes": "Default single-actor icon. Gray for unauthenticated/not-yet-identified users, mono once authenticated." },
+    { "name": "User Database", "slug": "icon-user-database", "color": "https://identicons.dev/identicons/mono/svg/icon-user-database.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-user-database.svg", "usage_notes": "Use for legacy/custom user-store databases specifically. Default to gray since these are typically legacy systems; use mono only if the store is explicitly an active, modern system." },
+    { "name": "User Management", "slug": "icon-user-management", "color": "https://identicons.dev/identicons/mono/svg/icon-user-management.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-user-management.svg", "usage_notes": "Use for admin user-management console/API nodes." },
+    { "name": "Users", "slug": "icon-users", "color": "https://identicons.dev/identicons/mono/svg/icon-users.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-users.svg", "usage_notes": "Use when a node represents a group of users rather than a single actor. Gray if the group is unauthenticated/mixed, mono if all authenticated." },
+    { "name": "Video", "slug": "icon-video", "color": "https://identicons.dev/identicons/mono/svg/icon-video.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-video.svg", "usage_notes": "Decorative/media icon; rarely applicable to architecture diagrams." },
+    { "name": "Web App", "slug": "icon-web-app", "color": "https://identicons.dev/identicons/mono/svg/icon-web-app.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-web-app.svg", "usage_notes": "Default web-application client node. Gray pre-auth, mono post-auth." },
+    { "name": "Webauthn", "slug": "icon-webauthn", "color": "https://identicons.dev/identicons/mono/svg/icon-webauthn.svg", "gray": "https://identicons.dev/identicons/gray/svg/icon-webauthn.svg", "usage_notes": "Use specifically for WebAuthn/passkey authentication steps." }
+  ]
+}
+\`\`\`
+
+---
+
+## 5. How the Engine Renders Values into SVG
 
 1. **Definitions (\`<defs>\`) Layer**:
    - Compiles a \`<pattern>\` element for the \`20x20\` dashed grid.
-   - Sets up markers for \`arrow\` (gray, #94A3B8) and \`arrow-active\` (purple, #635BFF).
+   - Sets up markers for \`arrow\` (gray, #94A3B8) and \`arrow-active\` (purple, #635BFF) — see the Arrowhead Policy in §1.
    - Generates a subtle drop shadow filter (\`feDropShadow\`) applied exclusively to white card nodes.
 
 2. **Connectors Layer (\`<g id="connectors-layer">\`)**:
    - Rendered **behind** nodes to ensure clean boundary clippings.
-   - Reads the \`path\` attribute directly into an SVG \`<path>\` tag with \`stroke-dasharray="3.5 3.5"\`.
-   - Centers badge overlays at \`(badge.x, badge.y)\` using an opaque canvas-matched \`<rect>\` that naturally masks the dashed stroke beneath the text.
+   - For \`path\`-based connectors, reads \`path\` directly into the SVG \`<path>\`'s \`d\` attribute. For anchor-based connectors (\`from\`/\`to\`), the engine computes \`d\` and a default badge midpoint from the two nodes' bounding boxes — see §6.1.
+   - Centers badge overlays at \`(badge.x, badge.y)\` using an opaque \`<rect>\` that inherits \`meta.theme.canvasBg\` by default (not a hardcoded color), masking the dashed stroke beneath the text.
+   - \`badge.width\`/\`badge.height\` are treated as a **minimum**, never a clip boundary: after the SVG is in the live DOM, the engine measures each badge's actual rendered text (\`getComputedTextLength()\`) and grows the background rect to fit if the declared size was too small, logging a console warning when it has to. Badge text is never silently truncated. See §7 for how to size badges correctly up front instead of relying on this.
 
 3. **Nodes Layer (\`<g id="nodes-layer">\`)**:
    - Groups are drawn first as container rects with headers.
    - Subcards inside groups and standalone cards are drawn with rounded rects (\`rx="16"\`).
    - If \`logo.type === "svg-path"\`, a sub-SVG is embedded with the coordinate box and path data.
-   - If \`logo.type === "image"\`, an \`<image href="..." xlink:href="...">\` element is rendered.
-   - Client chips (e.g. Claude Code, ChatGPT, Gemini, Microsoft 365 Copilot) are rendered as rounded pills with icons.
+   - If \`logo.type === "image"\`, an \`<image href="..." xlink:href="...">\` element is rendered — this is how Icon Catalog (§4) entries and official brand logos are both embedded.
+   - Client chips (e.g. Claude Code, ChatGPT, Gemini, Microsoft 365 Copilot) are rendered as rounded pills with icons; \`chip.title\` is attached only as a hover \`<title>\` tooltip, never as visible text.
 
-4. **Orthogonal Routing Rules & Formulas**:
-   - **Horizontal line**: \`"M {x1} {y} L {x2} {y}"\`
-     - Badge position: \`x = (x1 + x2) / 2\`, \`y = y\`
-   - **Vertical line**: \`"M {x} {y1} L {x} {y2}"\`
-     - Badge position: \`x = x\`, \`y = (y1 + y2) / 2\`
-   - **L-shaped bend**: \`"M {x1} {y1} L {x2} {y1} L {x2} {y2}"\`
-   - **U-shaped runway**: \`"M {x1} {y1} L {x1} {yCorner} L {x2} {yCorner} L {x2} {y2}"\`
+4. **Footer (outside the SVG canvas)**:
+   - \`footer\` renders as an HTML caption strip **below** the framed SVG canvas — it is not part of the \`viewBox\` coordinate space. \`footer.text\` renders as a line of text; \`footer.tags\` render as individual pill badges.
+   - Because the footer is out-of-band, canvas content can safely use the *full* \`viewBox\` height. For example, \`path-auth-api\` in the Enterprise MCP example (§13) routes a badge to \`y:424\` on a 460-tall canvas — this does not collide with the footer, which sits entirely beneath the frame.
 
 ---
 
-## 4. Production JSON Examples
+## 6. Connector Routing: Anchors, Paths & Badge Formulas
+
+### 6.1 Anchor-based connectors (recommended default)
+
+Specify \`{ "from": "nodeId", "fromSide": "right", "to": "nodeId", "toSide": "left" }\` instead of a raw \`path\` string. The engine looks up each node's bounding box (including group children), finds the midpoint of the given edge, and auto-routes:
+
+- Same \`y\` → straight horizontal line.
+- Same \`x\` → straight vertical line.
+- Otherwise → a single right-angle bend, exiting the \`from\` node on its \`fromSide\`.
+
+The badge midpoint is computed automatically from the same geometry, and can still be overridden by setting explicit \`badge.x\`/\`badge.y\`. This removes almost all manual pixel math for everyday connections — see \`c1\`/\`c2\` in the Minimal 3-Tier example (§13), which use this form and render identically to the equivalent hand-written \`path\`.
+
+**Limitation:** auto-routing only produces a straight line or a single bend. Multi-bend "runway" routes that dodge around other nodes (like \`path-auth-api\` below) still need an explicit \`path\` string.
+
+### 6.2 Raw path formulas (for manual / complex routing)
+
+- **Horizontal line**: \`"M {x1} {y} L {x2} {y}"\` — badge: \`x = (x1 + x2) / 2\`, \`y = y\`
+- **Vertical line**: \`"M {x} {y1} L {x} {y2}"\` — badge: \`x = x\`, \`y = (y1 + y2) / 2\`
+- **L-shaped bend**: \`"M {x1} {y1} L {x2} {y1} L {x2} {y2}"\` — badge: same formula as its first (longer) segment
+- **U-shaped runway**: \`"M {x1} {y1} L {x1} {yCorner} L {x2} {yCorner} L {x2} {y2}"\` — badge centered on the horizontal runway: \`x = (x1 + x2) / 2\`, \`y = yCorner\`. Worked example: \`path-auth-api\` in §13 (\`M 440 394 L 440 424 L 680 424 L 680 326\`, badge \`x:560, y:424\`).
+
+### 6.3 Axis-aligned entry rules
+
+Every connector's **final segment into a node must be axis-aligned** — either horizontal into the node's left/right edge, or vertical into its top/bottom edge. Never let the final approach be diagonal or enter through a corner; if a connector has more than one bend, every segment (not just the last) must stay axis-aligned.
+
+- **Default to horizontal entry** (left/right edge) for most connectors — this is what keeps arrowheads legible and matches the rest of the visual language.
+- **Vertical entry** (top/bottom edge) is allowed specifically when the source and target are directly stacked (share the same x-range). In that case, prefer a single clean vertical line over a horizontal-entry workaround that would force unnecessary extra bends.
+- Anchor-based connectors (§6.1) already satisfy this automatically, since \`fromSide\`/\`toSide\` are always one of \`top\`/\`bottom\`/\`left\`/\`right\`. This rule mainly matters when hand-writing a raw \`path\` string (§6.2).
+
+---
+
+## 7. Badge Sizing & Connector Spacing Rules
+
+Badges are the most common source of visual overflow — size and space them deliberately rather than guessing. **This section is a safety net, not the primary defense.** The renderer itself measures each badge's actual rendered text and auto-grows its box to fit (never clips — see §5), so a layout that follows these rules will always look right even if the estimate below is slightly off. The point of getting the formula right here is to avoid *relying* on that auto-grow to bail a cramped layout out — a generator that undersizes badges will still render correctly, but will have wasted effort producing a layout that had to be rescued.
+
+- **Badge width must fit its text, not a fixed guess**: \`width = max(explicitWidth, textLength × 11 + 30)\` per line of text, for the uppercase/bold labels typical of connector badges. For a multi-line badge, compute this per line and use the longest line's result as the badge's \`width\`. **If any rendered diagram ever shows truncated badge text, that is a hard bug — raise this multiplier project-wide, don't patch the one badge.**
+- **Minimum segment length for a badge**: any straight connector segment that hosts a badge must be at least \`badge.width + 20\` px long. If the natural gap between two nodes is shorter than that, widen the gap between those nodes — never let the badge overflow onto either node.
+- **Minimum node-to-node gap with a badge present**: at least \`180\`px on whichever axis the connector runs, even if the nodes themselves could otherwise sit closer together.
+- **Parallel connector lanes** (e.g. a request/response pair between the same two nodes): a flat 40px offset is **not** sufficient once badges are wide enough to collide anyway — compute the minimum separation per pair instead: \`minSeparation = (badge1.width + badge2.width) / 2 + 20\`. Give each lane a different entry \`y\` (for horizontal lanes) or \`x\` (for vertical lanes) so their badges don't bleed into either node's body.
+- **Badge-vs-badge collision check (explicit step — do this in addition to, not instead of, badge-vs-node and badge-vs-line checks)**: after placing every badge in the diagram, compare every *pair* of badge rectangles for overlap — not just each badge against nodes and connector lines. Any two badges, even ones on different connectors, must have at least 20px clearance between their rectangles.
+- **Crossing check**: before finalizing coordinates, check every badge's bounding box (\`x ± width/2\`, \`y ± height/2\`) against every node's bounding box, and against other connectors' straight segments that pass through the same node-to-node gap. If a connector's bend would cross another connector's line inside that gap, shift the crossing connector's entry point to a \`y\`/\`x\` range outside the other connector's segment span.
+
+---
+
+## 8. Canvas Sizing Guide
+
+| Top-level nodes/groups | Recommended viewBox | Reference |
+| :--- | :--- | :--- |
+| 1–2 | 600 × 280 | |
+| 3–5 | 800 × 320 | Minimal 3-Tier example |
+| 6–10 | 1000 × 460 | Enterprise MCP example |
+| 10+ | Wrap into multiple rows: ~240px per row + 80px margin | needs manual layout judgment |
+
+---
+
+## 9. Text-Fit Guidance
+
+SVG \`<text>\` does not auto-wrap — a long string simply overflows its card. Approximate the rendered width before finalizing JSON:
+
+\`maxChars ≈ (nodeWidth - 36) / (fontSize × 0.58)\` — \`0.58\` approximates the average character width for the Inter weights used in this framework.
+
+| Font size | Approx. px / char | Max chars in a 160px-wide card |
+| :--- | :--- | :--- |
+| 9 | 5.2 | ~23 |
+| 10 | 5.8 | ~21 |
+| 13 | 7.5 | ~16 |
+| 14 | 8.1 | ~15 |
+| 16 | 9.3 | ~13 |
+| 18 | 10.4 | ~12 |
+
+---
+
+## 10. Chip-Row & Group Auto-Layout Formulas
+
+- **Chip row**: \`chip[i].x = baseX + i * (chipWidth + gap)\`, with \`chipWidth\` default \`30\` and \`gap\` default \`6\`; keep every chip in a row at the same \`y\`.
+- **Group height** (approximate — verify against §12 before finalizing): \`height ≈ headerHeight(26) + topPadding(14) + Σ(childHeights) + gap(12) × (childCount - 1) + bottomPadding(14)\`.
+
+---
+
+## 11. Semantic Color Palette
+
+Reuse these exact hex values so generated diagrams stay visually consistent across requests, instead of re-deriving colors each time:
+
+| Category | Color | Used for |
+| :--- | :--- | :--- |
+| Identity / Auth | \`#0066FF\` | SSO, IdPs, token issuers, authorization servers |
+| Data | \`#10B981\` | databases, storage, vector stores |
+| AI / Agent | \`#635BFF\` | users/actors, agent reasoning cores, AI-initiated flows |
+| Network / Infra | \`#1E293B\` | gateways, services, generic infrastructure |
+| Security | \`#DC2626\` | sandboxed execution, policy enforcement, access control |
+
+---
+
+## 12. Self-Check Checklist
+
+Before returning generated JSON, verify:
+
+- [ ] Every node's \`x/y/width/height\` stays within \`meta.viewBox\`.
+- [ ] Every group child's bounding box stays within its parent group's padded interior (≥14px inset on all sides).
+- [ ] No two sibling nodes' bounding boxes overlap (keep ≥20px gutter between them).
+- [ ] Each \`title\`/\`subtitle\`/\`category\` text fits its element's width per §9.
+- [ ] Every connector's \`from\`/\`to\` resolves to a real node id (anchor mode), or its \`path\` endpoints stay inside the viewBox.
+- [ ] No badge rectangle overlaps a node's bounding box.
+- [ ] Every connector's final approach into a node is axis-aligned (horizontal into left/right, or vertical into top/bottom) — never diagonal or into a corner (§6.3); multi-bend connectors keep *every* segment axis-aligned.
+- [ ] Each badge's \`width\` is at least \`textLength × 11 + 30\` for its longest line, and sits on a segment at least \`badge.width + 20\`px long (§7).
+- [ ] Any node-to-node gap carrying a badge is at least 180px, and parallel lanes between the same two nodes are separated by at least \`(badge1.width + badge2.width) / 2 + 20\` with distinct entry points (§7).
+- [ ] Every pair of badge rectangles in the diagram — even on unrelated connectors — has at least 20px clearance between them (§7).
+- [ ] No connector's straight segment crosses another connector's straight segment within a shared node-to-node gap (§7).
+- [ ] Every generic (non-brand-logo) icon resolves to a named entry in the Icon Catalog (§4), using the \`gray\` variant where \`usage_notes\` calls for an inactive/legacy/unauthenticated state.
+- [ ] No connector loops back into an earlier node to represent a state change — every meaningful state change is its own node (§15.1).
+- [ ] Unless the request explicitly asked for a circular/hub-and-spoke/other layout, the terminal node is the rightmost (left-to-right flows) or bottommost (top-to-bottom flows) node — the diagram doesn't fold back toward its start (§15.2).
+- [ ] No trailing connector merely restates what the terminal node's own label already conveys (§15.3).
+
+---
+
+## 13. Production JSON Examples
+
+Each example below includes the plain-English prompt that, combined with the rules in this spec, generates it.
 
 ### Example 1: Enterprise MCP + Identity Broker Architecture
+
+**Example prompt:** "Show how an enterprise user authenticates through our corporate SSO to use an MCP client (Claude Code, ChatGPT, Gemini, or Copilot), which obtains an agent identity token from Auth0 acting as the authorization server, checks fine-grained access policies with Auth0 FGA, then calls tools and resources on our Enterprise MCP Server via the Auth0 SDK, which in turn calls our Enterprise APIs."
 
 \`\`\`json
 ${JSON.stringify(PRESET_ENTERPRISE_MCP, null, 2)}
@@ -1889,6 +2384,8 @@ ${JSON.stringify(PRESET_ENTERPRISE_MCP, null, 2)}
 
 ### Example 2: Minimal 3-Tier Pattern (Client → Gateway → Database)
 
+**Example prompt:** "Diagram a simple 3-tier web app: a browser-based web application talks to an API gateway over HTTPS/JSON, which queries a PostgreSQL database over SQL."
+
 \`\`\`json
 ${JSON.stringify(PRESET_MINIMAL, null, 2)}
 \`\`\`
@@ -1897,20 +2394,70 @@ ${JSON.stringify(PRESET_MINIMAL, null, 2)}
 
 ### Example 3: Agentic AI Pipeline (Agent + Memory + Tools)
 
+**Example prompt:** "Show an agentic AI pipeline: an engineer's prompt goes into an agent reasoning core (orchestrator), which does a RAG search against a memory group containing a vector embeddings database and a short-term scratchpad, and dispatches tool calls to a sandboxed MCP tool executor."
+
 \`\`\`json
 ${JSON.stringify(PRESET_AGENTIC, null, 2)}
 \`\`\`
 
 ---
 
-## 5. Headless Rendering Script (Node.js / Browser)
+## 14. Headless Rendering Script (Node.js / Browser)
 
-You can convert any schema-compliant JSON into an SVG file programmatically with this zero-dependency snippet:
+This is real, runnable, zero-dependency reference code — it paints the canvas background, defines both markers, and renders nodes, groups, connectors (including §6.1 anchor resolution) and badges. \`logo\`/\`image\` and \`chips[]\` rendering are intentionally omitted for brevity; see the Studio app's own \`renderCard()\`/\`renderDiagramSVG()\` for the complete implementation.
 
 \`\`\`javascript
+function escapeHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function buildNodeMap(nodes) {
+  const map = {};
+  (nodes || []).forEach(n => {
+    map[n.id] = { x: n.x, y: n.y, width: n.width, height: n.height };
+    if (n.type === 'group' && Array.isArray(n.children)) {
+      n.children.forEach(c => { map[c.id] = { x: c.x, y: c.y, width: c.width, height: c.height }; });
+    }
+  });
+  return map;
+}
+
+function anchorPoint(node, side) {
+  if (side === 'top') return { x: node.x + node.width / 2, y: node.y };
+  if (side === 'bottom') return { x: node.x + node.width / 2, y: node.y + node.height };
+  if (side === 'left') return { x: node.x, y: node.y + node.height / 2 };
+  return { x: node.x + node.width, y: node.y + node.height / 2 };
+}
+
+function orthogonalPath(p1, fromSide, p2) {
+  if (p1.y === p2.y) return { path: \`M \${p1.x} \${p1.y} L \${p2.x} \${p2.y}\`, mid: { x: (p1.x + p2.x) / 2, y: p1.y } };
+  if (p1.x === p2.x) return { path: \`M \${p1.x} \${p1.y} L \${p2.x} \${p2.y}\`, mid: { x: p1.x, y: (p1.y + p2.y) / 2 } };
+  const vertical = fromSide === 'top' || fromSide === 'bottom';
+  return vertical
+    ? { path: \`M \${p1.x} \${p1.y} L \${p1.x} \${p2.y} L \${p2.x} \${p2.y}\`, mid: { x: p1.x, y: (p1.y + p2.y) / 2 } }
+    : { path: \`M \${p1.x} \${p1.y} L \${p2.x} \${p1.y} L \${p2.x} \${p2.y}\`, mid: { x: (p1.x + p2.x) / 2, y: p1.y } };
+}
+
+function renderCard(node) {
+  const rx = node.rx || 16;
+  let out = \`<g id="\${node.id}"><rect x="\${node.x}" y="\${node.y}" width="\${node.width}" height="\${node.height}" rx="\${rx}" fill="\${node.fill || '#FFFFFF'}" stroke="\${node.stroke || '#E2E2DC'}" stroke-width="\${node.strokeWidth || 1.2}"/>\`;
+  if (node.category) out += \`<text x="\${node.x + 18}" y="\${node.y + 22}" fill="\${node.category.color || '#635BFF'}" font-size="\${node.category.size || 10}" font-weight="\${node.category.weight || 700}">\${escapeHtml(node.category.text)}</text>\`;
+  if (node.title) {
+    const align = node.title.align || 'left';
+    const tx = align === 'center' ? node.x + node.width / 2 : node.x + 18;
+    const ty = node.category ? node.y + 48 : node.y + node.height / 2 + 5;
+    out += \`<text x="\${tx}" y="\${ty}" fill="\${node.title.color || '#111827'}" font-size="\${node.title.size || 14}" font-weight="\${node.title.weight || 700}" \${align === 'center' ? 'text-anchor="middle"' : ''}>\${escapeHtml(node.title.text)}</text>\`;
+  }
+  if (node.subtitle) out += \`<text x="\${node.x + node.width / 2}" y="\${node.y + node.height - 14}" fill="\${node.subtitle.color || '#6B7280'}" font-size="\${node.subtitle.size || 9}" text-anchor="middle">\${escapeHtml(node.subtitle.text)}</text>\`;
+  out += '</g>';
+  return out;
+}
+
 function jsonToSvg(config) {
   const vb = config.meta?.viewBox || { width: 1000, height: 460 };
   const grid = config.meta?.grid || { size: 20, color: "#E6E5DE", dash: "2.5 2.5", opacity: 0.85 };
+  const canvasBg = config.meta?.theme?.canvasBg || "#FAFAF8";
+  const nodeMap = buildNodeMap(config.nodes);
 
   let svg = \`<svg viewBox="0 0 \${vb.width} \${vb.height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -1920,13 +2467,73 @@ function jsonToSvg(config) {
       <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
         <path d="M 1.5 2 L 7 5 L 1.5 8" fill="none" stroke="#94A3B8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </marker>
+      <marker id="arrow-active" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1.5 2 L 7 5 L 1.5 8" fill="none" stroke="#635BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
     </defs>
-    <rect width="\${vb.width}" height="\${vb.height}" fill="url(#g)"/>
-    <!-- Render connectors and nodes here using the renderer function -->
-  </svg>\`;
+    <rect width="\${vb.width}" height="\${vb.height}" fill="\${canvasBg}"/>
+    <rect width="\${vb.width}" height="\${vb.height}" fill="url(#g)"/>\`;
+
+  (config.connectors || []).forEach(c => {
+    const geo = c.path
+      ? { path: c.path, mid: null }
+      : orthogonalPath(anchorPoint(nodeMap[c.from], c.fromSide || 'right'), c.fromSide || 'right', anchorPoint(nodeMap[c.to], c.toSide || 'left'));
+    svg += \`<path d="\${geo.path}" fill="none" stroke="\${c.stroke || '#9CA3AF'}" stroke-width="\${c.strokeWidth || 1.3}" stroke-dasharray="\${c.dash || '3.5 3.5'}" marker-end="\${c.markerEnd || 'url(#arrow)'}"/>\`;
+    if (c.badge) {
+      const b = { ...geo.mid, ...c.badge };
+      // No DOM here to measure real text width, so this is only an ESTIMATE floor
+      // (textLength * 11 + 30, see README §7) — not a guarantee against truncation.
+      // Flag loudly rather than silently clip if the declared width looks too small.
+      const lines = b.lines || [];
+      const estimatedW = lines.reduce((max, l) => Math.max(max, l.text.length * 11 + 30), 0);
+      const bW = Math.max(b.width || 80, estimatedW);
+      if (b.width && b.width < estimatedW) {
+        console.warn(\`Badge "\${lines[0]?.text}" declared width \${b.width}px is below the estimated floor (~\${estimatedW}px) for its text — raised to avoid truncation. This script can't measure real glyph widths without a DOM; verify visually.\`);
+      }
+      const bH = b.height || (lines.length > 1 ? 28 : 18);
+      svg += \`<rect x="\${b.x - bW / 2}" y="\${b.y - bH / 2}" width="\${bW}" height="\${bH}" fill="\${b.bg || canvasBg}" rx="4"/>\`;
+      lines.forEach((l, i) => {
+        const ly = lines.length === 1 ? b.y + 3.5 : b.y - bH / 2 + 11 + i * 11;
+        svg += \`<text x="\${b.x}" y="\${ly}" fill="\${l.color || '#6B7280'}" font-size="\${l.size || 9}" font-weight="\${l.weight || 600}" text-anchor="middle">\${escapeHtml(l.text)}</text>\`;
+      });
+    }
+  });
+
+  (config.nodes || []).forEach(node => {
+    if (node.type === 'group') {
+      svg += \`<g id="\${node.id}"><rect x="\${node.x}" y="\${node.y}" width="\${node.width}" height="\${node.height}" rx="\${node.rx || 18}" fill="\${node.fill}" stroke="\${node.stroke || '#E2E2DC'}"/>\`;
+      svg += \`<text x="\${node.x + node.width / 2}" y="\${node.y + 26}" fill="\${node.header?.color || '#1E293B'}" font-size="\${node.header?.size || 10.5}" text-anchor="middle">\${escapeHtml(node.header?.text || '')}</text>\`;
+      (node.children || []).forEach(child => { svg += renderCard(child); });
+      svg += '</g>';
+    } else {
+      svg += renderCard(node);
+    }
+  });
+
+  svg += '</svg>';
   return svg;
 }
 \`\`\`
+
+---
+
+## 15. Flow & Layout Conventions
+
+These came out of reviewing a real generated diagram where an authenticated end-state looped a return arrow back into the original node instead of reading as a clean directional flow. They govern how a generator should arrange nodes and connectors as a whole, on top of the per-node and per-badge rules above.
+
+### 15.1 State-change nodes get their own box
+
+When an entity undergoes a meaningful state change (e.g. unauthenticated → authenticated, pending → approved), render the post-change state as a **distinct node** fed by the triggering connector, rather than looping a return arrow back into the original node. This is the same principle as the gray/mono icon-state convention in §4 — a state change is a new node, not a revisit of the old one.
+
+### 15.2 Default to left-to-right (or top-to-bottom) flow order
+
+By default, arrange nodes in the same order as the primary flow sequence — left-to-right, or top-to-bottom for vertical flows. The terminal/end-state node should be the rightmost (or bottommost) node in the diagram, not folded back toward the start, so the diagram reads in one direction without the eye needing to backtrack.
+
+This is a **default, not a hard rule**: follow it automatically unless the user's request explicitly asks for a different arrangement (e.g. a circular/cyclical flow, a hub-and-spoke layout, or an explicit instruction like "loop it back to the start" or "arrange top to bottom instead"). If overridden, drop the left-to-right assumption entirely for that diagram rather than fighting the user's requested layout.
+
+### 15.3 Don't add a terminal connector that just restates the end node
+
+Don't add a trailing connector whose badge only restates a fact already conveyed by the terminal node itself. For example, if the last node in a flow is titled/labeled "Authenticated" or "Active Session," don't add a further outgoing arrow labeled "session established" — the state is already shown by the node. Only add a terminal connector if it conveys new information beyond what the terminal node's label already says (e.g. redirecting to a specific resource, returning a specific payload).
 `;
     }
 
@@ -1960,7 +2567,7 @@ function jsonToSvg(config) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${(currentConfig.meta?.title || 'architecture-diagram').toLowerCase().replace(/\s+/g, '-')}.svg`;
+      a.download = `${(currentConfig.meta?.title || 'architecture-diagram').toLowerCase().replace(/[^a-z0-9]+/g, '-')}.svg`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1981,6 +2588,16 @@ function jsonToSvg(config) {
       tabStudio.classList.add('hidden');
       tabDocBtn.className = "px-3 py-1.5 rounded-md bg-white text-neutral-900 font-semibold shadow-xs transition";
       tabStudioBtn.className = "px-3 py-1.5 rounded-md text-neutral-600 hover:text-neutral-900 transition";
+    });
+
+    // "Load in Studio" buttons on the Example Prompts cards (Framework Specs tab)
+    document.querySelectorAll('.example-prompt-load-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const preset = btn.dataset.preset;
+        presetSelect.value = preset;
+        loadPreset(preset);
+        tabStudioBtn.click();
+      });
     });
 
     // Initial Launch
