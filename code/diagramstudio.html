@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON-Driven Architecture Diagram Framework & Studio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- JSZip CDN for In-Browser ZIP Archive Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brandPurple: '#635BFF',
+            canvasBorder: '#E5E4DE',
+            canvasBg: '#FAFAF8',
+            outerBg: '#EEEDE7',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Animated flow tokens */
+    @keyframes dashTravel {
+      from { stroke-dashoffset: 24; }
+      to { stroke-dashoffset: 0; }
+    }
+    .animated-flow {
+      stroke-dasharray: 4 4 !important;
+      animation: dashTravel 1s linear infinite;
+    }
+
+    /* Client chip hover effects */
+    .client-chip {
+      transition: transform 0.15s ease, filter 0.15s ease;
+      cursor: pointer;
+    }
+    .client-chip:hover rect {
+      stroke: #635BFF;
+      fill: #F5F3FF;
+    }
+    .client-chip:hover {
+      transform: translateY(-1.5px);
+    }
+
+    /* Node hover effects */
+    .diagram-node {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+      cursor: pointer;
+    }
+    .diagram-node:hover {
+      transform: translateY(-2px);
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08)) !important;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F0EB;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D1D0C9;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-neutral-100 min-h-screen text-neutral-800 font-sans p-3 sm:p-5 lg:p-6 flex flex-col">
+
+  <!-- Main Application Header -->
+  <header class="max-w-7xl w-full mx-auto mb-4 flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-white border border-neutral-300 text-neutral-800 shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-brandPurple mr-1.5 animate-pulse"></span> Diagram Generator &amp; Specification
+        </span>
+        <h1 class="text-base sm:text-lg font-bold text-neutral-900 tracking-tight">SVG Architecture Framework</h1>
+      </div>
+      <p class="text-xs text-neutral-500 mt-0.5">Generate clean, pixel-accurate blueprint-style architecture diagrams from structured JSON.</p>
+    </div>
+
+    <!-- Mode Tabs & Global Actions -->
+    <div class="flex items-center gap-2 flex-wrap">
+      <div class="bg-neutral-200/80 p-0.5 rounded-lg flex items-center text-xs font-medium border border-neutral-300">
+        <button id="tabStudioBtn" class="px-3 py-1.5 rounded-md bg-white text-neutral-900 font-semibold shadow-xs transition">
+          Interactive Studio
+        </button>
+        <button id="tabDocBtn" class="px-3 py-1.5 rounded-md text-neutral-600 hover:text-neutral-900 transition">
+          Framework Specs &amp; Schema
+        </button>
+      </div>
+
+      <!-- Download JSON Button -->
+      <button id="downloadJsonBtn" class="px-3 py-1.5 bg-white border border-neutral-300 text-neutral-700 text-xs rounded-lg font-medium hover:bg-neutral-50 active:scale-95 transition shadow-xs flex items-center gap-1.5" title="Download JSON configuration">
+        <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+        </svg>
+        <span>Download JSON</span>
+      </button>
+
+      <button id="downloadMdBtn" class="px-3 py-1.5 bg-white border border-neutral-300 text-neutral-700 text-xs rounded-lg font-medium hover:bg-neutral-50 active:scale-95 transition shadow-xs flex items-center gap-1.5" title="Download Markdown architecture specs">
+        <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <span>Download Docs (.md)</span>
+      </button>
+
+      <button id="exportSvgBtn" class="px-3 py-1.5 bg-neutral-900 text-white text-xs rounded-lg font-medium hover:bg-neutral-800 active:scale-95 transition shadow-sm flex items-center gap-1.5" title="Download standalone SVG">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        <span>Download SVG</span>
+      </button>
+
+      <!-- Download PNG Split Button (Downloads diagram box without info section) -->
+      <div class="relative inline-flex items-stretch rounded-lg shadow-sm">
+        <button id="exportPngBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brandPurple text-white text-xs rounded-l-lg font-medium hover:bg-indigo-600 active:bg-indigo-700 transition" title="Download PNG (High-Res, No Info Section)">
+          <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span id="pngBtnLabel">Download PNG</span>
+        </button>
+        <button id="pngOptionsToggle" class="inline-flex items-center justify-center px-2 bg-brandPurple text-white text-xs rounded-r-lg hover:bg-indigo-600 border-l border-indigo-400 active:bg-indigo-700 transition" title="PNG Options (Framed / Canvas, Resolution)">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+
+        <!-- Dropdown Menu for PNG export options -->
+        <div id="pngOptionsMenu" class="hidden absolute right-0 top-full mt-1.5 w-56 bg-white rounded-xl shadow-xl border border-neutral-200 py-2.5 z-50 text-xs">
+          <div class="px-3.5 py-1 text-[10px] font-bold text-neutral-400 uppercase tracking-wider font-mono">PNG Frame Layout</div>
+          <label class="flex items-center gap-2 px-3.5 py-1.5 hover:bg-neutral-50 cursor-pointer text-neutral-700">
+            <input type="radio" name="pngLayout" value="framed" checked class="text-brandPurple focus:ring-brandPurple/20">
+            <span class="font-medium">Framed Box (Outer Bezel)</span>
+          </label>
+          <label class="flex items-center gap-2 px-3.5 py-1.5 hover:bg-neutral-50 cursor-pointer text-neutral-700">
+            <input type="radio" name="pngLayout" value="canvas" class="text-brandPurple focus:ring-brandPurple/20">
+            <span class="font-medium">Canvas Only (No Bezel)</span>
+          </label>
+
+          <div class="border-t border-neutral-100 my-1.5"></div>
+          <div class="px-3.5 py-1 text-[10px] font-bold text-neutral-400 uppercase tracking-wider font-mono">Resolution</div>
+          <label class="flex items-center gap-2 px-3.5 py-1.5 hover:bg-neutral-50 cursor-pointer text-neutral-700">
+            <input type="radio" name="pngScale" value="2" checked class="text-brandPurple focus:ring-brandPurple/20">
+            <span class="font-medium">2x Retina (Presentation)</span>
+          </label>
+          <label class="flex items-center gap-2 px-3.5 py-1.5 hover:bg-neutral-50 cursor-pointer text-neutral-700">
+            <input type="radio" name="pngScale" value="3" class="text-brandPurple focus:ring-brandPurple/20">
+            <span class="font-medium">3x Ultra-HD (4K / Print)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Download Everything (.zip) Button -->
+      <button id="downloadZipBtn" class="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-lg font-medium hover:bg-emerald-700 active:scale-95 transition shadow-sm flex items-center gap-1.5" title="Download SVG, PNG, JSON, and Markdown docs in a ZIP package">
+        <svg class="w-3.5 h-3.5 text-emerald-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+        </svg>
+        <span id="zipBtnLabel">Download All (.zip)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- TAB 1: INTERACTIVE STUDIO                                                 -->
+  <!-- ========================================================================= -->
+  <main id="tabStudio" class="max-w-7xl w-full mx-auto flex-1 flex flex-col gap-4">
+
+    <!-- Top Studio Controls Bar -->
+    <div class="bg-white rounded-xl border border-neutral-200 p-2.5 px-3 flex flex-wrap items-center justify-between gap-3 text-xs shadow-xs">
+      <div class="flex items-center gap-2 flex-wrap">
+        <label for="presetSelect" class="font-medium text-neutral-600">Preset Template:</label>
+        <select id="presetSelect" class="bg-neutral-50 border border-neutral-300 rounded-lg px-2.5 py-1.5 font-medium text-neutral-800 focus:outline-none focus:ring-2 focus:ring-brandPurple/30">
+          <option value="enterprise_mcp">Enterprise MCP + Identity Broker</option>
+          <option value="minimal">Minimal 3-Tier Pattern (User → Client → API)</option>
+          <option value="agentic">Agentic AI Pipeline (Agent + Memory + Tools)</option>
+        </select>
+        <button id="loadPresetBtn" class="px-2.5 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium rounded-lg transition border border-neutral-200">
+          Reload Preset
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <!-- Coordinate Helper Overlay Toggle -->
+        <label class="flex items-center gap-1.5 cursor-pointer text-neutral-600 select-none">
+          <input type="checkbox" id="toggleGridCoords" class="rounded text-brandPurple focus:ring-brandPurple/20 border-neutral-300">
+          <span>Show Coordinates Helper</span>
+        </label>
+        <span class="text-neutral-300">|</span>
+        <button id="toggleAnimBtn" class="flex items-center gap-1 text-neutral-700 font-medium hover:text-brandPurple transition">
+          <svg class="w-3.5 h-3.5 text-neutral-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+          </svg>
+          <span id="animBtnText">Animate Connectors</span>
+        </button>
+        <span class="text-neutral-300">|</span>
+        <button id="copyJsonBtn" class="hover:text-brandPurple font-medium text-neutral-600">Copy JSON</button>
+      </div>
+    </div>
+
+    <!-- Studio Two-Column Workspace -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+
+      <!-- LEFT: JSON Configuration Editor -->
+      <section class="lg:col-span-5 bg-white rounded-2xl border border-neutral-200 flex flex-col shadow-xs overflow-hidden h-[720px]">
+        <div class="bg-neutral-50 border-b border-neutral-200 px-3.5 py-2.5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold text-neutral-700 uppercase tracking-wider font-mono">diagram-config.json</span>
+          </div>
+          <span id="jsonStatus" class="text-[11px] font-mono text-emerald-600 font-medium">Valid JSON</span>
+        </div>
+
+        <!-- Textarea Editor with line wrapping disabled for pure code feel -->
+        <div class="relative flex-1 p-0 bg-[#0F172A]">
+          <textarea id="jsonEditor" spellcheck="false" class="w-full h-full p-4 font-mono text-xs sm:text-[13px] leading-relaxed bg-[#0F172A] text-slate-50 resize-none focus:outline-none selection:bg-brandPurple/40 caret-indigo-400 whitespace-pre border-none placeholder:text-neutral-500"></textarea>
+        </div>
+
+        <!-- Editor Bottom Bar -->
+        <div class="bg-neutral-50 border-t border-neutral-200 p-2.5 px-3 flex items-center justify-between text-xs">
+          <span class="text-neutral-500">Edits render in real-time</span>
+          <button id="formatJsonBtn" class="px-2.5 py-1 bg-white border border-neutral-300 rounded hover:bg-neutral-100 font-medium text-neutral-700 transition">
+            Auto-Format JSON
+          </button>
+        </div>
+      </section>
+
+      <!-- RIGHT: Real-time Rendered Diagram Preview -->
+      <section class="lg:col-span-7 flex flex-col gap-3">
+        <!-- Diagram Outer Frame Container (Matching original aesthetic) -->
+        <div id="diagramOuterContainer" class="bg-[#EEEDE7] p-3 sm:p-5 rounded-[28px] border border-[#E3E1DA] shadow-md transition-all">
+          
+          <!-- Inner SVG Canvas Mount Point -->
+          <div id="svgCanvasWrapper" class="relative bg-[#FAFAF8] rounded-[20px] border border-[#E5E4DE] overflow-hidden shadow-inner">
+            <!-- Dynamically injected SVG generated from JSON -->
+            <div id="svgMountPoint" class="w-full h-auto"></div>
+
+            <!-- Coordinate Inspector Tooltip (when Coordinate mode is active) -->
+            <div id="coordTooltip" class="hidden absolute pointer-events-none bg-neutral-900/90 text-white font-mono text-[10px] px-2 py-1 rounded shadow-lg -translate-x-1/2 -translate-y-8 z-30">
+              x: 0, y: 0
+            </div>
+          </div>
+
+          <!-- Dynamic Footer Bar -->
+          <footer id="diagramFooter" class="mt-3.5 flex items-center justify-between gap-2.5 px-2 select-none flex-wrap">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-serif italic font-bold flex-shrink-0 shadow-xs">
+                i
+              </span>
+              <p id="footerMainText" class="text-xs sm:text-sm font-medium text-neutral-600 tracking-tight">
+                Authentication for users of MCP-based Applications
+              </p>
+            </div>
+            <div id="footerTagsContainer" class="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500 flex-wrap">
+              <!-- Dynamically rendered tags -->
+            </div>
+          </footer>
+        </div>
+
+        <!-- Coordinate Helper Info Box (Visible when toggle is on) -->
+        <div id="coordHelperBox" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs">
+          <p class="font-bold mb-0.5">Coordinate Mode Active:</p>
+          <p class="text-amber-800">Move your cursor over the canvas to inspect real-time SVG grid coordinates $(x, y)$. Click any point to automatically copy coordinates to your clipboard for easy path routing.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- TAB 2: SPECIFICATION & DOCUMENTED FRAMEWORK                               -->
+  <!-- ========================================================================= -->
+  <main id="tabDoc" class="max-w-5xl w-full mx-auto flex-1 hidden flex-col gap-6">
+
+    <!-- Overview Banner -->
+    <section class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-xs">
+      <h2 class="text-xl font-bold text-neutral-900 mb-2">Design Grammar &amp; Specification Handbook</h2>
+      <p class="text-neutral-600 text-sm leading-relaxed mb-4">
+        This framework defines a systematic visual language for cloud, security, and AI system diagrams. Follow this specification to create diagrams that look polished, clear, and uniform across documentation, decks, and whitepapers.
+      </p>
+
+      <!-- Key Visual Principles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div class="p-3.5 bg-neutral-50 rounded-xl border border-neutral-200">
+          <span class="text-xs font-bold font-mono text-brandPurple uppercase">1. Blueprint Grid</span>
+          <p class="text-xs text-neutral-600 mt-1">A $20 \times 20\text{px}$ graph-paper grid pattern (`#E6E5DE`) dashed at `2.5 2.5` on a soft warm white canvas (`#FAFAF8`).</p>
+        </div>
+        <div class="p-3.5 bg-neutral-50 rounded-xl border border-neutral-200">
+          <span class="text-xs font-bold font-mono text-brandPurple uppercase">2. Grouped Boundaries</span>
+          <p class="text-xs text-neutral-600 mt-1">Logical boundaries (e.g., Authorization Server, MCP Server) use lightly tinted background fills (`#F8F7FF`, `#EEF2FF`) with nested pure-white cards.</p>
+        </div>
+        <div class="p-3.5 bg-neutral-50 rounded-xl border border-neutral-200">
+          <span class="text-xs font-bold font-mono text-brandPurple uppercase">3. Orthogonal Connectors</span>
+          <p class="text-xs text-neutral-600 mt-1">Flow paths follow strict 90-degree orthogonal routes with clean dashed strokes (`#9CA3AF`, `3.5 3.5`) and centered pill badges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Token Reference Table -->
+    <section class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-xs">
+      <h3 class="text-base font-bold text-neutral-900 mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brandPurple"></span>
+        Core Visual Tokens &amp; Geometry
+      </h3>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="border-b border-neutral-200 text-neutral-500 font-mono">
+              <th class="py-2.5 px-3">Element</th>
+              <th class="py-2.5 px-3">Fill / Stroke</th>
+              <th class="py-2.5 px-3">Corner Radius</th>
+              <th class="py-2.5 px-3">Shadow / Filter</th>
+              <th class="py-2.5 px-3">Typical Dimensions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100 font-mono text-neutral-700">
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Outer Shell Frame</td>
+              <td class="py-2 px-3">`#EEEDE7` / `#E3E1DA` (1px)</td>
+              <td class="py-2 px-3">`rx="28"`</td>
+              <td class="py-2 px-3">Medium drop shadow</td>
+              <td class="py-2 px-3">Padding 20px around SVG</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Blueprint Canvas</td>
+              <td class="py-2 px-3">`#FAFAF8` / `#E5E4DE` (1px)</td>
+              <td class="py-2 px-3">`rx="20"`</td>
+              <td class="py-2 px-3">Inner soft inset</td>
+              <td class="py-2 px-3">`viewBox: 1000 x 460`</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Individual Node Card</td>
+              <td class="py-2 px-3">`#FFFFFF` / `#E2E2DC` (1.2px)</td>
+              <td class="py-2 px-3">`rx="16"`</td>
+              <td class="py-2 px-3">`soft-shadow` (dy: 2.5, stdDev: 4)</td>
+              <td class="py-2 px-3">Width: 140–180, Height: 70–85</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Group Boundary Container</td>
+              <td class="py-2 px-3">`#F8F7FF` or `#EEF2FF` / 1.2px</td>
+              <td class="py-2 px-3">`rx="18"`</td>
+              <td class="py-2 px-3">None (flat tint)</td>
+              <td class="py-2 px-3">Width: 200–260, Height: 200–240</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Subcards inside Group</td>
+              <td class="py-2 px-3">`#FFFFFF` / `#E2E2DC` (1.2px)</td>
+              <td class="py-2 px-3">`rx="14"`</td>
+              <td class="py-2 px-3">`soft-shadow`</td>
+              <td class="py-2 px-3">Width: 180–210, Height: 60–80</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Connector Line</td>
+              <td class="py-2 px-3">Stroke: `#9CA3AF`, 1.3px, dash `3.5 3.5`</td>
+              <td class="py-2 px-3">N/A</td>
+              <td class="py-2 px-3">N/A</td>
+              <td class="py-2 px-3">Dashed orthogonal path</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-semibold text-neutral-900 font-sans">Badge Pill Overlay</td>
+              <td class="py-2 px-3">Fill: `#FAFAF8`, Stroke: none</td>
+              <td class="py-2 px-3">`rx="4"`</td>
+              <td class="py-2 px-3">Masks path behind text</td>
+              <td class="py-2 px-3">Padding 4px around text</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Complete JSON Schema Documentation -->
+    <section class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-xs">
+      <h3 class="text-base font-bold text-neutral-900 mb-2 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brandPurple"></span>
+        Complete TypeScript Interface &amp; Schema
+      </h3>
+      <p class="text-xs text-neutral-600 mb-4">You can copy and save this schema into any project to generate SVGs programmatically via JavaScript, Python, or CLI tools.</p>
+
+      <pre class="bg-neutral-900 text-neutral-100 p-4 rounded-xl text-xs font-mono overflow-x-auto leading-relaxed">
+<code>interface DiagramConfig {
+  meta: {
+    title: string;
+    description: string;
+    viewBox: { width: number; height: number };
+    grid?: { size: number; color: string; dash: string; opacity: number };
+  };
+  nodes: DiagramNode[];
+  connectors: DiagramConnector[];
+  footer?: {
+    text: string;
+    tags?: string[];
+  };
+}
+
+type DiagramNode = CardNode | GroupNode;
+
+interface CardNode {
+  id: string;
+  type?: "card";
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rx?: number; // default: 16
+  fill?: string; // default: "#FFFFFF"
+  stroke?: string; // default: "#E2E2DC"
+  strokeWidth?: number;
+  
+  // Header / Category Eyebrow
+  category?: {
+    text: string;
+    color?: string; // e.g. "#635BFF", "#0066FF"
+    size?: number; // default: 10
+    weight?: number; // default: 700
+  };
+
+  // Main Heading Title
+  title?: {
+    text: string;
+    color?: string; // default: "#111827"
+    size?: number; // default: 14 to 18
+    weight?: number;
+    align?: "left" | "center";
+  };
+
+  // Subtitle / Descriptor
+  subtitle?: {
+    text: string;
+    color?: string;
+    size?: number;
+  };
+
+  // Optional Logo Embed
+  logo?: {
+    type: "image" | "svg-path";
+    url?: string; // for image
+    path?: string; // for raw svg path string
+    viewBox?: string; // e.g. "0 0 453.3 73.9"
+    fill?: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+
+  // Optional Client Icon Chips (as used in MCP Client)
+  chips?: Array<{
+    title: string;
+    iconUrl: string;
+    x: number;
+    y: number;
+    width?: number; // default: 30
+    height?: number; // default: 30
+  }>;
+}
+
+interface GroupNode {
+  id: string;
+  type: "group";
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rx?: number; // default: 18
+  fill: string; // e.g. "#F8F7FF" or "#EEF2FF"
+  stroke?: string;
+  header: {
+    text: string;
+    color: string;
+    size?: number;
+  };
+  children: CardNode[];
+}
+
+interface DiagramConnector {
+  id: string;
+  path: string; // SVG path string e.g. "M 190 72 L 318 72"
+  stroke?: string; // default: "#9CA3AF"
+  strokeWidth?: number; // default: 1.3
+  dash?: string; // default: "3.5 3.5"
+  animated?: boolean;
+  markerEnd?: string; // default: "url(#arrow)"
+  badge?: {
+    x: number;
+    y: number;
+    width?: number;
+    height?: number;
+    bg?: string; // default: matches canvas "#FAFAF8"
+    lines: Array<{
+      text: string;
+      color?: string;
+      size?: number;
+      weight?: number;
+    }>;
+  };
+}</code></pre>
+    </section>
+
+    <!-- Connector Routing & Math Guide -->
+    <section class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-xs">
+      <h3 class="text-base font-bold text-neutral-900 mb-2 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brandPurple"></span>
+        How to Route Connectors &amp; Place Badges
+      </h3>
+      <p class="text-xs text-neutral-600 leading-relaxed mb-4">
+        Connectors use standard SVG path `d` strings. To maintain the crisp architectural look, avoid arbitrary diagonals. Always use <strong>straight lines</strong> or <strong>right-angle orthogonal turns</strong>.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+          <p class="font-bold text-neutral-800 mb-2 font-sans">1. Horizontal Straight Path</p>
+          <code class="text-brandPurple font-semibold">"M {x1} {y} L {x2} {y}"</code>
+          <p class="text-neutral-500 mt-2 font-sans">
+            Badge position:
+            $$x = \frac{x1 + x2}{2}, \quad y = y$$
+          </p>
+        </div>
+
+        <div class="p-4 bg-neutral-50 rounded-xl border border-neutral-200">
+          <p class="font-bold text-neutral-800 mb-2 font-sans">2. Right-Angle Turn (L-shape)</p>
+          <code class="text-brandPurple font-semibold">"M {x1} {y1} L {x2} {y1} L {x2} {y2}"</code>
+          <p class="text-neutral-500 mt-2 font-sans">
+            Moves horizontally from $(x1, y1)$ to corner $(x2, y1)$, then vertically down to target $(x2, y2)$.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-neutral-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg transform translate-y-16 opacity-0 transition-all duration-300 flex items-center gap-2 pointer-events-none z-50">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span id="toastMsg">Operation successful!</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- PRESETS & GENERATOR JAVASCRIPT LOGIC                                      -->
+  <!-- ========================================================================= -->
+  <script>
+    // -----------------------------------------------------------------------
+    // PRESET DATA DEFINITIONS
+    // -----------------------------------------------------------------------
+
+    const PRESET_ENTERPRISE_MCP = {
+      "meta": {
+        "title": "Enterprise MCP + Identity Broker Architecture",
+        "description": "Authentication for enterprise users of MCP connections via Identity Broker & Fine-Grained Authorization",
+        "viewBox": { "width": 1000, "height": 460 },
+        "grid": { "size": 20, "color": "#E6E5DE", "dash": "2.5 2.5", "opacity": 0.85 },
+        "theme": {
+          "outerBg": "#EEEDE7",
+          "canvasBg": "#FAFAF8"
+        }
+      },
+      "nodes": [
+        {
+          "id": "node-user",
+          "type": "card",
+          "x": 45,
+          "y": 35,
+          "width": 145,
+          "height": 74,
+          "rx": 16,
+          "fill": "#FFFFFF",
+          "stroke": "#E2E2DC",
+          "strokeWidth": 1.2,
+          "category": { "text": "USER", "color": "#635BFF", "size": 10.5, "weight": 700 },
+          "title": { "text": "Sam", "color": "#111827", "size": 18, "weight": 700, "align": "left" }
+        },
+        {
+          "id": "node-enterprise-auth",
+          "type": "card",
+          "x": 45,
+          "y": 196,
+          "width": 165,
+          "height": 100,
+          "rx": 16,
+          "fill": "#FFFFFF",
+          "stroke": "#D3E2FE",
+          "strokeWidth": 1.3,
+          "category": { "text": "AUTHENTICATION", "color": "#0066FF", "size": 9.5, "weight": 700 },
+          "title": { "text": "Enterprise SSO", "color": "#0F172A", "size": 16, "weight": 700, "align": "left" },
+          "subtitle": { "text": "Corporate Identity Provider (SAML/OIDC)", "color": "#64748B", "size": 8.5 }
+        },
+        {
+          "id": "node-mcp-client",
+          "type": "card",
+          "x": 318,
+          "y": 32,
+          "width": 172,
+          "height": 78,
+          "rx": 16,
+          "fill": "#FFFFFF",
+          "stroke": "#E2E2DC",
+          "strokeWidth": 1.2,
+          "title": { "text": "MCP Client", "color": "#111827", "size": 13.5, "weight": 700, "align": "center" },
+          "chips": [
+            { "title": "Claude Code", "iconUrl": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/claude-code/default.svg", "x": 332, "y": 60 },
+            { "title": "ChatGPT", "iconUrl": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai-chatgpt/default.svg", "x": 368, "y": 60 },
+            { "title": "Gemini", "iconUrl": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/gemini/default.svg", "x": 404, "y": 60 },
+            { "title": "Microsoft 365 Copilot", "iconUrl": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft-365-copilot/default.svg", "x": 440, "y": 60 }
+          ]
+        },
+        {
+          "id": "group-auth-server",
+          "type": "group",
+          "x": 268,
+          "y": 158,
+          "width": 242,
+          "height": 236,
+          "rx": 18,
+          "fill": "#F8F7FF",
+          "stroke": "#E0DEFB",
+          "header": { "text": "AUTHORIZATION SERVER", "color": "#635BFF", "size": 10.5 },
+          "children": [
+            {
+              "id": "subnode-auth0",
+              "x": 286,
+              "y": 198,
+              "width": 206,
+              "height": 78,
+              "rx": 14,
+              "fill": "#FFFFFF",
+              "stroke": "#E2E2DC",
+              "strokeWidth": 1.2,
+              "logo": {
+                "type": "image",
+                "url": "https://awhitmana0.github.io/images/logo/Auth0_Shield%20Lockup_Black_RGB.svg",
+                "x": 324,
+                "y": 209,
+                "width": 130,
+                "height": 28
+              },
+              "subtitle": { "text": "Agent Identity Management and Token Issuer", "color": "#6B7280", "size": 7.8 }
+            },
+            {
+              "id": "subnode-fga",
+              "x": 286,
+              "y": 302,
+              "width": 206,
+              "height": 78,
+              "rx": 14,
+              "fill": "#FFFFFF",
+              "stroke": "#E2E2DC",
+              "strokeWidth": 1.2,
+              "logo": {
+                "type": "image",
+                "url": "https://cdn.auth0.com/quantum-assets/dist/latest/logos/auth0-fga/auth0-fga-lockup-en-onlight.svg",
+                "x": 314,
+                "y": 312,
+                "width": 150,
+                "height": 30
+              },
+              "subtitle": { "text": "Tool Access Policies", "color": "#6B7280", "size": 9.5 }
+            }
+          ]
+        },
+        {
+          "id": "group-mcp-server",
+          "type": "group",
+          "x": 575,
+          "y": 120,
+          "width": 210,
+          "height": 206,
+          "rx": 18,
+          "fill": "#EEF2FF",
+          "stroke": "#DDE5FD",
+          "header": { "text": "ENTERPRISE MCP SERVER", "color": "#1E293B", "size": 10.5 },
+          "children": [
+            {
+              "id": "node-tools",
+              "x": 590,
+              "y": 160,
+              "width": 180,
+              "height": 62,
+              "rx": 14,
+              "fill": "#FFFFFF",
+              "stroke": "#E2E8F0",
+              "strokeWidth": 1.2,
+              "title": { "text": "Tools and Resources", "color": "#1E293B", "size": 14, "weight": 600, "align": "center" }
+            },
+            {
+              "id": "node-sdk",
+              "x": 590,
+              "y": 238,
+              "width": 180,
+              "height": 62,
+              "rx": 14,
+              "fill": "#FFFFFF",
+              "stroke": "#E2E8F0",
+              "strokeWidth": 1.2,
+              "title": { "text": "Auth0 SDK", "color": "#1E293B", "size": 14.5, "weight": 600, "align": "center" }
+            }
+          ]
+        },
+        {
+          "id": "node-api",
+          "type": "card",
+          "x": 838,
+          "y": 208,
+          "width": 138,
+          "height": 74,
+          "rx": 16,
+          "fill": "#FFFFFF",
+          "stroke": "#E2E2DC",
+          "strokeWidth": 1.2,
+          "title": { "text": "Enterprise APIs", "color": "#111827", "size": 13.5, "weight": 700, "align": "center" }
+        }
+      ],
+      "connectors": [
+        {
+          "id": "path-query",
+          "path": "M 190 72 L 318 72",
+          "badge": {
+            "x": 258,
+            "y": 72,
+            "width": 60,
+            "height": 18,
+            "lines": [
+              { "text": "QUERY →", "color": "#6B7280", "size": 10, "weight": 600 }
+            ]
+          }
+        },
+        {
+          "id": "path-login",
+          "path": "M 125 109 L 125 195",
+          "badge": {
+            "x": 125,
+            "y": 153,
+            "width": 60,
+            "height": 18,
+            "lines": [
+              { "text": "LOGS IN", "color": "#6B7280", "size": 9.5, "weight": 600 }
+            ]
+          }
+        },
+        {
+          "id": "path-federation",
+          "path": "M 210 242 L 268 242",
+          "badge": {
+            "x": 241,
+            "y": 242,
+            "width": 54,
+            "height": 30,
+            "lines": [
+              { "text": "LOGIN", "color": "#6B7280", "size": 8, "weight": 600 },
+              { "text": "DELEGATION", "color": "#0066FF", "size": 8, "weight": 700 }
+            ]
+          }
+        },
+        {
+          "id": "path-fga",
+          "path": "M 390 280 L 390 300",
+          "badge": {
+            "x": 390,
+            "y": 290,
+            "width": 90,
+            "height": 15,
+            "bg": "#F8F7FF",
+            "lines": [
+              { "text": "POLICY EVALUATION", "color": "#635BFF", "size": 8, "weight": 700 }
+            ]
+          }
+        },
+        {
+          "id": "path-auth-mcp",
+          "path": "M 390 110 L 390 156",
+          "badge": {
+            "x": 390,
+            "y": 133,
+            "width": 210,
+            "height": 26,
+            "lines": [
+              { "text": "AUTHENTICATION WITH AGENT ID", "color": "#635BFF", "size": 7.5, "weight": 700 },
+              { "text": "AS ACTOR FOR USER", "color": "#635BFF", "size": 7.5, "weight": 700 }
+            ]
+          }
+        },
+        {
+          "id": "path-toolcall",
+          "path": "M 490 72 L 675 72 L 675 120",
+          "badge": {
+            "x": 595,
+            "y": 72,
+            "width": 126,
+            "height": 28,
+            "lines": [
+              { "text": "TOOL CALL", "color": "#6B7280", "size": 9, "weight": 600 },
+              { "text": "W/ ACCESS TOKEN", "color": "#635BFF", "size": 8.5, "weight": 700 }
+            ]
+          }
+        },
+        {
+          "id": "path-auth-api",
+          "path": "M 440 394 L 440 424 L 680 424 L 680 326",
+          "badge": {
+            "x": 560,
+            "y": 424,
+            "width": 124,
+            "height": 26,
+            "lines": [
+              { "text": "AUTHORIZATION", "color": "#6B7280", "size": 8, "weight": 600 },
+              { "text": "FOR API REQUESTS", "color": "#6B7280", "size": 8, "weight": 600 }
+            ]
+          }
+        },
+        {
+          "id": "path-api-call",
+          "path": "M 785 245 L 838 245",
+          "badge": {
+            "x": 813,
+            "y": 245,
+            "width": 50,
+            "height": 18,
+            "lines": [
+              { "text": "REQUEST", "color": "#6B7280", "size": 9, "weight": 600 }
+            ]
+          }
+        }
+      ],
+      "footer": {
+        "text": "Authentication for enterprise users of MCP connections via Auth0 & Auth0 FGA",
+        "tags": [
+          "Clients: Claude Code, ChatGPT, Gemini, Copilot",
+          "IdP: Corporate SSO",
+          "Auth: Agent Identity & Token Issuer"
+        ]
+      }
+    };
+
+    const PRESET_MINIMAL = {
+      "meta": {
+        "title": "Minimal 3-Tier Architecture Pattern",
+        "description": "Standard Client-Server-Resource Interaction",
+        "viewBox": { "width": 800, "height": 320 },
+        "grid": { "size": 20, "color": "#E6E5DE", "dash": "2.5 2.5", "opacity": 0.85 }
+      },
+      "nodes": [
+        {
+          "id": "user-node",
+          "type": "card",
+          "x": 50,
+          "y": 110,
+          "width": 160,
+          "height": 80,
+          "category": { "text": "CLIENT / ACTOR", "color": "#635BFF", "size": 10 },
+          "title": { "text": "Web Application", "color": "#111827", "size": 15, "weight": 700 }
+        },
+        {
+          "id": "gateway-node",
+          "type": "card",
+          "x": 320,
+          "y": 110,
+          "width": 160,
+          "height": 80,
+          "category": { "text": "API GATEWAY", "color": "#0066FF", "size": 10 },
+          "title": { "text": "Reverse Proxy", "color": "#111827", "size": 15, "weight": 700 }
+        },
+        {
+          "id": "db-node",
+          "type": "card",
+          "x": 590,
+          "y": 110,
+          "width": 160,
+          "height": 80,
+          "category": { "text": "DATA LAYER", "color": "#10B981", "size": 10 },
+          "title": { "text": "PostgreSQL DB", "color": "#111827", "size": 15, "weight": 700 }
+        }
+      ],
+      "connectors": [
+        {
+          "id": "c1",
+          "path": "M 210 150 L 320 150",
+          "badge": {
+            "x": 265, "y": 150, "width": 70, "height": 18,
+            "lines": [{ "text": "HTTPS / JSON", "color": "#6B7280", "size": 9 }]
+          }
+        },
+        {
+          "id": "c2",
+          "path": "M 480 150 L 590 150",
+          "badge": {
+            "x": 535, "y": 150, "width": 64, "height": 18,
+            "lines": [{ "text": "SQL QUERY", "color": "#6B7280", "size": 9 }]
+          }
+        }
+      ],
+      "footer": {
+        "text": "Clean 3-tier stateless cloud application service architecture",
+        "tags": ["Frontend", "Gateway", "Database"]
+      }
+    };
+
+    const PRESET_AGENTIC = {
+      "meta": {
+        "title": "Agentic AI Orchestrator Pipeline",
+        "description": "Multi-agent runtime with tool execution and vector memory",
+        "viewBox": { "width": 880, "height": 400 },
+        "grid": { "size": 20, "color": "#E6E5DE", "dash": "2.5 2.5", "opacity": 0.85 }
+      },
+      "nodes": [
+        {
+          "id": "user",
+          "type": "card",
+          "x": 50,
+          "y": 50,
+          "width": 150,
+          "height": 75,
+          "category": { "text": "USER PROMPT", "color": "#635BFF", "size": 9.5 },
+          "title": { "text": "Engineer", "size": 16, "weight": 700 }
+        },
+        {
+          "id": "orchestrator",
+          "type": "card",
+          "x": 280,
+          "y": 48,
+          "width": 190,
+          "height": 80,
+          "category": { "text": "ORCHESTRATOR", "color": "#0066FF", "size": 9.5 },
+          "title": { "text": "Agent Reasoning Core", "size": 14, "weight": 700 }
+        },
+        {
+          "id": "memory-group",
+          "type": "group",
+          "x": 560,
+          "y": 30,
+          "width": 260,
+          "height": 190,
+          "fill": "#F0FDF4",
+          "stroke": "#DCFCE7",
+          "header": { "text": "CONTEXT & MEMORY", "color": "#16A34A", "size": 10 },
+          "children": [
+            {
+              "id": "vector-store",
+              "x": 580, "y": 70, "width": 220, "height": 55, "rx": 12,
+              "title": { "text": "Vector Embeddings DB", "size": 13, "weight": 600, "align": "center" }
+            },
+            {
+              "id": "short-term",
+              "x": 580, "y": 140, "width": 220, "height": 55, "rx": 12,
+              "title": { "text": "Short-Term Scratchpad", "size": 13, "weight": 600, "align": "center" }
+            }
+          ]
+        },
+        {
+          "id": "tools-card",
+          "type": "card",
+          "x": 280,
+          "y": 240,
+          "width": 190,
+          "height": 90,
+          "category": { "text": "EXECUTION", "color": "#DC2626", "size": 9.5 },
+          "title": { "text": "MCP Tool Executor", "size": 14, "weight": 700 },
+          "subtitle": { "text": "Sandboxed API Actions", "size": 9, "color": "#6B7280" }
+        }
+      ],
+      "connectors": [
+        {
+          "id": "p1",
+          "path": "M 200 87 L 280 87",
+          "badge": { "x": 240, "y": 87, "width": 55, "height": 18, "lines": [{ "text": "INPUT", "color": "#6B7280", "size": 9 }] }
+        },
+        {
+          "id": "p2",
+          "path": "M 470 87 L 560 87",
+          "badge": { "x": 515, "y": 87, "width": 65, "height": 18, "lines": [{ "text": "RAG SEARCH", "color": "#16A34A", "size": 8.5, "weight": 700 }] }
+        },
+        {
+          "id": "p3",
+          "path": "M 375 128 L 375 240",
+          "badge": { "x": 375, "y": 184, "width": 75, "height": 18, "lines": [{ "text": "TOOL DISPATCH", "color": "#DC2626", "size": 8.5, "weight": 700 }] }
+        }
+      ],
+      "footer": {
+        "text": "Autonomous Agent loop integrating Model Context Protocol and Vector Storage",
+        "tags": ["Reasoning", "Memory", "Tools", "Safety"]
+      }
+    };
+
+    // -----------------------------------------------------------------------
+    // SVG RENDERING ENGINE
+    // -----------------------------------------------------------------------
+
+    function renderDiagramSVG(config, showCoords = false) {
+      const vb = config.meta?.viewBox || { width: 1000, height: 460 };
+      const grid = config.meta?.grid || { size: 20, color: "#E6E5DE", dash: "2.5 2.5", opacity: 0.85 };
+      const theme = config.meta?.theme || { canvasBg: "#FAFAF8" };
+
+      let svg = `
+      <svg id="architectureSvg" viewBox="0 0 ${vb.width} ${vb.height}" class="w-full h-auto select-none block" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Blueprint Grid -->
+          <pattern id="diagram-grid" width="${grid.size}" height="${grid.size}" patternUnits="userSpaceOnUse">
+            <path d="M ${grid.size} 0 L 0 0 0 ${grid.size}" fill="none" stroke="${grid.color}" stroke-width="0.8" stroke-dasharray="${grid.dash}" opacity="${grid.opacity}"/>
+          </pattern>
+
+          <!-- Marker Arrowheads -->
+          <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 1.5 2 L 7 5 L 1.5 8" fill="none" stroke="#94A3B8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+          <marker id="arrow-active" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 1.5 2 L 7 5 L 1.5 8" fill="none" stroke="#635BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+
+          <!-- Drop Shadows -->
+          <filter id="soft-shadow" x="-10%" y="-10%" width="125%" height="135%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.04"/>
+          </filter>
+        </defs>
+
+        <!-- Canvas Background -->
+        <rect width="${vb.width}" height="${vb.height}" fill="url(#diagram-grid)"/>
+      `;
+
+      // Helper for rendering a single card node
+      function renderCard(node) {
+        const rx = node.rx || 16;
+        const fill = node.fill || '#FFFFFF';
+        const stroke = node.stroke || '#E2E2DC';
+        const strokeW = node.strokeWidth || 1.2;
+        const shadowAttr = fill === '#FFFFFF' ? 'filter="url(#soft-shadow)"' : '';
+
+        let content = `
+        <g id="${node.id}" class="diagram-node" data-node="${node.id}">
+          <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}" ${shadowAttr}/>
+        `;
+
+        // Category Eyebrow
+        if (node.category) {
+          const color = node.category.color || '#635BFF';
+          const size = node.category.size || 10;
+          const weight = node.category.weight || 700;
+          content += `<text x="${node.x + 18}" y="${node.y + 22}" fill="${color}" font-size="${size}" font-weight="${weight}" letter-spacing="0.08em">${node.category.text}</text>`;
+        }
+
+        // Title
+        if (node.title) {
+          const color = node.title.color || '#111827';
+          const size = node.title.size || 14;
+          const weight = node.title.weight || 700;
+          const align = node.title.align || 'left';
+
+          if (align === 'center') {
+            const centerY = node.category ? node.y + (node.height / 2) + 8 : node.y + (node.height / 2) + 5;
+            content += `<text x="${node.x + node.width / 2}" y="${centerY}" fill="${color}" font-size="${size}" font-weight="${weight}" text-anchor="middle">${node.title.text}</text>`;
+          } else {
+            const textY = node.category ? node.y + 48 : node.y + (node.height / 2) + 5;
+            content += `<text x="${node.x + 18}" y="${textY}" fill="${color}" font-size="${size}" font-weight="${weight}">${node.title.text}</text>`;
+          }
+        }
+
+        // Subtitle
+        if (node.subtitle) {
+          const color = node.subtitle.color || '#6B7280';
+          const size = node.subtitle.size || 9;
+          const subY = node.subtitle.y || (node.y + node.height - 14);
+          content += `<text x="${node.x + node.width / 2}" y="${subY}" fill="${color}" font-size="${size}" font-weight="500" text-anchor="middle">${node.subtitle.text}</text>`;
+        }
+
+        // Logo (Image or SVG Path)
+        if (node.logo) {
+          if (node.logo.type === 'svg-path') {
+            content += `
+            <svg x="${node.logo.x}" y="${node.logo.y}" width="${node.logo.width}" height="${node.logo.height}" viewBox="${node.logo.viewBox || '0 0 100 100'}" preserveAspectRatio="xMidYMid meet">
+              <path d="${node.logo.path}" fill="${node.logo.fill || '#003059'}"/>
+            </svg>`;
+          } else if (node.logo.type === 'image') {
+            content += `
+            <image href="${node.logo.url}" xlink:href="${node.logo.url}" x="${node.logo.x}" y="${node.logo.y}" width="${node.logo.width}" height="${node.logo.height}" preserveAspectRatio="xMidYMid meet"/>
+            `;
+          }
+        }
+
+        // Chips array
+        if (Array.isArray(node.chips)) {
+          node.chips.forEach(chip => {
+            const chipW = chip.width || 30;
+            const chipH = chip.height || 30;
+            content += `
+            <g class="client-chip">
+              <rect x="${chip.x}" y="${chip.y}" width="${chipW}" height="${chipH}" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="0.9"/>
+              <image href="${chip.iconUrl}" xlink:href="${chip.iconUrl}" x="${chip.x + 5}" y="${chip.y + 5}" width="${chipW - 10}" height="${chipH - 10}" preserveAspectRatio="xMidYMid meet"/>
+              <title>${chip.title}</title>
+            </g>`;
+          });
+        }
+
+        content += `</g>`;
+        return content;
+      }
+
+      // 1. RENDER CONNECTORS (Layered behind nodes)
+      svg += `<g id="connectors-layer">`;
+      if (Array.isArray(config.connectors)) {
+        config.connectors.forEach(c => {
+          const stroke = c.stroke || '#9CA3AF';
+          const strokeW = c.strokeWidth || 1.3;
+          const dash = c.dash || '3.5 3.5';
+          const marker = c.markerEnd || 'url(#arrow)';
+          const animClass = c.animated ? 'animated-flow' : '';
+
+          svg += `
+          <g id="${c.id}" class="flow-group">
+            <path class="flow-line ${animClass}" d="${c.path}" fill="none" stroke="${stroke}" stroke-width="${strokeW}" stroke-dasharray="${dash}" marker-end="${marker}"/>
+          `;
+
+          if (c.badge) {
+            const b = c.badge;
+            const lines = b.lines || [];
+            const bW = b.width || 80;
+            const bH = b.height || (lines.length > 1 ? 28 : 18);
+            const bgFill = b.bg || theme.canvasBg || '#FAFAF8';
+
+            svg += `<rect x="${b.x - bW / 2}" y="${b.y - bH / 2}" width="${bW}" height="${bH}" fill="${bgFill}" rx="4"/>`;
+
+            if (lines.length === 1) {
+              const l = lines[0];
+              svg += `<text x="${b.x}" y="${b.y + 3.5}" fill="${l.color || '#6B7280'}" font-size="${l.size || 9}" font-weight="${l.weight || 600}" letter-spacing="0.04em" text-anchor="middle">${l.text}</text>`;
+            } else {
+              lines.forEach((l, idx) => {
+                const lineY = b.y - bH / 2 + 11 + (idx * 11);
+                svg += `<text x="${b.x}" y="${lineY}" fill="${l.color || '#6B7280'}" font-size="${l.size || 8}" font-weight="${l.weight || 700}" letter-spacing="0.03em" text-anchor="middle">${l.text}</text>`;
+              });
+            }
+          }
+
+          svg += `</g>`;
+        });
+      }
+      svg += `</g>`;
+
+      // 2. RENDER NODES & GROUPS
+      svg += `<g id="nodes-layer">`;
+      if (Array.isArray(config.nodes)) {
+        config.nodes.forEach(node => {
+          if (node.type === 'group') {
+            const rx = node.rx || 18;
+            svg += `
+            <g id="${node.id}" class="diagram-node" data-node="${node.id}">
+              <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" rx="${rx}" fill="${node.fill}" stroke="${node.stroke || '#E2E2DC'}" stroke-width="1.2"/>
+              <text x="${node.x + node.width / 2}" y="${node.y + 26}" fill="${node.header?.color || '#1E293B'}" font-size="${node.header?.size || 10.5}" font-weight="700" letter-spacing="0.06em" text-anchor="middle">${node.header?.text || ''}</text>
+            `;
+            if (Array.isArray(node.children)) {
+              node.children.forEach(child => {
+                svg += renderCard(child);
+              });
+            }
+            svg += `</g>`;
+          } else {
+            svg += renderCard(node);
+          }
+        });
+      }
+      svg += `</g>`;
+
+      // Optional Coordinate Grid Crosshair Overlay
+      if (showCoords) {
+        svg += `
+        <g id="debug-coords-overlay" opacity="0.35" pointer-events="none">
+          <line x1="0" y1="100" x2="${vb.width}" y2="100" stroke="#EF4444" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="0" y1="200" x2="${vb.width}" y2="200" stroke="#EF4444" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="0" y1="300" x2="${vb.width}" y2="300" stroke="#EF4444" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="0" y1="400" x2="${vb.width}" y2="400" stroke="#EF4444" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="200" y1="0" x2="200" y2="${vb.height}" stroke="#3B82F6" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="400" y1="0" x2="400" y2="${vb.height}" stroke="#3B82F6" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="600" y1="0" x2="600" y2="${vb.height}" stroke="#3B82F6" stroke-dasharray="2 2" stroke-width="0.8"/>
+          <line x1="800" y1="0" x2="800" y2="${vb.height}" stroke="#3B82F6" stroke-dasharray="2 2" stroke-width="0.8"/>
+        </g>`;
+      }
+
+      svg += `</svg>`;
+      return svg;
+    }
+
+    // -----------------------------------------------------------------------
+    // UI & APPLICATION CONTROLLER
+    // -----------------------------------------------------------------------
+
+    let currentConfig = JSON.parse(JSON.stringify(PRESET_ENTERPRISE_MCP));
+    let isAnimated = false;
+    let showCoordinates = false;
+
+    // DOM Elements
+    const jsonEditor = document.getElementById('jsonEditor');
+    const svgMountPoint = document.getElementById('svgMountPoint');
+    const jsonStatus = document.getElementById('jsonStatus');
+    const presetSelect = document.getElementById('presetSelect');
+    const loadPresetBtn = document.getElementById('loadPresetBtn');
+    const formatJsonBtn = document.getElementById('formatJsonBtn');
+    const toggleGridCoords = document.getElementById('toggleGridCoords');
+    const toggleAnimBtn = document.getElementById('toggleAnimBtn');
+    const animBtnText = document.getElementById('animBtnText');
+    const copyJsonBtn = document.getElementById('copyJsonBtn');
+    const exportSvgBtn = document.getElementById('exportSvgBtn');
+    const exportPngBtn = document.getElementById('exportPngBtn');
+    const pngOptionsToggle = document.getElementById('pngOptionsToggle');
+    const pngOptionsMenu = document.getElementById('pngOptionsMenu');
+    const pngBtnLabel = document.getElementById('pngBtnLabel');
+    const downloadJsonBtn = document.getElementById('downloadJsonBtn');
+    const downloadZipBtn = document.getElementById('downloadZipBtn');
+    const zipBtnLabel = document.getElementById('zipBtnLabel');
+    const downloadMdBtn = document.getElementById('downloadMdBtn');
+    const footerMainText = document.getElementById('footerMainText');
+    const footerTagsContainer = document.getElementById('footerTagsContainer');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    const coordTooltip = document.getElementById('coordTooltip');
+    const coordHelperBox = document.getElementById('coordHelperBox');
+    const svgCanvasWrapper = document.getElementById('svgCanvasWrapper');
+
+    // Tab buttons
+    const tabStudioBtn = document.getElementById('tabStudioBtn');
+    const tabDocBtn = document.getElementById('tabDocBtn');
+    const tabStudio = document.getElementById('tabStudio');
+    const tabDoc = document.getElementById('tabDoc');
+
+    // Toast utility
+    function triggerToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-16', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-16', 'opacity-0');
+      }, 2500);
+    }
+
+    // Render Pipeline
+    function refreshDiagram() {
+      try {
+        svgMountPoint.innerHTML = renderDiagramSVG(currentConfig, showCoordinates);
+
+        // Update footer text and tags
+        if (currentConfig.footer) {
+          footerMainText.textContent = currentConfig.footer.text || '';
+          footerTagsContainer.innerHTML = '';
+          if (Array.isArray(currentConfig.footer.tags)) {
+            currentConfig.footer.tags.forEach(t => {
+              const span = document.createElement('span');
+              span.className = 'px-2 py-0.5 rounded bg-white border border-neutral-200 shadow-2xs';
+              span.textContent = t;
+              footerTagsContainer.appendChild(span);
+            });
+          }
+        }
+
+        // Apply animated class if active
+        if (isAnimated) {
+          document.querySelectorAll('.flow-line').forEach(p => p.classList.add('animated-flow'));
+        }
+
+        attachCoordinateInspector();
+      } catch (err) {
+        console.error("Rendering Error:", err);
+      }
+    }
+
+    // Setup Coordinate Inspector
+    function attachCoordinateInspector() {
+      const svg = document.getElementById('architectureSvg');
+      if (!svg) return;
+
+      svg.addEventListener('mousemove', (e) => {
+        if (!showCoordinates) return;
+        const pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+        const x = Math.round(svgP.x);
+        const y = Math.round(svgP.y);
+
+        coordTooltip.classList.remove('hidden');
+        coordTooltip.style.left = `${e.offsetX}px`;
+        coordTooltip.style.top = `${e.offsetY}px`;
+        coordTooltip.textContent = `x: ${x}, y: ${y}`;
+      });
+
+      svg.addEventListener('mouseleave', () => {
+        coordTooltip.classList.add('hidden');
+      });
+
+      svg.addEventListener('click', (e) => {
+        if (!showCoordinates) return;
+        const pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+        const x = Math.round(svgP.x);
+        const y = Math.round(svgP.y);
+        navigator.clipboard.writeText(`${x} ${y}`);
+        triggerToast(`Copied coordinates: "${x} ${y}"`);
+      });
+    }
+
+    // Editor sync
+    function syncFromEditor() {
+      try {
+        const parsed = JSON.parse(jsonEditor.value);
+        currentConfig = parsed;
+        jsonStatus.textContent = "Valid JSON";
+        jsonStatus.className = "text-[11px] font-mono text-emerald-600 font-medium";
+        refreshDiagram();
+      } catch (err) {
+        jsonStatus.textContent = "Syntax Error";
+        jsonStatus.className = "text-[11px] font-mono text-red-600 font-medium";
+      }
+    }
+
+    jsonEditor.addEventListener('input', syncFromEditor);
+
+    // Format JSON
+    formatJsonBtn.addEventListener('click', () => {
+      try {
+        const obj = JSON.parse(jsonEditor.value);
+        jsonEditor.value = JSON.stringify(obj, null, 2);
+        triggerToast("JSON Formatted!");
+      } catch (e) {
+        triggerToast("Cannot format invalid JSON");
+      }
+    });
+
+    // Preset loader
+    function loadPreset(name) {
+      if (name === 'enterprise_mcp') currentConfig = JSON.parse(JSON.stringify(PRESET_ENTERPRISE_MCP));
+      else if (name === 'minimal') currentConfig = JSON.parse(JSON.stringify(PRESET_MINIMAL));
+      else if (name === 'agentic') currentConfig = JSON.parse(JSON.stringify(PRESET_AGENTIC));
+
+      jsonEditor.value = JSON.stringify(currentConfig, null, 2);
+      jsonStatus.textContent = "Valid JSON";
+      jsonStatus.className = "text-[11px] font-mono text-emerald-600 font-medium";
+      refreshDiagram();
+      triggerToast(`Loaded "${presetSelect.options[presetSelect.selectedIndex].text}"`);
+    }
+
+    loadPresetBtn.addEventListener('click', () => loadPreset(presetSelect.value));
+    presetSelect.addEventListener('change', () => loadPreset(presetSelect.value));
+
+    // Animation Toggle
+    toggleAnimBtn.addEventListener('click', () => {
+      isAnimated = !isAnimated;
+      animBtnText.textContent = isAnimated ? "Stop Animation" : "Animate Connectors";
+      document.querySelectorAll('.flow-line').forEach(p => {
+        if (isAnimated) p.classList.add('animated-flow');
+        else p.classList.remove('animated-flow');
+      });
+    });
+
+    // Coordinate Helper Toggle
+    toggleGridCoords.addEventListener('change', (e) => {
+      showCoordinates = e.target.checked;
+      coordHelperBox.classList.toggle('hidden', !showCoordinates);
+      refreshDiagram();
+    });
+
+    // Copy JSON
+    copyJsonBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(jsonEditor.value);
+      triggerToast("JSON config copied to clipboard!");
+    });
+
+    // -----------------------------------------------------------------------
+    // PNG EXPORT ENGINE (EXCLUDES INFO SECTION / FOOTER)
+    // -----------------------------------------------------------------------
+    // Helper to draw rounded rectangles on Canvas 2D
+    function drawRoundRect(ctx, x, y, width, height, radius) {
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(x, y, width, height, radius);
+        return;
+      }
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    // Helper to inline external images as data URLs to avoid canvas tainting
+    async function inlineSvgImages(clonedSvg) {
+      const images = Array.from(clonedSvg.querySelectorAll('image'));
+      await Promise.all(images.map(async (img) => {
+        const href = img.getAttribute('href') || img.getAttribute('xlink:href');
+        if (!href || href.startsWith('data:')) return;
+        try {
+          const resp = await fetch(href, { mode: 'cors' });
+          if (resp.ok) {
+            const blob = await resp.blob();
+            const dataUrl = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result);
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            });
+            img.setAttribute('href', dataUrl);
+            img.setAttribute('xlink:href', dataUrl);
+          }
+        } catch (e) {
+          console.warn('Could not inline image for PNG export:', href, e);
+        }
+      }));
+    }
+
+    // Core PNG generation routine (returns Promise<Blob> so both single PNG and ZIP can share it)
+    async function generatePngBlob(layout = 'framed', scale = 2) {
+      const svg = document.getElementById('architectureSvg');
+      if (!svg) throw new Error("SVG element not found");
+
+      const vb = currentConfig.meta?.viewBox || { width: 1000, height: 460 };
+      const theme = currentConfig.meta?.theme || {};
+      const outerBg = theme.outerBg || '#EEEDE7';
+      const canvasBg = theme.canvasBg || '#FAFAF8';
+
+      // Clone the SVG element
+      const clonedSvg = svg.cloneNode(true);
+      clonedSvg.setAttribute('width', vb.width);
+      clonedSvg.setAttribute('height', vb.height);
+
+      // Append explicit typography styles to cloned SVG
+      const defs = clonedSvg.querySelector('defs');
+      if (defs) {
+        const styleEl = document.createElement('style');
+        styleEl.textContent = `text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }`;
+        defs.appendChild(styleEl);
+      }
+
+      // Inline external image assets
+      await inlineSvgImages(clonedSvg);
+
+      // Serialize SVG to XML string
+      const serializer = new XMLSerializer();
+      let svgString = serializer.serializeToString(clonedSvg);
+      if (!svgString.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+        svgString = svgString.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+
+      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+      const blobUrl = URL.createObjectURL(svgBlob);
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = blobUrl;
+      });
+
+      // Initialize Canvas
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      const padding = layout === 'framed' ? 24 : 0;
+      const totalW = (vb.width + padding * 2) * scale;
+      const totalH = (vb.height + padding * 2) * scale;
+
+      canvas.width = totalW;
+      canvas.height = totalH;
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      if (layout === 'framed') {
+        // 1. Draw outer framed container (#EEEDE7)
+        drawRoundRect(ctx, 0, 0, totalW, totalH, 28 * scale);
+        ctx.fillStyle = outerBg;
+        ctx.fill();
+        ctx.strokeStyle = '#E3E1DA';
+        ctx.lineWidth = 1.2 * scale;
+        ctx.stroke();
+
+        // 2. Inner canvas clip with rounded corners (rx=20)
+        const innerX = padding * scale;
+        const innerY = padding * scale;
+        const innerW = vb.width * scale;
+        const innerH = vb.height * scale;
+
+        ctx.save();
+        drawRoundRect(ctx, innerX, innerY, innerW, innerH, 20 * scale);
+        ctx.fillStyle = canvasBg;
+        ctx.fill();
+        ctx.clip();
+
+        // Draw the diagram vector graphic onto inner canvas
+        ctx.drawImage(img, innerX, innerY, innerW, innerH);
+        ctx.restore();
+
+        // Stroke inner canvas border
+        drawRoundRect(ctx, innerX, innerY, innerW, innerH, 20 * scale);
+        ctx.strokeStyle = '#E5E4DE';
+        ctx.lineWidth = 1 * scale;
+        ctx.stroke();
+      } else {
+        // Canvas only layout: clipped to rounded blueprint canvas
+        ctx.save();
+        drawRoundRect(ctx, 0, 0, totalW, totalH, 20 * scale);
+        ctx.fillStyle = canvasBg;
+        ctx.fill();
+        ctx.clip();
+
+        ctx.drawImage(img, 0, 0, totalW, totalH);
+        ctx.restore();
+
+        drawRoundRect(ctx, 0, 0, totalW, totalH, 20 * scale);
+        ctx.strokeStyle = '#E5E4DE';
+        ctx.lineWidth = 1.2 * scale;
+        ctx.stroke();
+      }
+
+      URL.revokeObjectURL(blobUrl);
+
+      return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+          else reject(new Error("Canvas toBlob failed"));
+        }, 'image/png');
+      });
+    }
+
+    async function exportDiagramAsPng() {
+      const originalBtnText = pngBtnLabel.textContent;
+      pngBtnLabel.textContent = 'Generating...';
+      exportPngBtn.classList.add('opacity-80', 'pointer-events-none');
+
+      try {
+        const layout = document.querySelector('input[name="pngLayout"]:checked')?.value || 'framed';
+        const scale = parseInt(document.querySelector('input[name="pngScale"]:checked')?.value || '2', 10);
+
+        const blob = await generatePngBlob(layout, scale);
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const baseName = (currentConfig.meta?.title || 'architecture-diagram')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-');
+        a.download = `${baseName}-${layout}.png`;
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        triggerToast(`PNG downloaded (${layout}, ${scale}x scale, info section excluded)!`);
+      } catch (err) {
+        console.error("PNG export error:", err);
+        triggerToast("Error exporting PNG. Check console for details.");
+      } finally {
+        pngBtnLabel.textContent = originalBtnText;
+        exportPngBtn.classList.remove('opacity-80', 'pointer-events-none');
+      }
+    }
+
+    // Toggle options dropdown
+    pngOptionsToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pngOptionsMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', () => {
+      if (!pngOptionsMenu.classList.contains('hidden')) {
+        pngOptionsMenu.classList.add('hidden');
+      }
+    });
+
+    pngOptionsMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    exportPngBtn.addEventListener('click', exportDiagramAsPng);
+
+    // -----------------------------------------------------------------------
+    // DOWNLOAD JSON CONFIGURATION
+    // -----------------------------------------------------------------------
+    function downloadJsonConfig() {
+      try {
+        const jsonStr = jsonEditor.value || JSON.stringify(currentConfig, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const baseName = (currentConfig.meta?.title || 'architecture-diagram')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-');
+        a.download = `${baseName}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        triggerToast("JSON downloaded successfully!");
+      } catch (err) {
+        console.error("JSON download error:", err);
+        triggerToast("Failed to download JSON");
+      }
+    }
+
+    downloadJsonBtn.addEventListener('click', downloadJsonConfig);
+
+    // -----------------------------------------------------------------------
+    // DOWNLOAD ALL ASSETS (SVG, PNG, MD, JSON) AS ZIP
+    // -----------------------------------------------------------------------
+    async function downloadAllAsZip() {
+      if (typeof JSZip === 'undefined') {
+        triggerToast("JSZip library is still loading. Please try again.");
+        return;
+      }
+
+      const originalBtnText = zipBtnLabel.textContent;
+      zipBtnLabel.textContent = 'Archiving...';
+      downloadZipBtn.classList.add('opacity-80', 'pointer-events-none');
+
+      try {
+        const zip = new JSZip();
+        const baseName = (currentConfig.meta?.title || 'architecture-diagram')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-');
+
+        // 1. JSON Configuration File
+        const jsonContent = jsonEditor.value || JSON.stringify(currentConfig, null, 2);
+        zip.file(`${baseName}.json`, jsonContent);
+
+        // 2. Markdown Specification File
+        const mdContent = generateMarkdownDocumentation();
+        zip.file("ARCHITECTURE_DIAGRAM_SPEC.md", mdContent);
+
+        // 3. SVG File
+        const svgElement = document.getElementById('architectureSvg');
+        if (svgElement) {
+          const serializer = new XMLSerializer();
+          let svgSource = serializer.serializeToString(svgElement);
+          if (!svgSource.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+            svgSource = svgSource.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+          }
+          zip.file(`${baseName}.svg`, svgSource);
+        }
+
+        // 4. PNG File (high-res without info section)
+        const layout = document.querySelector('input[name="pngLayout"]:checked')?.value || 'framed';
+        const scale = parseInt(document.querySelector('input[name="pngScale"]:checked')?.value || '2', 10);
+        const pngBlob = await generatePngBlob(layout, scale);
+        zip.file(`${baseName}-${layout}.png`, pngBlob);
+
+        // 5. Quick Readme in the ZIP
+        const readmeContent = `Architecture Diagram Package
+Generated on: ${new Date().toISOString()}
+Diagram: ${currentConfig.meta?.title || 'Architecture Diagram'}
+
+Included files:
+- ${baseName}.json: Diagram configuration file
+- ${baseName}.svg: Vector SVG diagram
+- ${baseName}-${layout}.png: High-resolution PNG (${scale}x scale, info section excluded)
+- ARCHITECTURE_DIAGRAM_SPEC.md: Full schema and rendering documentation
+`;
+        zip.file("README.txt", readmeContent);
+
+        // Generate and trigger download of the ZIP file
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.download = `${baseName}-bundle.zip`;
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        triggerToast("Downloaded complete bundle (SVG, PNG, MD, JSON) as ZIP!");
+      } catch (err) {
+        console.error("ZIP creation error:", err);
+        triggerToast("Failed to create ZIP package. Check console for details.");
+      } finally {
+        zipBtnLabel.textContent = originalBtnText;
+        downloadZipBtn.classList.remove('opacity-80', 'pointer-events-none');
+      }
+    }
+
+    downloadZipBtn.addEventListener('click', downloadAllAsZip);
+
+    // -----------------------------------------------------------------------
+    // DOWNLOAD MARKDOWN DOCUMENTATION GENERATOR
+    // -----------------------------------------------------------------------
+    function generateMarkdownDocumentation() {
+      return `# Architecture Diagram Specification & JSON-to-SVG Framework
+
+This document outlines the design grammar, data contract, rendering mechanics, and production examples for creating cloud, security, and AI system architecture diagrams using pure JSON.
+
+---
+
+## 1. Visual Grammar & Design Tokens
+
+The diagrams generated by this framework follow a blueprint-style aesthetic designed for technical documentation, architectural reviews, whitepapers, and presentation decks.
+
+### Geometry & Styling Table
+
+| Component | Dimensions / Coordinates | Colors / Styles | Corner Radius |
+| :--- | :--- | :--- | :--- |
+| **Canvas ViewBox** | \`1000 x 460\` (recommended default) | Background: \`#FAFAF8\` | \`rx="20"\` |
+| **Grid Pattern** | \`20px x 20px\` squares | Stroke: \`#E6E5DE\`, dash: \`2.5 2.5\` | N/A |
+| **Outer Border Frame** | Relative padding: \`20px\` | Fill: \`#EEEDE7\`, border: \`#E3E1DA\` | \`rx="28"\` |
+| **Individual Node** | \`width: 140–180\`, \`height: 70–85\` | Fill: \`#FFFFFF\`, stroke: \`#E2E2DC\` | \`rx="16"\` |
+| **Boundary Group** | \`width: 200–260\`, \`height: 200–240\` | Tint: \`#F8F7FF\` (purple) / \`#EEF2FF\` (blue) | \`rx="18"\` |
+| **Nested Subcards** | \`width: 180–210\`, \`height: 60–80\` | Fill: \`#FFFFFF\`, stroke: \`#E2E2DC\` | \`rx="14"\` |
+| **Connectors** | Path strings (\`M x y L x y\`) | Stroke: \`#9CA3AF\`, \`1.3px\`, dash: \`3.5 3.5\` | N/A |
+| **Connector Badges** | Centered over path segment | Fill: \`#FAFAF8\` (matches canvas), border: none | \`rx="4"\` |
+
+---
+
+## 2. Complete TypeScript Schema Specification
+
+Use this schema to validate and type-check diagram JSON files:
+
+\`\`\`typescript
+export interface DiagramConfig {
+  meta: {
+    title: string;
+    description: string;
+    viewBox: { width: number; height: number };
+    grid?: {
+      size: number;
+      color: string;
+      dash: string;
+      opacity: number;
+    };
+    theme?: {
+      outerBg?: string;
+      canvasBg?: string;
+    };
+  };
+  nodes: (CardNode | GroupNode)[];
+  connectors: DiagramConnector[];
+  footer?: {
+    text: string;
+    tags?: string[];
+  };
+}
+
+export interface CardNode {
+  id: string;
+  type?: 'card';
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rx?: number;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+  category?: {
+    text: string;
+    color?: string;
+    size?: number;
+    weight?: number;
+  };
+  title?: {
+    text: string;
+    color?: string;
+    size?: number;
+    weight?: number;
+    align?: 'left' | 'center';
+  };
+  subtitle?: {
+    text: string;
+    color?: string;
+    size?: number;
+  };
+  logo?: {
+    type: 'image' | 'svg-path';
+    url?: string;
+    path?: string;
+    viewBox?: string;
+    fill?: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+  chips?: Array<{
+    title: string;
+    iconUrl: string;
+    x: number;
+    y: number;
+    width?: number;
+    height?: number;
+  }>;
+}
+
+export interface GroupNode {
+  id: string;
+  type: 'group';
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rx?: number;
+  fill: string;
+  stroke?: string;
+  header: {
+    text: string;
+    color: string;
+    size?: number;
+  };
+  children: CardNode[];
+}
+
+export interface DiagramConnector {
+  id: string;
+  path: string; // SVG path d-string
+  stroke?: string;
+  strokeWidth?: number;
+  dash?: string;
+  animated?: boolean;
+  markerEnd?: string;
+  badge?: {
+    x: number;
+    y: number;
+    width?: number;
+    height?: number;
+    bg?: string;
+    lines: Array<{
+      text: string;
+      color?: string;
+      size?: number;
+      weight?: number;
+    }>;
+  };
+}
+\`\`\`
+
+---
+
+## 3. How the Engine Renders Values into SVG
+
+1. **Definitions (\`<defs>\`) Layer**:
+   - Compiles a \`<pattern>\` element for the \`20x20\` dashed grid.
+   - Sets up markers for \`arrow\` (gray, #94A3B8) and \`arrow-active\` (purple, #635BFF).
+   - Generates a subtle drop shadow filter (\`feDropShadow\`) applied exclusively to white card nodes.
+
+2. **Connectors Layer (\`<g id="connectors-layer">\`)**:
+   - Rendered **behind** nodes to ensure clean boundary clippings.
+   - Reads the \`path\` attribute directly into an SVG \`<path>\` tag with \`stroke-dasharray="3.5 3.5"\`.
+   - Centers badge overlays at \`(badge.x, badge.y)\` using an opaque canvas-matched \`<rect>\` that naturally masks the dashed stroke beneath the text.
+
+3. **Nodes Layer (\`<g id="nodes-layer">\`)**:
+   - Groups are drawn first as container rects with headers.
+   - Subcards inside groups and standalone cards are drawn with rounded rects (\`rx="16"\`).
+   - If \`logo.type === "svg-path"\`, a sub-SVG is embedded with the coordinate box and path data.
+   - If \`logo.type === "image"\`, an \`<image href="..." xlink:href="...">\` element is rendered.
+   - Client chips (e.g. Claude Code, ChatGPT, Gemini, Microsoft 365 Copilot) are rendered as rounded pills with icons.
+
+4. **Orthogonal Routing Rules & Formulas**:
+   - **Horizontal line**: \`"M {x1} {y} L {x2} {y}"\`
+     - Badge position: \`x = (x1 + x2) / 2\`, \`y = y\`
+   - **Vertical line**: \`"M {x} {y1} L {x} {y2}"\`
+     - Badge position: \`x = x\`, \`y = (y1 + y2) / 2\`
+   - **L-shaped bend**: \`"M {x1} {y1} L {x2} {y1} L {x2} {y2}"\`
+   - **U-shaped runway**: \`"M {x1} {y1} L {x1} {yCorner} L {x2} {yCorner} L {x2} {y2}"\`
+
+---
+
+## 4. Production JSON Examples
+
+### Example 1: Enterprise MCP + Identity Broker Architecture
+
+\`\`\`json
+${JSON.stringify(PRESET_ENTERPRISE_MCP, null, 2)}
+\`\`\`
+
+---
+
+### Example 2: Minimal 3-Tier Pattern (Client → Gateway → Database)
+
+\`\`\`json
+${JSON.stringify(PRESET_MINIMAL, null, 2)}
+\`\`\`
+
+---
+
+### Example 3: Agentic AI Pipeline (Agent + Memory + Tools)
+
+\`\`\`json
+${JSON.stringify(PRESET_AGENTIC, null, 2)}
+\`\`\`
+
+---
+
+## 5. Headless Rendering Script (Node.js / Browser)
+
+You can convert any schema-compliant JSON into an SVG file programmatically with this zero-dependency snippet:
+
+\`\`\`javascript
+function jsonToSvg(config) {
+  const vb = config.meta?.viewBox || { width: 1000, height: 460 };
+  const grid = config.meta?.grid || { size: 20, color: "#E6E5DE", dash: "2.5 2.5", opacity: 0.85 };
+
+  let svg = \`<svg viewBox="0 0 \${vb.width} \${vb.height}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="g" width="\${grid.size}" height="\${grid.size}" patternUnits="userSpaceOnUse">
+        <path d="M \${grid.size} 0 L 0 0 0 \${grid.size}" fill="none" stroke="\${grid.color}" stroke-width="0.8" stroke-dasharray="\${grid.dash}" opacity="\${grid.opacity}"/>
+      </pattern>
+      <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 1.5 2 L 7 5 L 1.5 8" fill="none" stroke="#94A3B8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <rect width="\${vb.width}" height="\${vb.height}" fill="url(#g)"/>
+    <!-- Render connectors and nodes here using the renderer function -->
+  </svg>\`;
+  return svg;
+}
+\`\`\`
+`;
+    }
+
+    downloadMdBtn.addEventListener('click', () => {
+      const mdContent = generateMarkdownDocumentation();
+      const blob = new Blob([mdContent], { type: "text/markdown;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "ARCHITECTURE_DIAGRAM_SPEC.md";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      triggerToast("Downloaded ARCHITECTURE_DIAGRAM_SPEC.md!");
+    });
+
+    // Export SVG
+    exportSvgBtn.addEventListener('click', () => {
+      const svg = document.getElementById('architectureSvg');
+      if (!svg) return;
+      const serializer = new XMLSerializer();
+      let source = serializer.serializeToString(svg);
+
+      // Clean namespace attributes
+      if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+
+      const blob = new Blob([source], {type: "image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${(currentConfig.meta?.title || 'architecture-diagram').toLowerCase().replace(/\s+/g, '-')}.svg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      triggerToast("SVG downloaded successfully!");
+    });
+
+    // Tabs Switcher
+    tabStudioBtn.addEventListener('click', () => {
+      tabStudio.classList.remove('hidden');
+      tabDoc.classList.add('hidden');
+      tabStudioBtn.className = "px-3 py-1.5 rounded-md bg-white text-neutral-900 font-semibold shadow-xs transition";
+      tabDocBtn.className = "px-3 py-1.5 rounded-md text-neutral-600 hover:text-neutral-900 transition";
+    });
+
+    tabDocBtn.addEventListener('click', () => {
+      tabDoc.classList.remove('hidden');
+      tabStudio.classList.add('hidden');
+      tabDocBtn.className = "px-3 py-1.5 rounded-md bg-white text-neutral-900 font-semibold shadow-xs transition";
+      tabStudioBtn.className = "px-3 py-1.5 rounded-md text-neutral-600 hover:text-neutral-900 transition";
+    });
+
+    // Initial Launch
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPreset('enterprise_mcp');
+    });
+  </script>
+</body>
+</html>
