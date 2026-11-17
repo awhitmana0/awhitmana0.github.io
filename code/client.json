@@ -15,5 +15,6 @@
     ],
     "token_endpoint_auth_method": "none",
     "response_types": ["code"],
-    "scope": "tool:greet tool:whoami"
+    "scope": "tool:whoami tool:list_sheets tool:get_sheet tool:create_sheet tool:add_row tool:rename_sheet tool:exchange_token_obo
+  tool:call_downstream_api tool:check_security_via_agent tool:admin_reset_password tool:check_security tool:get_hubspot_contacts"
   }
